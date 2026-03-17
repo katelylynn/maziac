@@ -54,6 +54,6 @@ Player entity and movement
 ### 📝 Development Log
 
 March 17
-- 4-4:45pm (45 minutes)
+- 4-5pm (1 hour)
     - Added a Markdown to track my progress
     - Added CMake
