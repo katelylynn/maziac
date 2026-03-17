@@ -55,4 +55,5 @@ Player entity and movement
 
 March 17
 - 4-4:45pm (45 minutes)
-    - Setup project files and markdowns
+    - Added a Markdown to track my progress
+    - Added CMake
