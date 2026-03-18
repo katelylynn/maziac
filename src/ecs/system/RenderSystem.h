@@ -1,0 +1,55 @@
+//
+// Created by kate on 2026-01-21.
+//
+
+#ifndef COMP8051_RENDERSYSTEM_H
+#define COMP8051_RENDERSYSTEM_H
+#include <memory>
+#include <vector>
+
+#include "Component.h"
+#include "Entity.h"
+#include "TextureManager.h"
+
+class RenderSystem {
+public:
+    void render(const std::vector<std::unique_ptr<Entity>>& entities) {
+
+        Entity* cameraEntity = nullptr;
+
+        // find camera
+        for (auto& entity : entities) {
+            if (entity->hasComponent<Camera>()) {
+                cameraEntity = entity.get();
+                break;
+            }
+        }
+
+        if (!cameraEntity) return; // no rendering will be done
+        auto& camera = cameraEntity->getComponent<Camera>();
+
+        for (auto& entity : entities) {
+            if (entity->hasComponent<Transform>() && entity->hasComponent<Sprite>()) {
+                // referenced versions to not create copies
+                auto& t = entity->getComponent<Transform>();
+                auto& sprite = entity->getComponent<Sprite>();
+
+                if (sprite.renderLayer != RenderLayer::World) continue;
+
+                // convert from world space to screen space
+                sprite.dest.x = t.position.x - camera.view.x;
+                sprite.dest.y = t.position.y - camera.view.y;
+
+                // if entity has animation, update the source rect
+                if (entity->hasComponent<Animation>()) {
+                    auto& animation = entity->getComponent<Animation>();
+                    sprite.src = animation.clips[animation.currentClip].frameIndices[animation.currentFrame];
+                }
+
+                TextureManager::draw(sprite.texture, sprite.src, sprite.dest);
+            }
+        }
+    }
+};
+
+#endif //COMP8051_RENDERSYSTEM_H

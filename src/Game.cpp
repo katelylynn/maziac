@@ -3,8 +3,14 @@
 //
 
 #include "Game.h"
+#include "Map.h"
 
 #include <iostream>
+
+#include "manager/AssetManager.h"
+
+GameState Game::gameState;
+std::function<void(std::string)> Game::onSceneChangeRequest;
 
 Game::Game() {}
 Game::~Game() {
@@ -39,12 +45,38 @@ void Game::init(const char *title, int width, int height, bool fullscreen) {
     } else {
         isRunning = false;
     }
+
+    // load assets
+    AssetManager::loadAnimation("player", "../asset/animations/diver_anim.xml");
+    AssetManager::loadAnimation("enemy", "../asset/animations/bird_anim.xml");
+
+    // load scenes
+    sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
+    sceneManager.loadScene(SceneType::Gameplay, "level1", "../asset/map1.tmx", width, height);
+    sceneManager.loadScene(SceneType::Gameplay, "level2", "../asset/map2.tmx", width, height);
+
+    // init game data/state
+    gameState.playerHealth = 5;
+
+    // start level 1
+    sceneManager.changeSceneDeferred("mainmenu");
+
+    // resolve scene callback
+    onSceneChangeRequest = [this](std::string sceneName) {
+        // if already at level 2
+        if (sceneManager.currentScene->getName() == "level2" && sceneName == "level2") {
+            std::cout << "You win!" << std::endl;
+            isRunning = false;
+        } else if (sceneName == "gameover") {
+            std::cout << "You lose!" << std::endl;
+            isRunning = false;
+        } else {
+            sceneManager.changeSceneDeferred(sceneName);
+        }
+    };
 }
 
 void Game::handleEvents() {
-    // SDL listens to the OS for input events internally and adds them to a queue
-    SDL_Event event;
-
     // check for next event
     // if an event is available, SDL removes it from the queue and store in this event pointer
     SDL_PollEvent(&event);
@@ -59,20 +91,17 @@ void Game::handleEvents() {
     }
 }
 
-void Game::update() {
-    frameCount++;
-    std::cout << frameCount << std::endl;
+void Game::update(float deltaTime) {
+    sceneManager.update(deltaTime, event);
 }
 
 void Game::render() {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 0, 10);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
     // every frame, SDL clears the renderer with the given draw color
     SDL_RenderClear(renderer);
 
-    //
-    // drawing goes here
-    //
+    sceneManager.render();
 
     // display everything that was just drawn:
     // - draws it in memory first to a back buffer
@@ -81,6 +110,7 @@ void Game::render() {
 }
 
 void Game::destroy() {
+    TextureManager::clean();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
