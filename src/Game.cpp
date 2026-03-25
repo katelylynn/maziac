@@ -4,7 +4,7 @@
  */
 
 #include "Game.h"
-#include "Map.h"
+#include "SDL3_image/SDL_image.h"
 
 #include <iostream>
 
@@ -39,6 +39,14 @@ void Game::init(const char *title) {
             std::cout << "Renderer could not be created." << std::endl;
             return;
         }
+
+        // set the virtual size
+        SDL_SetRenderLogicalPresentation(
+            renderer,
+            480, 320, // hardcoded for now
+            SDL_LOGICAL_PRESENTATION_STRETCH
+        );
+
         isRunning = true;
     } else {
         isRunning = false;

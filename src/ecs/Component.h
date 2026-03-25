@@ -58,12 +58,6 @@ struct Animation {
     float speed = 0.8f; // time per frame
 };
 
-struct Camera {
-    SDL_FRect view;
-    float worldWidth;
-    float worldHeight;
-};
-
 // our game state, might have multiple scenes
 struct SceneState {
     int coinsCollected = 0;

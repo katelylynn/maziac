@@ -17,17 +17,6 @@ public:
 
         Entity* cameraEntity = nullptr;
 
-        // find camera
-        for (auto& entity : entities) {
-            if (entity->hasComponent<Camera>()) {
-                cameraEntity = entity.get();
-                break;
-            }
-        }
-
-        if (!cameraEntity) return; // no rendering will be done
-        auto& camera = cameraEntity->getComponent<Camera>();
-
         for (auto& entity : entities) {
             if (entity->hasComponent<Transform>() && entity->hasComponent<Sprite>()) {
                 // referenced versions to not create copies
@@ -37,8 +26,8 @@ public:
                 if (sprite.renderLayer != RenderLayer::World) continue;
 
                 // convert from world space to screen space
-                sprite.dest.x = t.position.x - camera.view.x;
-                sprite.dest.y = t.position.y - camera.view.y;
+                sprite.dest.x = t.position.x;
+                sprite.dest.y = t.position.y;
 
                 // if entity has animation, update the source rect
                 if (entity->hasComponent<Animation>()) {

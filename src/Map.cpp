@@ -46,7 +46,7 @@ void Map::load(const char *path, SDL_Texture *ts) {
     }
 }
 
-void Map::draw(const Camera &camera) {
+void Map::draw() {
     SDL_FRect src{}, dest{};
 
     // sets the source and dest sizes based on the tmx
@@ -57,13 +57,8 @@ void Map::draw(const Camera &camera) {
     for (int row = 0; row < mapHeight; row++) {
         for (int col = 0; col < mapWidth; col++) {
             // get the position in world space to place the tile
-            float worldX = static_cast<float>(col) * dest.w;
-            float worldY = static_cast<float>(row) * dest.h;
-
-            // convert from world space to screen space
-            // move the tiles or map relative to the camera
-            dest.x = std::round(worldX - camera.view.x);
-            dest.y = std::round(worldY - camera.view.y);
+            dest.x = static_cast<float>(col) * dest.w;
+            dest.y = static_cast<float>(row) * dest.h;
 
             // if there's a wall, place a wall tile, otherwise place an ocean tile
             if (wallData[row][col]) {

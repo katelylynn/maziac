@@ -23,18 +23,6 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // MAP
     world.getMap().load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
 
-    // CAMERA
-    auto& camera = world.createEntity();
-    SDL_FRect cameraView{};
-    cameraView.w = windowWidth;
-    cameraView.h = windowHeight;
-    camera.addComponent<Camera>(
-        cameraView,
-        // set the size of the whole world
-        world.getMap().mapWidth * (float) world.getMap().tileHeight,
-        world.getMap().mapHeight * (float) world.getMap().tileHeight
-    );
-
     // PLAYER
     auto& player(world.createEntity());
     player.addComponent<PlayerTag>();

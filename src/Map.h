@@ -15,7 +15,7 @@ public:
 
     // TODO
     void generate(SDL_Texture *ts);
-    void draw(const Camera &camera);
+    void draw();
 
     // the tileset to paint tiles with
     SDL_Texture *tileset = nullptr;

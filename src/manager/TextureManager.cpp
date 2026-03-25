@@ -52,6 +52,8 @@ SDL_Texture* TextureManager::load(const char* path) {
 }
 
 void TextureManager::draw(SDL_Texture *texture, SDL_FRect src, SDL_FRect dst) {
+    // when scaled up, tells each pixel to become a bigger block instead of blurring
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
     // draw the texture to the screen from the VRAM
     SDL_RenderTexture(game->renderer, texture, &src, &dst);
 }
