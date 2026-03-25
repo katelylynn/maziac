@@ -51,6 +51,12 @@ Wall colliders
 
 Player entity and movement
 
+### TODO for cleaner code
+- Remove as many hardcoded values as possible
+  - Window dimensions
+  - Map draw tile sources
+- Remove if check for every map tile for treasure chest
+
 ### 📝 Development Log
 
 March 17
@@ -71,4 +77,5 @@ March 23
     - Imported handmade map
 
 March 25
-- 1am - 
+- 1-4:30am (3.5 hours)
+    - Stretched map to fit maximized window

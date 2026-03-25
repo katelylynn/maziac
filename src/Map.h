@@ -1,6 +1,6 @@
 /*
  *  Map.h
- *  Defines the functions, tile layers and spawnpoints.
+ *  Defines the load/draw functions, dimensions, tile layers and spawn points.
  */
 
 #ifndef MAZIAC_MAP_H
@@ -12,9 +12,6 @@
 class Map {
 public:
     void load(const char *path, SDL_Texture *ts);
-
-    // TODO
-    void generate(SDL_Texture *ts);
     void draw();
 
     // the tileset to paint tiles with
@@ -24,7 +21,6 @@ public:
     int mapWidth{}, mapHeight{}, tileWidth{}, tileHeight{};
 
     // map layer data
-    std::vector<std::vector<int>> oceanData;
     std::vector<std::vector<int>> wallData;
     std::vector<std::vector<int>> energyData;
     std::vector<std::vector<int>> guideData;

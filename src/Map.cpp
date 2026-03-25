@@ -7,7 +7,6 @@
 #include "Map.h"
 
 #include <cmath>
-#include <iostream>
 
 #include "manager/TextureManager.h"
 #include <sstream>
@@ -29,9 +28,7 @@ void Map::load(const char *path, SDL_Texture *ts) {
     // parse each layer
     auto* layer = mapNode->FirstChildElement("layer");
     while (layer != nullptr) {
-        if (std::strcmp(layer->Attribute("name"), "OceanLayer") == 0)
-            parseLayer(oceanData, layer->FirstChildElement("data"));
-        else if (std::strcmp(layer->Attribute("name"), "WallLayer") == 0)
+        if (std::strcmp(layer->Attribute("name"), "WallLayer") == 0)
             parseLayer(wallData, layer->FirstChildElement("data"));
         else if (std::strcmp(layer->Attribute("name"), "EnergyLayer") == 0)
             parseLayer(energyData, layer->FirstChildElement("data"));
@@ -90,6 +87,58 @@ void Map::draw() {
             } else {
                 src.x = 96;
                 src.y = 80;
+            }
+
+            TextureManager::draw(tileset, src, dest);
+
+            // add the item tile on top
+            if (energyData[row][col] == 26) {
+                // north
+                src.x = 112;
+                src.y = 32;
+            }
+            else if (energyData[row][col] == 16) {
+                // east
+                src.x = 96;
+                src.y = 16;
+            }
+            else if (energyData[row][col] == 8) {
+                // south
+                src.x = 112;
+                src.y = 0;
+            }
+            else if (energyData[row][col] == 18) {
+                // west
+                src.x = 128;
+                src.y = 16;
+            }
+            else if (guideData[row][col] == 50) {
+                // north
+                src.x = 64;
+                src.y = 80;
+            }
+            else if (guideData[row][col] == 40) {
+                // east
+                src.x = 48;
+                src.y = 64;
+            }
+            else if (guideData[row][col] == 32) {
+                // south
+                src.x = 112;
+                src.y = 0;
+            }
+            else if (guideData[row][col] == 32) {
+                // west
+                src.x = 80;
+                src.y = 80;
+            }
+            else if (weaponData[row][col]) {
+                src.x = 16;
+                src.y = 0;
+            }
+            else if (treasureData[row][col]) {
+                src.x = 0;
+                src.y = 0;
             }
 
             TextureManager::draw(tileset, src, dest);
