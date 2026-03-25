@@ -58,6 +58,10 @@ void TextureManager::draw(SDL_Texture *texture, SDL_FRect src, SDL_FRect dst) {
     SDL_RenderTexture(game->renderer, texture, &src, &dst);
 }
 
+void TextureManager::drawBorder(SDL_FRect rect) {
+    SDL_RenderRect(game->renderer, &rect);
+}
+
 void TextureManager::clean() {
     for (auto& texture : textures) {
         SDL_DestroyTexture(texture.second);

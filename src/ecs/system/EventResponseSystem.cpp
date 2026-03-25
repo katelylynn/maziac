@@ -17,22 +17,7 @@ EventResponseSystem::EventResponseSystem(World &world) {
             // cast base type to collision type
             const auto& collision = static_cast<const CollisionEvent&>(e);
 
-            onCollision(collision, "item", world);
             onCollision(collision, "wall", world);
-            onCollision(collision, "projectile", world);
-        }
-    );
-
-    // player action subscription
-    world.getEventManager().subscribe(
-        [this, &world](const BaseEvent& e) {
-
-            if (e.type != EventType::PlayerAction) return;
-
-            // cast base type to player action type
-            const auto& playerAction = static_cast<const PlayerActionEvent&>(e);
-
-            // TODO onPlayerAction
         }
     );
 
@@ -73,51 +58,18 @@ void EventResponseSystem::onCollision(
     const char *otherTag,
     World& world
 ) {
-
     Entity* player = nullptr;
     Entity* other = nullptr;
 
     if (!getCollisionEntities(e, otherTag, player, other)) return;
 
-    if (std::string(otherTag) == "item") {
-        // we are defining instant behavior, not ongoing behavior
-        if (e.state != CollisionState::Enter) return;
-
-        other->destroy();
-
-        for (auto& entity : world.getEntities()) {
-            if (!entity->hasComponent<SceneState>()) continue;
-
-            auto& sceneState = entity->getComponent<SceneState>();
-            sceneState.coinsCollected++;
-            if (sceneState.coinsCollected > 1) {
-                Game::onSceneChangeRequest("level2");
-            }
-        }
-    }
-    else if (std::string(otherTag) == "wall") {
+    if (std::string(otherTag) == "wall") {
         // stay bc need to constantly check if player colliding w wall
         if (e.state != CollisionState::Stay) return;
-
+        std::cout << "reached" << std::endl;
         auto& t = player->getComponent<Transform>();
         t.position = t.oldPosition;
     }
-    else if (std::string(otherTag) == "projectile") {
-        // without filtering for enter, the collision would happen a bunch of times and immediately bring the player's health to zero
-        if (e.state != CollisionState::Enter) return;
-
-        // simple, but ideally we would only operate on data in an update function
-        // (hinting at transient entities, e.g. damage entities)
-        auto& health = player->getComponent<Health>();
-        health.currentHealth--;
-
-        std::cout << health.currentHealth << std::endl;
-        if (health.currentHealth <= 0) {
-            player->destroy();
-            Game::onSceneChangeRequest("gameover");
-        }
-    }
-
 }
 
 bool EventResponseSystem::getCollisionEntities(

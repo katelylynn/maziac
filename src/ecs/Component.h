@@ -46,6 +46,7 @@ struct Sprite {
 struct Collider {
     std::string tag;
     SDL_FRect rect{};
+    Vector2D offset{};
     bool enabled = true;
 };
 

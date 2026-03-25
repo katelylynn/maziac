@@ -21,7 +21,24 @@ void Scene::initMainMenu(int windowWidth, int windowHeight) {
 
 void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight) {
     // MAP
-    world.getMap().load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
+    Map& map = world.getMap();
+    map.load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
+
+    // ITEM COLLIDERS
+    for (int row = 0; row < map.mapHeight; row++) {
+        for (int col = 0; col < map.mapWidth; col++) {
+            if (map.wallData[row][col]) {
+                auto& tile = world.createEntity();
+                tile.addComponent<Transform>(Vector2D(map.tileWidth * col, map.tileHeight * row), 0.0f, 1.0f);
+
+                Collider& c = tile.addComponent<Collider>("wall");
+                c.rect.x = map.tileWidth * col;
+                c.rect.y = map.tileHeight * row;
+                c.rect.w = map.tileWidth;
+                c.rect.h = map.tileHeight;
+            }
+        }
+    }
 
     // PLAYER
     auto& player(world.createEntity());
@@ -37,4 +54,11 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
     SDL_FRect playerDest { playerTransform.position.x, playerTransform.position.y, 16, 16 };
     player.addComponent<Sprite>(playerTexture, playerSrc, playerDest);
+
+    auto& playerCollider = player.addComponent<Collider>("player");
+    playerCollider.rect.w = playerDest.w * 0.95f;
+    playerCollider.rect.h = playerDest.h * 0.95f;
+    playerCollider.rect.x = playerDest.x;
+    playerCollider.offset.x = (playerDest.w - playerCollider.rect.w) / 2.0f;
+    playerCollider.offset.y = (playerDest.h - playerCollider.rect.h) / 2.0f;
 }

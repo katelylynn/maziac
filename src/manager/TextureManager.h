@@ -18,6 +18,9 @@ public:
     // floating point Rects
     static void draw(SDL_Texture* texture, SDL_FRect src, SDL_FRect dst);
 
+    // for debugging colliders
+    static void drawBorder(SDL_FRect rect);
+
     static void clean();
 };
 

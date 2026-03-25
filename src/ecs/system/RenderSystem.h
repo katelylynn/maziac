@@ -14,9 +14,6 @@
 class RenderSystem {
 public:
     void render(const std::vector<std::unique_ptr<Entity>>& entities) {
-
-        Entity* cameraEntity = nullptr;
-
         for (auto& entity : entities) {
             if (entity->hasComponent<Transform>() && entity->hasComponent<Sprite>()) {
                 // referenced versions to not create copies
@@ -36,6 +33,11 @@ public:
                 }
 
                 TextureManager::draw(sprite.texture, sprite.src, sprite.dest);
+
+                // OPTIONAL, draws the border of the collider
+                // if (entity->hasComponent<Collider>()) {
+                //     TextureManager::drawBorder(entity->getComponent<Collider>().rect);
+                // }
             }
         }
     }
