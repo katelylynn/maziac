@@ -27,8 +27,8 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     auto& player(world.createEntity());
     player.addComponent<PlayerTag>();
 
-    auto& playerTransform = player.addComponent<Transform>(Vector2D(16, 16), 0.0f, 1.0f);
-    player.addComponent<Velocity>(Vector2D(0, 0), 10.0f);
+    auto& playerTransform = player.addComponent<Transform>(world.getMap().playerSpawnpoint.position, 0.0f, 1.0f);
+    player.addComponent<Velocity>(Vector2D(0, 0), 20.0f);
 
     Animation animation = AssetManager::getAnimation("player");
     player.addComponent<Animation>(animation);

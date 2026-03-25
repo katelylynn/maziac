@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="18">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="40">
  <tileset firstgid="1" source="../tiled/map_tileset.tsx"/>
  <layer id="1" name="OceanLayer" width="30" height="20">
   <data encoding="csv">
@@ -145,58 +145,67 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="7" name="PlayerSpawn">
-  <object id="1" x="104.138" y="89.1389">
+ <objectgroup id="9" name="PlayerSpawn">
+  <object id="20" x="96" y="80">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="8" name="EnemySpawn">
-  <object id="2" x="183.849" y="42.4267">
+ <objectgroup id="10" name="EnemySpawn">
+  <object id="21" x="176" y="80">
    <point/>
   </object>
-  <object id="3" x="312.415" y="73.2824">
+  <object id="22" x="272" y="16">
    <point/>
   </object>
-  <object id="4" x="424.695" y="57.8546">
+  <object id="23" x="368" y="32">
    <point/>
   </object>
-  <object id="5" x="359.127" y="151.708">
+  <object id="24" x="416" y="80">
    <point/>
   </object>
-  <object id="6" x="422.124" y="202.277">
+  <object id="25" x="352" y="112">
    <point/>
   </object>
-  <object id="7" x="313.272" y="215.562">
+  <object id="26" x="384" y="192">
    <point/>
   </object>
-  <object id="8" x="231.418" y="235.704">
+  <object id="27" x="304" y="192">
    <point/>
   </object>
-  <object id="9" x="137.994" y="281.13">
+  <object id="28" x="240" y="208">
    <point/>
   </object>
-  <object id="10" x="38.5697" y="278.13">
+  <object id="29" x="176" y="256">
    <point/>
   </object>
-  <object id="11" x="24.4275" y="200.134">
+  <object id="30" x="96" y="272">
    <point/>
   </object>
-  <object id="12" x="119.995" y="25.7131">
+  <object id="31" x="16" y="288">
    <point/>
   </object>
-  <object id="13" x="456.837" y="262.274">
+  <object id="32" x="16" y="176">
    <point/>
   </object>
-  <object id="14" x="407.982" y="296.13">
+  <object id="33" x="32" y="80">
    <point/>
   </object>
-  <object id="15" x="312.415" y="264.417">
+  <object id="34" x="16" y="16">
    <point/>
   </object>
-  <object id="16" x="216.847" y="119.566">
+  <object id="35" x="144" y="16">
    <point/>
   </object>
-  <object id="17" x="264.845" y="151.708">
+  <object id="36" x="176" y="144">
+   <point/>
+  </object>
+  <object id="37" x="288" y="256">
+   <point/>
+  </object>
+  <object id="38" x="432" y="288">
+   <point/>
+  </object>
+  <object id="39" x="448" y="128">
    <point/>
   </object>
  </objectgroup>

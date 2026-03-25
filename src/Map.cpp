@@ -44,6 +44,29 @@ void Map::load(const char *path, SDL_Texture *ts) {
 
         layer = layer->NextSiblingElement();
     }
+
+    // parse spawn points
+    auto* group = mapNode->FirstChildElement("objectgroup");
+    while (group != nullptr) {
+        if (std::strcmp(group->Attribute("name"), "PlayerSpawn") == 0) {
+            playerSpawnpoint.position.x = group->FirstChildElement("object")->FloatAttribute("x");
+            playerSpawnpoint.position.y = group->FirstChildElement("object")->FloatAttribute("y");
+        }
+        else if (std::strcmp(group->Attribute("name"), "EnemySpawn") == 0) {
+            for (
+                auto* object = group->FirstChildElement("object");
+                object != nullptr;
+                object = object->NextSiblingElement("object")
+            ) {
+                Spawnpoint spawnpoint;
+                spawnpoint.position.x = object->FloatAttribute("x");
+                spawnpoint.position.y = object->FloatAttribute("y");
+                enemySpawnpoints.push_back(spawnpoint);
+            }
+        }
+
+        group = group->NextSiblingElement();
+    }
 }
 
 void Map::draw() {
