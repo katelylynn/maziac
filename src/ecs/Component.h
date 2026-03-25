@@ -21,6 +21,10 @@ struct Transform {
     Vector2D oldPosition{};
 };
 
+struct Spawnpoint {
+    Vector2D position{};
+};
+
 struct Velocity {
     Vector2D direction{};
     float speed{};
@@ -58,12 +62,6 @@ struct Camera {
     SDL_FRect view;
     float worldWidth;
     float worldHeight;
-};
-
-struct TimedSpawner {
-    float spawnInterval;
-    std::function<void()> spawnCallback{}; // what do we want to do every interval
-    float timer{};
 };
 
 // our game state, might have multiple scenes

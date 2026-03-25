@@ -1,8 +1,12 @@
-#include <iostream>
+/*
+ *  main.cpp
+ *  Inits the game, loops through the game loop functions, and limits the frame rate.
+ */
 
 #include "Game.h"
 
 // global variable
+// referenced by texture manager
 Game* game = nullptr;
 
 int main() {
@@ -14,8 +18,8 @@ int main() {
 
     float deltaTime = 0.0f; // real time elapsed since the last frame
 
-    game = new Game(); // put on the heap, must be manually cleaned up
-    game->init("COMP8051", 800, 600, false);
+    game = new Game();
+    game->init("maziac", 800, 600, false);
 
     // game loop
     while (game->running()) {
@@ -23,12 +27,12 @@ int main() {
         deltaTime = (currentTicks - ticks) / 1000.0f; // get current frame time
         ticks = currentTicks;
 
+        // run game loop functions
         game->handleEvents();
         game->update(deltaTime);
         game->render();
 
         // elapsed time in ms it took the current frame
-        // AKA how long did it take to run the three above functions
         int actualFrameTime = SDL_GetTicks() - ticks;
 
         // frame limiter
@@ -37,9 +41,9 @@ int main() {
         if (desiredFrameTime > actualFrameTime) {
             SDL_Delay(desiredFrameTime - actualFrameTime);
         }
-        // else it would be lagging
     }
 
+    // must be manually cleaned up from the heap
     delete game;
 
     return 0;

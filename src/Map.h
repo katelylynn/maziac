@@ -1,29 +1,42 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  Map.h
+ *  Defines the functions, tile layers and spawnpoints.
+ */
 
-#ifndef COMP8051_MAP_H
-#define COMP8051_MAP_H
+#ifndef MAZIAC_MAP_H
+#define MAZIAC_MAP_H
 
 #include <vector>
-#include <SDL3/SDL.h>
 #include <Component.h>
 
 class Map {
 public:
-    Map() = default;
-    ~Map() = default;
-
     void load(const char *path, SDL_Texture *ts);
+
+    // TODO
+    void generate(SDL_Texture *ts);
     void draw(const Camera &camera);
 
+    // the tileset to paint tiles with
     SDL_Texture *tileset = nullptr;
-    int width{}, height{};
 
-    // map data
-    std::vector<std::vector<int>> tileData;
-    std::vector<Collider> itemColliders;
-    std::vector<Collider> colliders;
+    // dimensions
+    int mapWidth{}, mapHeight{}, tileWidth{}, tileHeight{};
+
+    // map layer data
+    std::vector<std::vector<int>> oceanData;
+    std::vector<std::vector<int>> wallData;
+    std::vector<std::vector<int>> energyData;
+    std::vector<std::vector<int>> guideData;
+    std::vector<std::vector<int>> weaponData;
+    std::vector<std::vector<int>> treasureData;
+
+    // map spawn data
+    Spawnpoint playerSpawnpoint{};
+    std::vector<Spawnpoint> enemySpawnpoints{};
+
+private:
+    void parseLayer(std::vector<std::vector<int>> &layer, auto* data);
 };
 
-#endif //COMP8051_MAP_H
+#endif //MAZIAC_MAP_H

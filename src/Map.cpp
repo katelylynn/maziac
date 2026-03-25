@@ -1,10 +1,13 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  Map.cpp
+ *  Provides functionality for loading a map from a tmx file,
+ *  generating a procedural map and drawing existing maps.
+ */
 
 #include "Map.h"
 
 #include <cmath>
+#include <iostream>
 
 #include "TextureManager.h"
 #include <sstream>
@@ -15,66 +18,45 @@ void Map::load(const char *path, SDL_Texture *ts) {
 
     tinyxml2::XMLDocument doc;
     doc.LoadFile(path);
-
-    // parse width and height of map from document
     auto* mapNode = doc.FirstChildElement("map");
-    width = mapNode->IntAttribute("width");
-    height = mapNode->IntAttribute("height");
 
-    // parse terrain data
+    // parse map width/height and tile width/height from document
+    mapWidth = mapNode->IntAttribute("width");
+    mapHeight = mapNode->IntAttribute("height");
+    tileWidth = mapNode->IntAttribute("tilewidth");
+    tileHeight = mapNode->IntAttribute("tileheight");
+
+    // parse each layer
     auto* layer = mapNode->FirstChildElement("layer");
-    auto* data = layer->FirstChildElement("data");
+    while (layer != nullptr) {
+        if (std::strcmp(layer->Attribute("name"), "OceanLayer") == 0)
+            parseLayer(oceanData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "WallLayer") == 0)
+            parseLayer(wallData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "EnergyLayer") == 0)
+            parseLayer(energyData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "GuideLayer") == 0)
+            parseLayer(guideData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "WeaponLayer") == 0)
+            parseLayer(weaponData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "TreasureLayer") == 0)
+            parseLayer(treasureData, layer->FirstChildElement("data"));
 
-    // convert csv to 2D array (vector vector)
-    std::string csv = data->GetText();
-    std::stringstream ss(csv);
-
-    tileData = std::vector(height, std::vector<int>(width));
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            std::string val;
-
-            // read characters from a ss into val until it hits a comma, or end of stream
-            // if any issues, break out of the loop
-            if (!std::getline(ss, val, ',')) break;
-
-            tileData[i][j] = std::stoi(val);
-        }
-    }
-
-    // CHANGE AFTER THIS
-
-    for (auto* itemObjectGroup = layer->NextSiblingElement("objectgroup");
-         itemObjectGroup != nullptr;
-         itemObjectGroup = itemObjectGroup->NextSiblingElement("objectgroup"))
-    {
-        // for each object in the object group
-        for (auto* obj = itemObjectGroup->FirstChildElement("object");
-            obj != nullptr;
-            obj = obj->NextSiblingElement("object")) {
-            Collider c;
-            c.rect.x = obj->FloatAttribute("x") ? obj->FloatAttribute("x") : 0;
-            c.rect.y = obj->FloatAttribute("y") ? obj->FloatAttribute("y") : 0;
-            c.rect.w = obj->FloatAttribute("width") ? obj->FloatAttribute("width") : 0;
-            c.rect.h = obj->FloatAttribute("height") ? obj->FloatAttribute("height") : 0;
-
-            if (std::strcmp(itemObjectGroup->Attribute("name"), "Coin Layer") == 0)
-                itemColliders.push_back(c);
-            else if (std::strcmp(itemObjectGroup->Attribute("name"), "Collision Layer") == 0)
-                colliders.push_back(c);
-            }
+        layer = layer->NextSiblingElement();
     }
 }
 
 void Map::draw(const Camera &camera) {
     SDL_FRect src{}, dest{};
 
-    dest.w = dest.h = 32; // hardcoded
+    // sets the source and dest sizes based on the tmx
+    src.w = dest.w = tileWidth;
+    src.h = dest.h = tileHeight;
 
-    for (int row = 0; row < height; row++) {
-        for (int col = 0; col < width; col++) {
-            int type = tileData[row][col];
-
+    // for each tile on the map...
+    for (int row = 0; row < mapHeight; row++) {
+        for (int col = 0; col < mapWidth; col++) {
+            // get the position in world space to place the tile
             float worldX = static_cast<float>(col) * dest.w;
             float worldY = static_cast<float>(row) * dest.h;
 
@@ -83,33 +65,38 @@ void Map::draw(const Camera &camera) {
             dest.x = std::round(worldX - camera.view.x);
             dest.y = std::round(worldY - camera.view.y);
 
-            switch (type) {
-                case 1:
-                    // dirt
-                    src.x = 0;
-                    src.y = 0;
-                    src.w = 32;
-                    src.h = 32;
-                    break;
-                case 2:
-                    // grass
-                    src.x = 32;
-                    src.y = 0;
-                    src.w = 32;
-                    src.h = 32;
-                    break;
-                case 4:
-                    // water
-                    src.x = 32;
-                    src.y = 32;
-                    src.w = 32;
-                    src.h = 32;
-                    break;
-                default:
-                    break;
+            // if there's a wall, place a wall tile, otherwise place an ocean tile
+            if (wallData[row][col]) {
+                src.x = 32;
+                src.y = 16;
+            } else {
+                src.x = 96;
+                src.y = 80;
             }
 
             TextureManager::draw(tileset, src, dest);
+        }
+    }
+}
+
+void Map::parseLayer(std::vector<std::vector<int>> &layer, auto* data) {
+    // convert csv to 2D array (vector vector)
+    std::string csv = data->GetText();
+    std::stringstream ss(csv);
+
+    // init layer to new vector
+    layer = std::vector(mapHeight, std::vector<int>(mapWidth));
+
+    // iterate through 2D array and store into layer variable
+    for (int i = 0; i < mapHeight; i++) {
+        for (int j = 0; j < mapWidth; j++) {
+            std::string val;
+
+            // read characters from a ss into val until it hits a comma, or end of stream
+            // if any issues, break out of the loop
+            if (!std::getline(ss, val, ',')) break;
+
+            layer[i][j] = std::stoi(val);
         }
     }
 }

@@ -1,21 +1,13 @@
-//
-// Created by kate on 2026-01-07.
-//
-
-// #ifndef COMP8051_GAME_H
-// #define COMP8051_GAME_H
-//
-// #endif //COMP8051_GAME_H
+/*
+ *  Game.h
+ *
+ */
 
 #pragma once
 #include <SDL3/SDL.h>
 
 #include "World.h"
 #include "manager/SceneManager.h"
-
-struct GameState {
-    int playerHealth;
-};
 
 class Game {
 public:
@@ -43,8 +35,6 @@ public:
     // when change scene, must go through game and game will do the actual scene change
     static std::function<void(std::string)> onSceneChangeRequest;
 
-    static GameState gameState;
-
 private:
     int frameCount = 0;
     bool isRunning = false;
@@ -53,8 +43,4 @@ private:
 
     // SDL listens to the OS for input events internally and adds them to a queue
     SDL_Event event;
-
-    // sdl stores color channels as 8-bit unsigned
-    // range is 0-255
-    Uint8 r,g,b,a;
 };

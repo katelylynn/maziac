@@ -111,8 +111,6 @@ void EventResponseSystem::onCollision(
         auto& health = player->getComponent<Health>();
         health.currentHealth--;
 
-        Game::gameState.playerHealth = health.currentHealth;
-
         std::cout << health.currentHealth << std::endl;
         if (health.currentHealth <= 0) {
             player->destroy();

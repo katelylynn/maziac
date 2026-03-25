@@ -27,15 +27,9 @@ public:
 private:
     std::string name;
     SceneType type;
-    // void createProjectile(Vector2D position, Vector2D direction, int speed);
 
     void initMainMenu(int windowWidth, int windowHeight);
     void initGameplay(const char* mapPath, int windowWidth, int windowHeight);
-
-    Entity& createSettingsOverlay(int windowWidth, int windowHeight);
-    Entity& createCogButton(int windowWidth, int windowHeight, Entity& overlay);
-    void createSettingsUIComponents(Entity& overlay);
-    void toggleSettingsOverlayVisibility(Entity& overlay);
 };
 
 #endif //COMP8051_SCENE_H

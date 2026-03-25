@@ -10,7 +10,6 @@
 #include "AnimationSystem.h"
 #include "CameraSystem.h"
 #include "CollisionSystem.h"
-#include "DestructionSystem.h"
 #include "Entity.h"
 #include "EventResponseSystem.h"
 #include "event/EventManager.h"
@@ -20,7 +19,6 @@
 #include "MouseInputSystem.h"
 #include "MovementSystem.h"
 #include "RenderSystem.h"
-#include "SpawnTimerSystem.h"
 #include "UIRenderSystem.h"
 #include "scene/SceneType.h"
 
@@ -37,8 +35,6 @@ class World {
     AnimationSystem animationSystem;
     CameraSystem cameraSystem;
     EventManager eventManager;
-    SpawnTimerSystem spawnTimerSystem;
-    DestructionSystem destruction_system;
     EventResponseSystem eventResponseSystem{*this};
     MainMenuSystem mainMenuSystem;
     UIRenderSystem uiRenderSystem;
@@ -55,8 +51,6 @@ public:
             collisionSystem.update(*this);
             animationSystem.update(entities, deltaTime);
             cameraSystem.update(entities);
-            spawnTimerSystem.update(entities, deltaTime);
-            destruction_system.update(entities);
         }
 
         mouseInputSystem.update(*this, event);

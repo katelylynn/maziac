@@ -1,9 +1,9 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  SceneManager.h
+ */
 
-#ifndef COMP8051_SCENEMANAGER_H
-#define COMP8051_SCENEMANAGER_H
+#ifndef MAZIAC_SCENEMANAGER_H
+#define MAZIAC_SCENEMANAGER_H
 #include <iostream>
 #include <memory>
 #include <string>
@@ -66,4 +66,4 @@ public:
     }
 };
 
-#endif //COMP8051_SCENEMANAGER_H
+#endif //MAZIAC_SCENEMANAGER_H

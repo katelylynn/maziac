@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-01-07.
-//
+/*
+ *  Game.cpp
+ *  Starts the SDL window, loads scenes/assets and runs the game loop functions.
+ */
 
 #include "Game.h"
 #include "Map.h"
@@ -9,13 +10,10 @@
 
 #include "manager/AssetManager.h"
 
-GameState Game::gameState;
 std::function<void(std::string)> Game::onSceneChangeRequest;
 
-Game::Game() {}
-Game::~Game() {
-    destroy();
-}
+Game::Game() : event() {}
+Game::~Game() { destroy(); }
 
 void Game::init(const char *title, int width, int height, bool fullscreen) {
     int flags = 0;
@@ -46,30 +44,28 @@ void Game::init(const char *title, int width, int height, bool fullscreen) {
         isRunning = false;
     }
 
-    // load assets
+    // load animations
     AssetManager::loadAnimation("player", "../asset/animations/diver_anim.xml");
     AssetManager::loadAnimation("enemy", "../asset/animations/bird_anim.xml");
 
     // load scenes
     sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
-    sceneManager.loadScene(SceneType::Gameplay, "level1", "../asset/map1.tmx", width, height);
-    sceneManager.loadScene(SceneType::Gameplay, "level2", "../asset/map2.tmx", width, height);
+    sceneManager.loadScene(SceneType::Gameplay, "maze", "../asset/map/handmade_map.tmx", width, height);
 
-    // init game data/state
-    gameState.playerHealth = 5;
-
-    // start level 1
-    sceneManager.changeSceneDeferred("mainmenu");
+    // load the starting level
+    sceneManager.changeSceneDeferred("maze"); // TEMP set to maze
 
     // resolve scene callback
     onSceneChangeRequest = [this](std::string sceneName) {
-        // if already at level 2
-        if (sceneManager.currentScene->getName() == "level2" && sceneName == "level2") {
+        // if completed maze...
+        if (sceneName == "win") {
             std::cout << "You win!" << std::endl;
             isRunning = false;
+        // if died to enemy...
         } else if (sceneName == "gameover") {
             std::cout << "You lose!" << std::endl;
             isRunning = false;
+        // change to given scene...
         } else {
             sceneManager.changeSceneDeferred(sceneName);
         }

@@ -57,3 +57,15 @@ March 17
 - 4-5pm (1 hour)
     - Added a Markdown to track my progress
     - Added CMake
+
+March 18
+- 1:30-2:00am (30 minutes)
+    - Added assignment code to work off of
+
+March 19
+- 12-2pm (2 hours)
+    - Built handmade map on Tiled 
+
+March 23
+- 4-4:45pm (45 minutes)
+    - Imported handmade map
