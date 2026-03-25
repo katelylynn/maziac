@@ -9,7 +9,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "TextureManager.h"
+#include "manager/TextureManager.h"
 #include <sstream>
 #include <tinyxml2.h>
 

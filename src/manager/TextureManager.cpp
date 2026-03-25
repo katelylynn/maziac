@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "Game.h"
+#include "../Game.h"
 
 // doesn't create any extra memory, just grabs the reference of this object
 extern Game* game;

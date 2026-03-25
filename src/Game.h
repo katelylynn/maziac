@@ -15,7 +15,7 @@ public:
     ~Game();
 
     // these are the types that SDL uses
-    void init(const char* title, int width, int height, bool fullscreen);
+    void init(const char* title);
 
     // game loop functions
     void handleEvents(); // checks for input and system events

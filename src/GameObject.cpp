@@ -4,7 +4,7 @@
 
 #include "GameObject.h"
 
-#include "TextureManager.h"
+#include "manager/TextureManager.h"
 
 GameObject::GameObject(const char *path, int x, int y) :
 xPos(x), yPos(y), texture(TextureManager::load(path)) {

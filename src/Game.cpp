@@ -15,19 +15,20 @@ std::function<void(std::string)> Game::onSceneChangeRequest;
 Game::Game() : event() {}
 Game::~Game() { destroy(); }
 
-void Game::init(const char *title, int width, int height, bool fullscreen) {
-    int flags = 0;
-    if (fullscreen) {
-        flags = SDL_WINDOW_FULLSCREEN;
-    }
+void Game::init(const char *title) {
+    // screen
+    int width, height;
 
     // initialize library
     if (SDL_InitSubSystem(SDL_INIT_VIDEO) == 1) {
         std::cout << "Subsystem initialized..." << std::endl;
-        window = SDL_CreateWindow(title, width, height, flags);
+        window = SDL_CreateWindow(title, 0, 0, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
         if (window) {
             std::cout << "Window created..." << std::endl;
         }
+
+        // set the screen width and height
+        SDL_GetWindowSize(window, &width, &height);
 
         // windows will use Direct3D (directx)
         renderer = SDL_CreateRenderer(window, nullptr);
@@ -38,10 +39,10 @@ void Game::init(const char *title, int width, int height, bool fullscreen) {
             std::cout << "Renderer could not be created." << std::endl;
             return;
         }
-
         isRunning = true;
     } else {
         isRunning = false;
+        return;
     }
 
     // load animations

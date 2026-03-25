@@ -19,7 +19,7 @@ int main() {
     float deltaTime = 0.0f; // real time elapsed since the last frame
 
     game = new Game();
-    game->init("maziac", 800, 600, false);
+    game->init("MAZIAC");
 
     // game loop
     while (game->running()) {
