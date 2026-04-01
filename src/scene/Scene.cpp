@@ -53,8 +53,10 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ENERGY BAR
     auto& energyBar(world.createEntity());
     energyBar.addComponent<Observer<float>>(
-        &state.getComponent<SceneState>().energy, 0.0f, []() {
-            std::cout << "called" << std::endl;
+        &state.getComponent<SceneState>().energy, 0.0f, [&state, &map]() {
+            float increments = state.getComponent<SceneState>().initialEnergy / map.energyBar.size();
+            int energyLevel = static_cast<int>(state.getComponent<SceneState>().energy / increments);
+            map.energyBar[map.energyBar.size() - energyLevel - 1] = false;
         }
     );
 

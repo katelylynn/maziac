@@ -112,3 +112,5 @@ April 1
   - Added tile space for energy bar
   - Added energy depletion on lose condition
     - Added EnergyDepletionSystem
+  - Tracked energy with energy bar component
+    - Removed UI tiles based on energy amounts

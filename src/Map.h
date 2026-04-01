@@ -44,6 +44,9 @@ public:
     grid treasureData;
     grid exitData;
 
+    // energy bar tiles
+    std::vector<bool> energyBar;
+
     // map spawn data
     Spawnpoint playerSpawnpoint{};
     std::vector<Spawnpoint> enemySpawnpoints{};

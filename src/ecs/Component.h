@@ -63,7 +63,8 @@ struct Parent {
 };
 
 struct SceneState {
-    float energy = 10.0f;
+    float energy = 100.0f;
+    float initialEnergy = 100.0f;
     float energyDepletionRate = 1.0f;
     bool treasure = false;
 };
