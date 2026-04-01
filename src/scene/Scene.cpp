@@ -27,7 +27,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
 
     // SCENE STATE
     auto &state(world.createEntity());
-    state.addComponent<SceneState>();
+    state.addComponent<EnergyState>();
 
     // ITEM COLLIDERS
     for (int row = 0; row < map.mapHeight; row++) {
@@ -53,9 +53,9 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ENERGY BAR
     auto& energyBar(world.createEntity());
     energyBar.addComponent<Observer<float>>(
-        &state.getComponent<SceneState>().energy, 0.0f, [&state, &map]() {
-            float increments = state.getComponent<SceneState>().initialEnergy / map.energyBar.size();
-            int energyLevel = static_cast<int>(state.getComponent<SceneState>().energy / increments);
+        &state.getComponent<EnergyState>().energy, 0.0f, [&state, &map]() {
+            float increments = state.getComponent<EnergyState>().initialEnergy / map.energyBar.size();
+            int energyLevel = static_cast<int>(state.getComponent<EnergyState>().energy / increments);
 
             for (int tile = 0; tile < map.energyBar.size(); tile++) {
                 if (tile + 1 >= map.energyBar.size() - energyLevel) map.energyBar[tile] = true;

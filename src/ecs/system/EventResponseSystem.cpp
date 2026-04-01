@@ -61,24 +61,24 @@ void EventResponseSystem::onCollision(
     transform.position = translation.endPosition = translation.startPosition;
 
     // find scene state
-    SceneState* sceneState = nullptr;
+    EnergyState* energyState = nullptr;
     for (auto& entity : world.getEntities()) {
-        if (!entity->hasComponent<SceneState>()) continue;
-        sceneState = &entity->getComponent<SceneState>();
+        if (!entity->hasComponent<EnergyState>()) continue;
+        energyState = &entity->getComponent<EnergyState>();
     }
 
-    // return if can't find scene state
-    if (sceneState == nullptr) {
-        std::cout << "No scene state!" << std::endl;
+    // return if can't find energy state
+    if (energyState == nullptr) {
+        std::cout << "No energy state!" << std::endl;
         return;
     }
 
     // ENERGY:
     if (std::string(otherTag) == "energy") {
         // add energy boost
-        sceneState->energy += sceneState->energyBoostAmount;
+        energyState->energy += energyState->energyBoostAmount;
         // cap it at the limit
-        if (sceneState->energy > sceneState->initialEnergy) sceneState->energy = sceneState->initialEnergy;
+        if (energyState->energy > energyState->initialEnergy) energyState->energy = energyState->initialEnergy;
 
         // change the energy collider to a wall collider
         other->getComponent<Collider>().tag = "wall";
@@ -94,7 +94,7 @@ void EventResponseSystem::onCollision(
 
     if (std::string(otherTag) == "treasure") {
         // update the scene state
-        sceneState->treasure = true;
+        energyState->treasure = true;
 
         // update the player's spritesheet
         player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_treasure_anim.png");
@@ -109,7 +109,7 @@ void EventResponseSystem::onCollision(
         world.getMap().treasureData[row][col] = 0;
     }
 
-    if (std::string(otherTag) == "exit" && sceneState->treasure == true) {
+    if (std::string(otherTag) == "exit" && energyState->treasure == true) {
         std::cout << "exit" << std::endl;
         Game::onSceneChangeRequest("win");
     }

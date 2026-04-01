@@ -51,6 +51,14 @@ struct Collider {
     bool enabled = true;
 };
 
+struct EnergyState {
+    float energy = 100.0f;
+    float initialEnergy = 100.0f;
+    float energyDepletionRate = 5.0f;
+    float energyBoostAmount = 40.0f;
+    bool treasure = false;
+};
+
 template<typename T>
 struct Observer {
     T* currValue{};
@@ -60,14 +68,6 @@ struct Observer {
 
 struct Parent {
     Entity* parent = nullptr;
-};
-
-struct SceneState {
-    float energy = 100.0f;
-    float initialEnergy = 100.0f;
-    float energyDepletionRate = 5.0f;
-    float energyBoostAmount = 40.0f;
-    bool treasure = false;
 };
 
 struct Spawnpoint {

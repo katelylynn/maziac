@@ -15,22 +15,21 @@
 
 void EnergyDepletionSystem::update(const std::vector<std::unique_ptr<Entity> > &entities, float deltaTime) {
     {
-        SceneState* sceneState = nullptr;
+        EnergyState* energyState = nullptr;
 
         // find scene state entity
         for (auto& e : entities) {
-            if (e->hasComponent<SceneState>()) {
-                sceneState = &e.get()->getComponent<SceneState>();
+            if (e->hasComponent<EnergyState>()) {
+                energyState = &e.get()->getComponent<EnergyState>();
                 break;
             }
         }
 
-        if (!sceneState) return;
+        if (!energyState) return;
 
-        sceneState->energy -= deltaTime * sceneState->energyDepletionRate;
-        std::cout << sceneState->energy << std::endl;
+        energyState->energy -= deltaTime * energyState->energyDepletionRate;
 
-        if (sceneState->energy < 0.0f) {
+        if (energyState->energy < 0.0f) {
             Game::onSceneChangeRequest("lose");
         }
     }
