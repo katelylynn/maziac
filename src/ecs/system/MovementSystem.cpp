@@ -51,7 +51,7 @@ void MovementSystem::update(
             }
             // else need to complete the current movement
             else {
-                transform.position += (translation.endPosition - transform.position).normalize() * deltaTime * 20.0f;
+                transform.position += (translation.endPosition - transform.position).normalize() * deltaTime * velocity.speed;
             }
         }
     }

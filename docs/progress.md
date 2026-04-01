@@ -67,6 +67,7 @@ Player entity and movement
 ### TODO for UML
 - Add Translation and Transform to AnimationSystem
 - Add Translation component
+- Add EnergyDepletionSystem
 
 ### 📝 Development Log
 
@@ -109,3 +110,5 @@ April 1
     - Changed the treasure tile to a wall tile on treasure pickup
 - 12-2pm (2 hours)
   - Added tile space for energy bar
+  - Added energy depletion on lose condition
+    - Added EnergyDepletionSystem
