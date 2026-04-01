@@ -19,10 +19,11 @@ class AnimationSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
         for (auto& entity : entities) {
-            if (entity->hasComponent<Animation>() && entity->hasComponent<Translation>() && entity->hasComponent<Translation>()) {
+            if (entity->hasComponent<Animation>() && entity->hasComponent<Translation>() && entity->hasComponent<Translation>() && entity->hasComponent<Velocity>()) {
                 auto& animation = entity->getComponent<Animation>();
                 auto& transform = entity->getComponent<Transform>();
                 auto& translation = entity->getComponent<Translation>();
+                auto& velocity = entity->getComponent<Velocity>();
 
                 // state system
                 std::string newClip;
@@ -35,7 +36,7 @@ public:
                     newClip = "walk_down";
                 else if (translation.endPosition.y - transform.position.y < 0.0f)
                     newClip = "walk_up";
-                else
+                else if (velocity.direction.x == 0 && velocity.direction.y == 0)
                     newClip = "idle_left";
 
                 // checker system
