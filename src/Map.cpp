@@ -46,7 +46,7 @@ void Map::load(const char *path, SDL_Texture *ts) {
         layer = layer->NextSiblingElement();
     }
 
-    // build energy bar vector (-2+1 to remove borders)
+    // build energy bar vector (-2 to remove borders and +1 to bring the bar to zero)
     energyBar.assign(energyBarData.size()-1, true);
 
     // parse spawn points
@@ -157,7 +157,7 @@ void Map::draw() {
 
         // draw energy bar
         // checks if a tile exists there and it's active
-        if (energyBarData[row][mapWidth-1] && energyBar[row]) {
+        if (energyBarData[row][mapWidth-1] && energyBar[row-1]) {
             src.x = 0;
             src.y = 16;
             TextureManager::draw(tileset, src, dest);

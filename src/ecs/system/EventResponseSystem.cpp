@@ -18,6 +18,7 @@ EventResponseSystem::EventResponseSystem(World &world) {
             const auto& collision = static_cast<const CollisionEvent&>(e);
 
             onCollision(collision, "wall", world);
+            onCollision(collision, "energy", world);
             onCollision(collision, "treasure", world);
             onCollision(collision, "exit", world);
         }
@@ -59,8 +60,6 @@ void EventResponseSystem::onCollision(
     // prevents swimming into the wall
     transform.position = translation.endPosition = translation.startPosition;
 
-    // TREASURE AND EXIT:
-
     // find scene state
     SceneState* sceneState = nullptr;
     for (auto& entity : world.getEntities()) {
@@ -73,6 +72,16 @@ void EventResponseSystem::onCollision(
         std::cout << "No scene state!" << std::endl;
         return;
     }
+
+    // ENERGY:
+    if (std::string(otherTag) == "energy") {
+        // add energy boost
+        sceneState->energy += sceneState->energyBoostAmount;
+        // cap it at the limit
+        if (sceneState->energy > sceneState->initialEnergy) sceneState->energy = sceneState->initialEnergy;
+    }
+
+    // TREASURE AND EXIT:
 
     if (std::string(otherTag) == "treasure") {
         // update the scene state

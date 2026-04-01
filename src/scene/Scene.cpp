@@ -56,7 +56,11 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
         &state.getComponent<SceneState>().energy, 0.0f, [&state, &map]() {
             float increments = state.getComponent<SceneState>().initialEnergy / map.energyBar.size();
             int energyLevel = static_cast<int>(state.getComponent<SceneState>().energy / increments);
-            map.energyBar[map.energyBar.size() - energyLevel - 1] = false;
+
+            for (int tile = 0; tile < map.energyBar.size(); tile++) {
+                if (tile + 1 >= map.energyBar.size() - energyLevel) map.energyBar[tile] = true;
+                else if (tile + 1 < map.energyBar.size() - energyLevel) map.energyBar[tile] = false;
+            }
         }
     );
 

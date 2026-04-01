@@ -108,7 +108,7 @@ April 1
   - Added treasure collection and exit win condition
   - Added player carrying treasure animation
     - Changed the treasure tile to a wall tile on treasure pickup
-- 12-2pm (2 hours)
+- 12-2:30pm (2.5 hours)
   - Added tile space for energy bar
   - Added energy depletion on lose condition
     - Added EnergyDepletionSystem
