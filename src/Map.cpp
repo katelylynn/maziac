@@ -38,6 +38,8 @@ void Map::load(const char *path, SDL_Texture *ts) {
             parseLayer(weaponData, layer->FirstChildElement("data"));
         else if (std::strcmp(layer->Attribute("name"), "TreasureLayer") == 0)
             parseLayer(treasureData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "ExitLayer") == 0)
+            parseLayer(exitData, layer->FirstChildElement("data"));
 
         layer = layer->NextSiblingElement();
     }
@@ -139,6 +141,10 @@ void Map::draw() {
             else if (treasureData[row][col]) {
                 src.x = 0;
                 src.y = 0;
+            }
+            else if (exitData[row][col]) {
+                src.x = 0;
+                src.y = 16;
             }
 
             TextureManager::draw(tileset, src, dest);

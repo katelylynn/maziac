@@ -26,6 +26,7 @@ public:
     std::vector<std::vector<int>> guideData;
     std::vector<std::vector<int>> weaponData;
     std::vector<std::vector<int>> treasureData;
+    std::vector<std::vector<int>> exitData;
 
     // map spawn data
     Spawnpoint playerSpawnpoint{};
