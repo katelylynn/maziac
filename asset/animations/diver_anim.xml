@@ -1,20 +1,20 @@
 <animations>
-    <walk_left>
+    <move_left>
         <frame x="16" y="32" w="16" h="16" />
         <frame x="0" y="32" w="16" h="16" />
-    </walk_left>
-    <walk_right>
+    </move_left>
+    <move_right>
         <frame x="48" y="0" w="16" h="16" />
         <frame x="32" y="32" w="16" h="16" />
-    </walk_right>
-    <walk_up>
+    </move_right>
+    <move_up>
         <frame x="48" y="16" w="16" h="16" />
         <frame x="48" y="32" w="16" h="16" />
-    </walk_up>
-    <walk_down>
+    </move_up>
+    <move_down>
         <frame x="16" y="16" w="16" h="16" />
         <frame x="32" y="16" w="16" h="16" />
-    </walk_down>
+    </move_down>
     <idle_left>
         <frame x="0" y="0" w="16" h="16" />
         <frame x="16" y="0" w="16" h="16" />

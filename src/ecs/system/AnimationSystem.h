@@ -29,13 +29,13 @@ public:
                 std::string newClip;
 
                 if (translation.endPosition.x - transform.position.x > 0.0f)
-                    newClip = "walk_right";
+                    newClip = "move_right";
                 else if (translation.endPosition.x - transform.position.x < 0.0f)
-                    newClip = "walk_left";
+                    newClip = "move_left";
                 else if (translation.endPosition.y - transform.position.y > 0.0f)
-                    newClip = "walk_down";
+                    newClip = "move_down";
                 else if (translation.endPosition.y - transform.position.y < 0.0f)
-                    newClip = "walk_up";
+                    newClip = "move_up";
                 else if (velocity.direction.x == 0 && velocity.direction.y == 0)
                     newClip = "idle_left";
 

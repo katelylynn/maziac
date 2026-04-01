@@ -103,3 +103,4 @@ March 31
     - Adjusted animation to follow discrete movement
     - Fixed player stutters when swimming into wall
   - Added treasure collection and exit win condition
+  - Added player carrying treasure animation
