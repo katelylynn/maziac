@@ -50,6 +50,14 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
         }
     }
 
+    // ENERGY BAR
+    auto& energyBar(world.createEntity());
+    energyBar.addComponent<Observer<float>>(
+        &state.getComponent<SceneState>().energy, 0.0f, []() {
+            std::cout << "called" << std::endl;
+        }
+    );
+
     // PLAYER
     auto& player(world.createEntity());
     player.addComponent<PlayerTag>();

@@ -1,10 +1,9 @@
 /*
  *  MovementSystem.cpp
+ *  Handles discrete tile movement using Translation, Transform and Velocity.
  */
 
 #include "MovementSystem.h"
-
-#include <iostream>
 
 #include "World.h"
 

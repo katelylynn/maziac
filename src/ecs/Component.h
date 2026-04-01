@@ -51,6 +51,13 @@ struct Collider {
     bool enabled = true;
 };
 
+template<typename T>
+struct Observer {
+    T* currValue{};
+    T oldValue{};
+    std::function<void()> onValueChange{};
+};
+
 struct Parent {
     Entity* parent = nullptr;
 };

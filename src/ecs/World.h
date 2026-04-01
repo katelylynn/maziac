@@ -19,6 +19,7 @@
 #include "Map.h"
 #include "MouseInputSystem.h"
 #include "MovementSystem.h"
+#include "ObserverSystem.h"
 #include "RenderSystem.h"
 #include "UIRenderSystem.h"
 #include "scene/SceneType.h"
@@ -40,6 +41,7 @@ class World {
     UIRenderSystem uiRenderSystem;
     MouseInputSystem mouseInputSystem;
     EnergyDepletionSystem energyDepletionSystem;
+    ObserverSystem observerSystem;
 public:
     World() = default;
 
@@ -54,6 +56,7 @@ public:
             collisionSystem.update(*this);
             animationSystem.update(entities, deltaTime);
             energyDepletionSystem.update(entities, deltaTime);
+            observerSystem.update(entities);
         }
 
         mouseInputSystem.update(*this, event);
