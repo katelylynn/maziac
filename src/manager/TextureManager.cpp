@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  TextureManager.cpp
+ *  Handles texture loading, drawing and cleanup.
+ */
 
 #include "TextureManager.h"
 

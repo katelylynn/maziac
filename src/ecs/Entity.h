@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  Entity.h
+ *  Defines the component bit set and component array for an entity.
+ */
 
-#ifndef COMP8051_ENTITY_H
-#define COMP8051_ENTITY_H
+#ifndef MAZIAC_ENTITY_H
+#define MAZIAC_ENTITY_H
 #include <array>
 #include <bitset>
 #include <cstddef>
@@ -93,7 +94,7 @@ public:
   }
 };
 
-#endif //COMP8051_ENTITY_H
+#endif //MAZIAC_ENTITY_H
 
 
 

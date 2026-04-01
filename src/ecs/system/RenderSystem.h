@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  RenderSystem.h
+ *  Draws the sprite and optionally the collider's border.
+ */
 
-#ifndef COMP8051_RENDERSYSTEM_H
-#define COMP8051_RENDERSYSTEM_H
+#ifndef MAZIAC_RENDERSYSTEM_H
+#define MAZIAC_RENDERSYSTEM_H
 #include <memory>
 #include <vector>
 
@@ -43,4 +44,4 @@ public:
     }
 };
 
-#endif //COMP8051_RENDERSYSTEM_H
+#endif //MAZIAC_RENDERSYSTEM_H

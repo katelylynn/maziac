@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-02-04.
-//
+/*
+ *  EventManager.h
+ *  Stores listeners and emits events.
+ */
 
-#ifndef COMP8051_EVENTMANAGER_H
-#define COMP8051_EVENTMANAGER_H
+#ifndef MAZIAC_EVENTMANAGER_H
+#define MAZIAC_EVENTMANAGER_H
 #include <functional>
 
 #include "BaseEvent.h"
@@ -27,4 +28,4 @@ private:
     std::vector<Handler> listeners;
 };
 
-#endif //COMP8051_EVENTMANAGER_H
+#endif //MAZIAC_EVENTMANAGER_H

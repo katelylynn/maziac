@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  World.h
+ *  Stores entity, map and event manager references, and updates systems.
+ */
 
-#ifndef COMP8051_WORLD_H
-#define COMP8051_WORLD_H
+#ifndef MAZIAC_WORLD_H
+#define MAZIAC_WORLD_H
 #include <memory>
 #include <vector>
 
@@ -107,4 +108,4 @@ public:
     Map& getMap() { return map; }
 };
 
-#endif //COMP8051_WORLD_H
+#endif //MAZIAC_WORLD_H

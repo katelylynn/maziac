@@ -1,10 +1,10 @@
-//
-// Created by kate on 2026-03-11.
-//
+/*
+ *  EventResponseSystem.h
+ *  Declares the methods for collision and mouse interaction events.
+ */
 
-#ifndef COMP8051_EVENTRESPONSESYSTEM_H
-#define COMP8051_EVENTRESPONSESYSTEM_H
-#include <functional>
+#ifndef MAZIAC_EVENTRESPONSESYSTEM_H
+#define MAZIAC_EVENTRESPONSESYSTEM_H
 
 #include "event/BaseEvent.h"
 
@@ -20,14 +20,8 @@ private:
     void onCollision(const CollisionEvent& e, const char* otherTag, World& world);
     bool getCollisionEntities(const CollisionEvent& e, const char* otherTag, Entity*&, Entity*& other);
 
-    // player action
-    void onPlayerAction(
-        const PlayerActionEvent& e,
-        const std::function<void(Entity* player, PlayerAction action)>& callback
-    );
-
     // mouse interactions
     void onMouseInteraction(const MouseInteractionEvent& e);
 };
 
-#endif //COMP8051_EVENTRESPONSESYSTEM_H
+#endif //MAZIAC_EVENTRESPONSESYSTEM_H

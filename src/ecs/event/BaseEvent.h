@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-03-11.
-//
+/*
+ *  BaseEvent.h
+ *  Defines base event and its children event types.
+ */
 
-#ifndef COMP8051_BASEEVENT_H
-#define COMP8051_BASEEVENT_H
+#ifndef MAZIAC_BASEEVENT_H
+#define MAZIAC_BASEEVENT_H
 #include "Entity.h"
 
 enum class EventType {
@@ -14,7 +15,7 @@ enum class EventType {
 
 struct BaseEvent {
     EventType type{};
-    // in c++ always make the destructor virtual from a class you are deriving from
+    // "virtual" hint on a base deconstructor ensures object is destroyed properly
     virtual ~BaseEvent() = default;
 };
 
@@ -30,17 +31,6 @@ struct CollisionEvent : BaseEvent {
     }
 };
 
-enum class PlayerAction { Attack, Interact, useItem, Jump };
-
-struct PlayerActionEvent : BaseEvent {
-    Entity* player = nullptr;
-    PlayerAction action{};
-
-    PlayerActionEvent(Entity* player, PlayerAction action) : player(player), action(action) {
-        type = EventType::PlayerAction;
-    }
-};
-
 enum class MouseInteractionState { Pressed, Released, Cancel };
 
 struct MouseInteractionEvent : BaseEvent {
@@ -52,4 +42,4 @@ struct MouseInteractionEvent : BaseEvent {
     }
 };
 
-#endif //COMP8051_BASEEVENT_H
+#endif //MAZIAC_BASEEVENT_H

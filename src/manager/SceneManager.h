@@ -1,5 +1,6 @@
 /*
  *  SceneManager.h
+ *  Stores info for all scenes and tracks the current scene.
  */
 
 #ifndef MAZIAC_SCENEMANAGER_H

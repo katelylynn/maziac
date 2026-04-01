@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  ComponentType.h
+ *  Defines static IDs for each component type.
+ */
 
-#ifndef COMP8051_COMPONENTTYPE_H
-#define COMP8051_COMPONENTTYPE_H
+#ifndef MAZIAC_COMPONENTTYPE_H
+#define MAZIAC_COMPONENTTYPE_H
 #include <cstddef>
 
 // creating a type alias for std:size_t
@@ -27,36 +28,11 @@ inline ComponentTypeID getComponentTypeID() {
 // allows us to have different versions of the function:
 //   getComponentTypeID<Position>() -> always returns 0
 //   getComponentTypeID<Health>() -> would always return 1
-// a static local variable is created and initialized once - every time I call with the same typename, it returns the same ID
+// a static local variable is created for every component type - every time I call with the same typename, it returns the same ID
 template <typename T>
 ComponentTypeID getComponentTypeID() {
     static ComponentTypeID typeID = getComponentTypeID();
     return typeID;
 }
 
-#endif //COMP8051_COMPONENTTYPE_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif //MAZIAC_COMPONENTTYPE_H

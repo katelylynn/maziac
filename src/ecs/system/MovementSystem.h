@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  MovementSystem.h
+ *  Updates an entity's position if it has a transform and a velocity.
+ */
 
-#ifndef COMP8051_MOVEMENTSYSTEM_H
-#define COMP8051_MOVEMENTSYSTEM_H
+#ifndef MAZIAC_MOVEMENTSYSTEM_H
+#define MAZIAC_MOVEMENTSYSTEM_H
 #include <memory>
 #include <vector>
 
@@ -29,13 +30,10 @@ public:
                 // Vector2D needs an operator function to multiply a float to itself
                 Vector2D velocityVector = directionVector * v.speed;
 
-                // alternate option
-                // Vector2D velocityVector = v.speed * directionVector;
-
                 t.position += velocityVector * deltaTime;
             }
         }
     }
 };
 
-#endif //COMP8051_MOVEMENTSYSTEM_H
+#endif //MAZIAC_MOVEMENTSYSTEM_H

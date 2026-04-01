@@ -56,6 +56,10 @@ Player entity and movement
   - Window dimensions
   - Map draw tile sources
 - Remove if check for every map tile for treasure chest
+- Rewrite animation system (maybe break it up into separate systems)
+- Split up the collision system into collider system (updates collider positions) and collision checker system?
+- MainMenuSystem a bit misleading in what it does
+- Is UI render system needed, now that I've gotten rid of the camera?
 
 ### 📝 Development Log
 
@@ -79,3 +83,11 @@ March 23
 March 25
 - 1-4:30am (3.5 hours)
     - Stretched map to fit maximized window
+
+March 31
+- 12:20-2:50pm (2.5 hours)
+  - Cleaned up files and removed unused functionality from the tutorial
+- 4:30-6:30pm (2 hours)
+  - Cleaned up files and removed unused functionality from the tutorial
+- 12-7am (7 hours)
+  - 

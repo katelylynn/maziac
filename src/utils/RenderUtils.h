@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-03-12.
-//
+/*
+ *  RenderUtils.h
+ *  Helps with render scaling math.
+ */
 
-#ifndef COMP8051_RENDERUTILS_H
-#define COMP8051_RENDERUTILS_H
+#ifndef MAZIAC_RENDERUTILS_H
+#define MAZIAC_RENDERUTILS_H
 #include <SDL3/SDL_rect.h>
 
 class RenderUtils {
@@ -20,4 +21,4 @@ public:
     }
 };
 
-#endif //COMP8051_RENDERUTILS_H
+#endif //MAZIAC_RENDERUTILS_H

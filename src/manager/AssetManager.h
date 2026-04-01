@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  AssetManager.h
+ *  Defines animation load methods.
+ */
 
-#ifndef COMP8051_ASSETMANAGER_H
-#define COMP8051_ASSETMANAGER_H
+#ifndef MAZIAC_ASSETMANAGER_H
+#define MAZIAC_ASSETMANAGER_H
 #include <unordered_map>
 
 #include "ecs/Component.h"
@@ -16,4 +17,4 @@ public:
     static const Animation& getAnimation(const std::string& clipName);
 };
 
-#endif //COMP8051_ASSETMANAGER_H
+#endif //MAZIAC_ASSETMANAGER_H

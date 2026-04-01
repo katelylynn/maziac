@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-02-04.
-//
+/*
+ *  CollisionSystem.cpp
+ *  Updates collider positions, checks for collisions and emits events
+ */
 
 #include "CollisionSystem.h"
 

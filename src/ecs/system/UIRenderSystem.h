@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-03-12.
-//
+/*
+ *  UIRenderSystem.h
+ *  Same as render system with the difference that world space isn't converted to screen space.
+ */
 
-#ifndef COMP8051_UIRENDERSYSTEM_H
-#define COMP8051_UIRENDERSYSTEM_H
+#ifndef MAZIAC_UIRENDERSYSTEM_H
+#define MAZIAC_UIRENDERSYSTEM_H
 #include <memory>
 #include <vector>
 

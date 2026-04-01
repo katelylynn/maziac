@@ -1,10 +1,11 @@
-//
-// Created by kate on 2026-03-12.
-//
+/*
+ *  SceneType.h
+ *  Defines the enum of possible scene types.
+ */
 
-#ifndef COMP8051_SCENETYPE_H
-#define COMP8051_SCENETYPE_H
+#ifndef MAZIAC_SCENETYPE_H
+#define MAZIAC_SCENETYPE_H
 
 enum class SceneType { Gameplay, MainMenu };
 
-#endif //COMP8051_SCENETYPE_H
+#endif //MAZIAC_SCENETYPE_H

@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-03-12.
-//
+/*
+ *  MouseInputSystem.cpp
+ *  Checks if a mouse click would trigger an event and emits the corresponding hover, press or release event.
+ */
 
 #include "MouseInputSystem.h"
 

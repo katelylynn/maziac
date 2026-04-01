@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-02-04.
-//
+/*
+ *  Collision.h
+ *  Defines the AABB methods.
+ */
 
-#ifndef COMP8051_COLLISION_H
-#define COMP8051_COLLISION_H
+#ifndef MAZIAC_COLLISION_H
+#define MAZIAC_COLLISION_H
 #include <SDL3/SDL_rect.h>
 
 #include "Component.h"
@@ -15,4 +16,4 @@ public:
     static bool AABB(const Collider& colA, const Collider& colB);
 };
 
-#endif //COMP8051_COLLISION_H
+#endif //MAZIAC_COLLISION_H

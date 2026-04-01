@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-02-04.
-//
+/*
+ *  Collision.cpp
+ *  Defines the bounds of a collision.
+ */
 
 #include "Collision.h"
 

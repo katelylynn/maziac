@@ -1,13 +1,14 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  AssetManager.cpp
+ *  Handles animation loading behavior.
+ */
 
 #include "AssetManager.h"
 
 #include <string>
 #include <SDL3/SDL_rect.h>
 
-#include "AnimationClip.h"
+#include "../ecs/AnimationClip.h"
 #include "Component.h"
 #include "tinyxml2.h"
 

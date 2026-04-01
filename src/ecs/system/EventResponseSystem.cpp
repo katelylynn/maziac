@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-03-11.
-//
+/*
+ *  EventResponseSystem.cpp
+ *  Handles the response for different types of events.
+ */
 
 #include "EventResponseSystem.h"
 
@@ -11,7 +12,6 @@ EventResponseSystem::EventResponseSystem(World &world) {
     // collision subscription
     world.getEventManager().subscribe(
         [this, &world](const BaseEvent& e) {
-
             if (e.type != EventType::Collision) return;
 
             // cast base type to collision type
@@ -31,26 +31,6 @@ EventResponseSystem::EventResponseSystem(World &world) {
             onMouseInteraction(mouseInteractionEvent);
         }
     );
-}
-
-void EventResponseSystem::onMouseInteraction(const MouseInteractionEvent &e) {
-    if (!e.entity->hasComponent<Clickable>()) return;
-
-    auto& clickable = e.entity->getComponent<Clickable>();
-
-    switch (e.state) {
-        case MouseInteractionState::Pressed:
-            clickable.onPressed();
-            break;
-        case MouseInteractionState::Released:
-            clickable.onReleased();
-            break;
-        case MouseInteractionState::Cancel:
-            clickable.onCancel();
-            break;
-        default:
-            break;
-    }
 }
 
 void EventResponseSystem::onCollision(
@@ -100,4 +80,24 @@ bool EventResponseSystem::getCollisionEntities(
     }
 
     return player && other;
+}
+
+void EventResponseSystem::onMouseInteraction(const MouseInteractionEvent &e) {
+    if (!e.entity->hasComponent<Clickable>()) return;
+
+    auto& clickable = e.entity->getComponent<Clickable>();
+
+    switch (e.state) {
+        case MouseInteractionState::Pressed:
+            clickable.onPressed();
+            break;
+        case MouseInteractionState::Released:
+            clickable.onReleased();
+            break;
+        case MouseInteractionState::Cancel:
+            clickable.onCancel();
+            break;
+        default:
+            break;
+    }
 }

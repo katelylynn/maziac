@@ -1,18 +1,18 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  AnimationSystem.h
+ *  Defines the state, checker and playback systems.
+ *  State system: decides which clip to use.
+ *  Checker system: checks if the animation has been switched.
+ *  Playback system: advances the animation.
+ */
 
-#ifndef COMP8051_ANIMATIONSYSTEM_H
-#define COMP8051_ANIMATIONSYSTEM_H
+#ifndef MAZIAC_ANIMATIONSYSTEM_H
+#define MAZIAC_ANIMATIONSYSTEM_H
 #include <memory>
 #include <vector>
 
 #include "Component.h"
 #include "Entity.h"
-
-// State system: deciding which clip to use
-// Checker system: check if the animation has been switched
-// Playback system: advances the animation
 
 class AnimationSystem {
 public:
@@ -61,4 +61,4 @@ public:
     }
 };
 
-#endif //COMP8051_ANIMATIONSYSTEM_H
+#endif //MAZIAC_ANIMATIONSYSTEM_H

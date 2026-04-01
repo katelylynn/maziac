@@ -1,11 +1,12 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  GameObject.h
+ *  Defines the game object's position and texture.
+ */
 
-#ifndef COMP8051_GAMEOBJECT_H
-#define COMP8051_GAMEOBJECT_H
+#ifndef MAZIAC_GAMEOBJECT_H
+#define MAZIAC_GAMEOBJECT_H
 
-#include "Game.h" // bc we need SDL
+#include "Game.h" // so we have a reference to SDL
 
 class GameObject {
 public:
@@ -23,4 +24,4 @@ private:
     int speed = 100;
 };
 
-#endif //COMP8051_GAMEOBJECT_H
+#endif //MAZIAC_GAMEOBJECT_H

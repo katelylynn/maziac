@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  Scene.h
+ *  Defines the methods needed for a scene.
+ */
 
-#ifndef COMP8051_SCENE_H
-#define COMP8051_SCENE_H
+#ifndef MAZIAC_SCENE_H
+#define MAZIAC_SCENE_H
 
 #include "World.h"
 #include "SceneType.h"
@@ -23,7 +24,6 @@ public:
     World world;
 
     const std::string& getName() const { return name; }
-
 private:
     std::string name;
     SceneType type;
@@ -32,4 +32,4 @@ private:
     void initGameplay(const char* mapPath, int windowWidth, int windowHeight);
 };
 
-#endif //COMP8051_SCENE_H
+#endif //MAZIAC_SCENE_H

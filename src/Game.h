@@ -1,6 +1,6 @@
 /*
  *  Game.h
- *
+ *  Defines the game loop functions and SDL references.
  */
 
 #pragma once
@@ -32,7 +32,8 @@ public:
     SDL_Renderer* renderer = nullptr;
 
     SceneManager sceneManager;
-    // when change scene, must go through game and game will do the actual scene change
+
+    // game handles scene changing logic
     static std::function<void(std::string)> onSceneChangeRequest;
 
 private:

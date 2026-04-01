@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-21.
-//
+/*
+ *  Component.h
+ *  Defines all of the structs and their data members.
+ */
 
-#ifndef COMP8051_COMPONENT_H
-#define COMP8051_COMPONENT_H
+#ifndef MAZIAC_COMPONENT_H
+#define MAZIAC_COMPONENT_H
 #include <functional>
 #include <SDL3/SDL_render.h>
 
@@ -88,4 +89,4 @@ struct Children {
 struct PlayerTag{};
 struct ProjectileTag{};
 
-#endif //COMP8051_COMPONENT_H
+#endif //MAZIAC_COMPONENT_H

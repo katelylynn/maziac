@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-28.
-//
+/*
+ *  Vector2D.h
+ *  Defines all possible operations that can be done on a vector.
+ */
 
-#ifndef COMP8051_VECTOR2D_H
-#define COMP8051_VECTOR2D_H
+#ifndef MAZIAC_VECTOR2D_H
+#define MAZIAC_VECTOR2D_H
 
 class Vector2D {
 public:
@@ -28,7 +29,7 @@ public:
     Vector2D operator-(Vector2D& vector) const;
 
     // member operator function
-    // & bc we want it to return itself, instead of creating a new Vector2D
+    // using & bc we want it to return itself, instead of creating a new Vector2D
     // vector we want to return on the left side of the operation, vector we want to add on the right
     Vector2D& operator+=(const Vector2D& vector);
 
@@ -52,4 +53,4 @@ public:
     Vector2D& normalize();
 };
 
-#endif //COMP8051_VECTOR2D_H
+#endif //MAZIAC_VECTOR2D_H

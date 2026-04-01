@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  GameObject.cpp
+ *  Handles game object movement and rendering.
+ */
 
 #include "GameObject.h"
 

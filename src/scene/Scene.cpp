@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-02-25.
-//
+/*
+ *  Scene.cpp
+ *  Creates entities and assigns their components.
+ */
 
 #include "../scene/Scene.h"
 

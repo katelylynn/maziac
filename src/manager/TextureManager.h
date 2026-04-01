@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-14.
-//
+/*
+ *  TextureManager.h
+ *  Defines texture-related methods.
+ */
 
-#ifndef COMP8051_TEXTUREMANAGER_H
-#define COMP8051_TEXTUREMANAGER_H
+#ifndef MAZIAC_TEXTUREMANAGER_H
+#define MAZIAC_TEXTUREMANAGER_H
 
 #include <string>
 #include <unordered_map>
@@ -24,4 +25,4 @@ public:
     static void clean();
 };
 
-#endif //COMP8051_TEXTUREMANAGER_H
+#endif //MAZIAC_TEXTUREMANAGER_H

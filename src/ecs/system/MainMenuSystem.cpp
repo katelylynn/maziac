@@ -1,6 +1,8 @@
-//
-// Created by kate on 2026-03-12.
-//
+/*
+ *  MainMenuSystem.cpp
+ *  Defines what happens on key presses when on the main menu.
+ *  Necessary to have a cpp file because the compiler must already know that Game:: is a class.
+ */
 
 #include "MainMenuSystem.h"
 

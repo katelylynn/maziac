@@ -1,6 +1,7 @@
-//
-// Created by kate on 2026-01-28.
-//
+/*
+ *  Vector2D.cpp
+ *  Defines vector behavior when using certain operators.
+ */
 
 #include "Vector2D.h"
 
@@ -79,17 +80,3 @@ Vector2D &Vector2D::normalize() {
 
     return *this;
 }
-
-/**
-int main() {
-    Vector2D a(3, 4);
-    Vector2D b(1, 2);
-
-    a += b;              // a is now (4, 6)
-    Vector2D c = a - b;  // c is (3, 4)
-    Vector2D d = a * 2;  // d is (8, 12)
-    Vector2D e = 2 * a;  // e is also (8, 12)
-    Vector2D f = -a;     // f is (-4, -6)
-    bool same = (a == b); // false
-}
-*/

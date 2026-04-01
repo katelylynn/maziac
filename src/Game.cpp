@@ -57,11 +57,11 @@ void Game::init(const char *title) {
     AssetManager::loadAnimation("player", "../asset/animations/diver_anim.xml");
 
     // load scenes
-    sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
+    // sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
     sceneManager.loadScene(SceneType::Gameplay, "maze", "../asset/map/handmade_map.tmx", width, height);
 
     // load the starting level
-    sceneManager.changeSceneDeferred("maze"); // TEMP set to maze
+    sceneManager.changeSceneDeferred("maze");
 
     // resolve scene callback
     onSceneChangeRequest = [this](std::string sceneName) {

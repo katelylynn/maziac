@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-01-28.
-//
+/*
+ *  KeyboardInputSystem.h
+ *  Defines what happens on different key presses and releases.
+ */
 
-#ifndef COMP8051_KEYBOARDINPUTSYSTEM_H
-#define COMP8051_KEYBOARDINPUTSYSTEM_H
+#ifndef MAZIAC_KEYBOARDINPUTSYSTEM_H
+#define MAZIAC_KEYBOARDINPUTSYSTEM_H
 #include <memory>
 #include <vector>
 #include <SDL3/SDL_events.h>
@@ -14,7 +15,7 @@
 class KeyboardInputSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, const SDL_Event& event) {
-        // SDL event will tell us if a key is pressed down
+        // SDL event tells us if a key is pressed down
 
         for (auto& e : entities) {
             if (e->hasComponent<PlayerTag>() && e->hasComponent<Velocity>()) {
@@ -62,4 +63,4 @@ public:
     }
 };
 
-#endif //COMP8051_KEYBOARDINPUTSYSTEM_H
+#endif //MAZIAC_KEYBOARDINPUTSYSTEM_H

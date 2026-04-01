@@ -1,9 +1,10 @@
-//
-// Created by kate on 2026-02-04.
-//
+/*
+ *  CollisionSystem.h
+ *  Defines a set of active collisions and helper functions to query and make keys for collidables.
+ */
 
-#ifndef COMP8051_COLLISIONSYSTEM_H
-#define COMP8051_COLLISIONSYSTEM_H
+#ifndef MAZIAC_COLLISIONSYSTEM_H
+#define MAZIAC_COLLISIONSYSTEM_H
 
 #include <algorithm>
 #include <memory>
@@ -33,4 +34,4 @@ private:
     }
 };
 
-#endif //COMP8051_COLLISIONSYSTEM_H
+#endif //MAZIAC_COLLISIONSYSTEM_H
