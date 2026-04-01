@@ -75,6 +75,14 @@ public:
     return *component;
   }
 
+  template<typename T>
+  void removeComponent() {
+    auto id = getComponentTypeID<T>();
+    delete static_cast<T*>(componentArray[id]);
+    componentArray[id] = nullptr;
+    componentBitSet[id] = false;
+  }
+
   // not returning T because don't wanna make a copy
   // not returning T* because harder to work with
   template<typename T>

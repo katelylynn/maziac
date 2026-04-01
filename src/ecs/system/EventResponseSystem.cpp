@@ -6,6 +6,7 @@
 #include "EventResponseSystem.h"
 
 #include "Game.h"
+#include "manager/AssetManager.h"
 
 EventResponseSystem::EventResponseSystem(World &world) {
     // collision subscription
@@ -74,8 +75,20 @@ void EventResponseSystem::onCollision(
     }
 
     if (std::string(otherTag) == "treasure") {
-        std::cout << "treasure" << std::endl;
+        // update the scene state
         sceneState->treasure = true;
+
+        // update the player's spritesheet
+        player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_treasure_anim.png");
+
+        // change the treasure collider to a wall collider
+        other->getComponent<Collider>().tag = "wall";
+
+        // change the treasure sprite to a wall sprite
+        Transform otherTransform = other->getComponent<Transform>();
+        int row = otherTransform.position.y / world.getMap().tileHeight;
+        int col = otherTransform.position.x / world.getMap().tileWidth;
+        world.getMap().treasureData[row][col] = 0;
     }
 
     if (std::string(otherTag) == "exit" && sceneState->treasure == true) {
