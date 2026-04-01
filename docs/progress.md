@@ -108,3 +108,4 @@ April 1
   - Added player carrying treasure animation
     - Changed the treasure tile to a wall tile on treasure pickup
 - 12-2pm (2 hours)
+  - Added tile space for energy bar

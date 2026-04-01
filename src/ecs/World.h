@@ -10,6 +10,7 @@
 
 #include "AnimationSystem.h"
 #include "CollisionSystem.h"
+#include "EnergyDepletionSystem.h"
 #include "Entity.h"
 #include "EventResponseSystem.h"
 #include "event/EventManager.h"
@@ -38,6 +39,7 @@ class World {
     MainMenuSystem mainMenuSystem;
     UIRenderSystem uiRenderSystem;
     MouseInputSystem mouseInputSystem;
+    EnergyDepletionSystem energyDepletionSystem;
 public:
     World() = default;
 
@@ -51,6 +53,7 @@ public:
             movementSystem.update(entities, deltaTime, this);
             collisionSystem.update(*this);
             animationSystem.update(entities, deltaTime);
+            energyDepletionSystem.update(entities, deltaTime);
         }
 
         mouseInputSystem.update(*this, event);
