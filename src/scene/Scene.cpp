@@ -58,8 +58,8 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     player.addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
     auto& playerCollider = player.addComponent<Collider>("player");
-    playerCollider.rect.w = playerDest.w * 0.95f;
-    playerCollider.rect.h = playerDest.h * 0.95f;
+    playerCollider.rect.w = playerDest.w * 0.99f;
+    playerCollider.rect.h = playerDest.h * 0.99f;
     playerCollider.rect.x = playerDest.x;
     playerCollider.offset.x = (playerDest.w - playerCollider.rect.w) / 2.0f;
     playerCollider.offset.y = (playerDest.h - playerCollider.rect.h) / 2.0f;

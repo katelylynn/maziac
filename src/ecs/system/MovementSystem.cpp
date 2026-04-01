@@ -25,9 +25,6 @@ void MovementSystem::update(
             auto& transform = entity->getComponent<Transform>();
             auto& velocity = entity->getComponent<Velocity>();
 
-            // track previous position
-            transform.oldPosition = transform.position;
-
             // if translation is not initialized, initialize it
             if (translation.startPosition == Vector2D{-1.0f, -1.0f} ||
                 translation.endPosition == Vector2D{-1.0f,-1.0f}) {
@@ -40,9 +37,9 @@ void MovementSystem::update(
                 transform.position.approxEquals(translation.endPosition, 1.0f)
             ) {
                 // snap to perfect pos
-                transform.position = translation.endPosition;
+                transform.position = transform.oldPosition = translation.endPosition;
 
-                // start a new move if a key is being pressed
+                // start a new move if a key is being pressed and not colliding
                 if (velocity.direction.x != 0 || velocity.direction.y != 0) {
                     // set the new start position of the translation
                     translation.startPosition = translation.endPosition;

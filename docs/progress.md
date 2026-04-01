@@ -96,3 +96,4 @@ March 31
   - Cleaned up files and removed unused functionality from the tutorial
 - 12-7am (7 hours)
   - Added a new Vector 2D util function
+  - Adjusted movement to be discrete instead of smooth
