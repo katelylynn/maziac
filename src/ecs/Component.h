@@ -57,6 +57,7 @@ struct Parent {
 
 struct SceneState {
     int energy = 0;
+    bool treasure = false;
 };
 
 struct Spawnpoint {

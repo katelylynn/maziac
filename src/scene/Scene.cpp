@@ -25,18 +25,26 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     Map& map = world.getMap();
     map.load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
 
+    // SCENE STATE
+    auto &state(world.createEntity());
+    state.addComponent<SceneState>();
+
     // ITEM COLLIDERS
     for (int row = 0; row < map.mapHeight; row++) {
         for (int col = 0; col < map.mapWidth; col++) {
-            if (map.wallData[row][col]) {
-                auto& tile = world.createEntity();
-                tile.addComponent<Transform>(Vector2D(map.tileWidth * col, map.tileHeight * row), 0.0f, 1.0f);
+            for (auto layerPair : map.layers) {
+                if ((*layerPair.second)[row][col] != 0) {
+                    auto& tile = world.createEntity();
+                    tile.addComponent<Transform>(Vector2D(map.tileWidth * col, map.tileHeight * row), 0.0f, 1.0f);
 
-                Collider& c = tile.addComponent<Collider>("wall");
-                c.rect.x = map.tileWidth * col;
-                c.rect.y = map.tileHeight * row;
-                c.rect.w = map.tileWidth;
-                c.rect.h = map.tileHeight;
+                    Collider& c = tile.addComponent<Collider>(layerPair.first);
+                    c.rect.x = map.tileWidth * col;
+                    c.rect.y = map.tileHeight * row;
+                    c.rect.w = map.tileWidth;
+                    c.rect.h = map.tileHeight;
+
+                    break;
+                }
             }
         }
     }

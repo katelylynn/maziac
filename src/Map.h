@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <Component.h>
+#include <map>
 
 class Map {
 public:
@@ -20,13 +21,27 @@ public:
     // dimensions
     int mapWidth{}, mapHeight{}, tileWidth{}, tileHeight{};
 
+    // type alias
+    using grid = std::vector<std::vector<int>>;
+
+    // layer to name
+    // walls intentionally placed last
+    std::map<std::string, grid*> layers = {
+        {"energy", &energyData},
+        {"guide", &guideData},
+        {"weapon", &weaponData},
+        {"treasure", &treasureData},
+        {"exit", &exitData},
+        {"wall", &wallData}
+    };
+
     // map layer data
-    std::vector<std::vector<int>> wallData;
-    std::vector<std::vector<int>> energyData;
-    std::vector<std::vector<int>> guideData;
-    std::vector<std::vector<int>> weaponData;
-    std::vector<std::vector<int>> treasureData;
-    std::vector<std::vector<int>> exitData;
+    grid wallData;
+    grid energyData;
+    grid guideData;
+    grid weaponData;
+    grid treasureData;
+    grid exitData;
 
     // map spawn data
     Spawnpoint playerSpawnpoint{};

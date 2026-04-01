@@ -52,6 +52,7 @@ Wall colliders
 Player entity and movement
 
 ### TODO for cleaner code
+- *Map iteration is super inefficient*
 - Remove as many hardcoded values as possible
   - Window dimensions
   - Map draw tile sources

@@ -6,7 +6,6 @@
 #include "EventResponseSystem.h"
 
 #include "Game.h"
-#include "World.h"
 
 EventResponseSystem::EventResponseSystem(World &world) {
     // collision subscription
@@ -18,6 +17,8 @@ EventResponseSystem::EventResponseSystem(World &world) {
             const auto& collision = static_cast<const CollisionEvent&>(e);
 
             onCollision(collision, "wall", world);
+            onCollision(collision, "treasure", world);
+            onCollision(collision, "exit", world);
         }
     );
 
@@ -43,14 +44,43 @@ void EventResponseSystem::onCollision(
 
     if (!getCollisionEntities(e, otherTag, player, other)) return;
 
-    if (std::string(otherTag) == "wall") {
-        // stay bc need to constantly check if player colliding w wall
-        if (e.state != CollisionState::Stay) return;
-        auto& transform = player->getComponent<Transform>();
-        auto& translation = player->getComponent<Translation>();
+    // ENEMY (TODO):
+    if (std::string(otherTag) == "enemy") return;
 
-        // reset
-        transform.position = translation.endPosition = translation.startPosition;
+    // WALL:
+
+    // only continues if "Enter" state
+    if (e.state != CollisionState::Stay) return;
+
+    auto& transform = player->getComponent<Transform>();
+    auto& translation = player->getComponent<Translation>();
+
+    // prevents swimming into the wall
+    transform.position = translation.endPosition = translation.startPosition;
+
+    // TREASURE AND EXIT:
+
+    // find scene state
+    SceneState* sceneState = nullptr;
+    for (auto& entity : world.getEntities()) {
+        if (!entity->hasComponent<SceneState>()) continue;
+        sceneState = &entity->getComponent<SceneState>();
+    }
+
+    // return if can't find scene state
+    if (sceneState == nullptr) {
+        std::cout << "No scene state!" << std::endl;
+        return;
+    }
+
+    if (std::string(otherTag) == "treasure") {
+        std::cout << "treasure" << std::endl;
+        sceneState->treasure = true;
+    }
+
+    if (std::string(otherTag) == "exit" && sceneState->treasure == true) {
+        std::cout << "exit" << std::endl;
+        Game::onSceneChangeRequest("win");
     }
 }
 
@@ -60,7 +90,6 @@ bool EventResponseSystem::getCollisionEntities(
     Entity *&player,
     Entity *&other
 ) {
-
     // check both entities exist
     if (e.entityA == nullptr || e.entityB == nullptr)
         return false;

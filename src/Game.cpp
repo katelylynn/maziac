@@ -70,7 +70,7 @@ void Game::init(const char *title) {
             std::cout << "You win!" << std::endl;
             isRunning = false;
         // if died to enemy...
-        } else if (sceneName == "gameover") {
+        } else if (sceneName == "lose") {
             std::cout << "You lose!" << std::endl;
             isRunning = false;
         // change to given scene...
