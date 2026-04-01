@@ -102,3 +102,4 @@ March 31
     - Fixed bug where collision with wall caused the player to get stuck
     - Adjusted animation to follow discrete movement
     - Fixed player stutters when swimming into wall
+  - Added treasure collection and exit win condition
