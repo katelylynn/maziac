@@ -37,7 +37,7 @@ void MovementSystem::update(
                 transform.position.approxEquals(translation.endPosition, 1.0f)
             ) {
                 // snap to perfect pos
-                transform.position = transform.oldPosition = translation.endPosition;
+                transform.position = translation.endPosition;
 
                 // start a new move if a key is being pressed and not colliding
                 if (velocity.direction.x != 0 || velocity.direction.y != 0) {

@@ -64,7 +64,8 @@ Player entity and movement
 - Hard coded values in movement system
 
 ### TODO for UML
-- Add Animation to MovementSystem
+- Add Translation and Transform, and remove Velocity from AnimationSystem
+- Add Translation component
 
 ### 📝 Development Log
 
@@ -97,3 +98,4 @@ March 31
 - 12-7am (7 hours)
   - Added a new Vector 2D util function
   - Adjusted movement to be discrete instead of smooth
+    - Fixed bug where collision with wall caused the player to get stuck

@@ -8,6 +8,7 @@
 
 #ifndef MAZIAC_ANIMATIONSYSTEM_H
 #define MAZIAC_ANIMATIONSYSTEM_H
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -18,20 +19,21 @@ class AnimationSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
         for (auto& entity : entities) {
-            if (entity->hasComponent<Animation>() && entity->hasComponent<Velocity>()) {
+            if (entity->hasComponent<Animation>() && entity->hasComponent<Translation>() && entity->hasComponent<Translation>()) {
                 auto& animation = entity->getComponent<Animation>();
-                auto& velocity = entity->getComponent<Velocity>();
+                auto& transform = entity->getComponent<Transform>();
+                auto& translation = entity->getComponent<Translation>();
 
                 // state system
                 std::string newClip;
 
-                if (velocity.direction.x > 0.0f)
+                if (translation.endPosition.x - transform.position.x > 0.0f)
                     newClip = "walk_right";
-                else if (velocity.direction.x < 0.0f)
+                else if (translation.endPosition.x - transform.position.x < 0.0f)
                     newClip = "walk_left";
-                else if (velocity.direction.y > 0.0f)
+                else if (translation.endPosition.y - transform.position.y > 0.0f)
                     newClip = "walk_down";
-                else if (velocity.direction.y < 0.0f)
+                else if (translation.endPosition.y - transform.position.y < 0.0f)
                     newClip = "walk_up";
                 else
                     newClip = "idle_left";

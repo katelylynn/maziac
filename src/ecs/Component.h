@@ -30,7 +30,7 @@ struct Animation {
     std::string currentClip{};
     float time{}; // time is accumulated for the current frame
     int currentFrame{}; // index of the current frame in the clip
-    float speed = 0.8f; // time per frame
+    float speed = 0.4f; // time per frame
 };
 
 struct Children {
@@ -80,7 +80,6 @@ struct Transform {
     Vector2D position{};
     float rotation{};
     float scale{};
-    Vector2D oldPosition{};
 };
 
 struct Velocity {
