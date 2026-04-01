@@ -41,12 +41,14 @@ class World {
 public:
     World() = default;
 
-    void update(float deltaTime, const SDL_Event& event, SceneType sceneType) {
+    void update(
+        float deltaTime, const SDL_Event& event, SceneType sceneType
+    ) {
         if (sceneType == SceneType::MainMenu) {
             mainMenuSystem.update(event);
         } else {
             keyboardInputSystem.update(entities, event);
-            movementSystem.update(entities, deltaTime);
+            movementSystem.update(entities, deltaTime, this);
             collisionSystem.update(*this);
             animationSystem.update(entities, deltaTime);
         }

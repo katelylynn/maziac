@@ -46,7 +46,6 @@ void EventResponseSystem::onCollision(
     if (std::string(otherTag) == "wall") {
         // stay bc need to constantly check if player colliding w wall
         if (e.state != CollisionState::Stay) return;
-        std::cout << "reached" << std::endl;
         auto& t = player->getComponent<Transform>();
         t.position = t.oldPosition;
     }

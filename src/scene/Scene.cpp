@@ -47,6 +47,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
 
     auto& playerTransform = player.addComponent<Transform>(world.getMap().playerSpawnpoint.position, 0.0f, 1.0f);
     player.addComponent<Velocity>(Vector2D(0, 0), 20.0f);
+    player.addComponent<Translation>();
 
     Animation animation = AssetManager::getAnimation("player");
     player.addComponent<Animation>(animation);

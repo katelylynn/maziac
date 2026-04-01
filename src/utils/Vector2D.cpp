@@ -12,6 +12,11 @@ bool Vector2D::operator==(const Vector2D &vector) const {
     return x == vector.x && y == vector.y;
 }
 
+bool Vector2D::approxEquals(const Vector2D& vector, float tolerance) const {
+    return std::abs(x - vector.x) < tolerance &&
+           std::abs(y - vector.y) < tolerance;
+}
+
 bool Vector2D::operator!=(const Vector2D &vector) const {
     return x != vector.x || y != vector.y;
 }

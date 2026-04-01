@@ -37,7 +37,10 @@ public:
                     newClip = "idle_left";
 
                 // checker system
-                if (animation.clips.contains(newClip) && newClip != animation.currentClip) {
+                if (
+                    animation.clips.contains(newClip) && // clip exists
+                    newClip != animation.currentClip // not the currently playing one
+                ) {
                     animation.currentClip = newClip;
                     animation.time = 0.0f;
                     animation.currentFrame = 0; // reset frame index to zero

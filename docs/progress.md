@@ -60,6 +60,8 @@ Player entity and movement
 - Split up the collision system into collider system (updates collider positions) and collision checker system?
 - MainMenuSystem a bit misleading in what it does
 - Is UI render system needed, now that I've gotten rid of the camera?
+- Hard coded animation system
+- Hard coded values in movement system
 
 ### TODO for UML
 - Add Animation to MovementSystem
@@ -93,4 +95,4 @@ March 31
 - 4:30-6:30pm (2 hours)
   - Cleaned up files and removed unused functionality from the tutorial
 - 12-7am (7 hours)
-  - 
+  - Added a new Vector 2D util function

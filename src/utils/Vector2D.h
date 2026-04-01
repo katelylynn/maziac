@@ -20,6 +20,8 @@ public:
 
     bool operator==(const Vector2D& vector) const;
 
+    bool approxEquals(const Vector2D& vector, float tolerance) const;
+
     bool operator!=(const Vector2D& vector) const;
 
     Vector2D operator+(Vector2D& vector) const;

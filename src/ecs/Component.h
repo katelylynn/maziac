@@ -71,6 +71,11 @@ struct Sprite {
     bool visible = true;
 };
 
+struct Translation {
+    Vector2D startPosition{-1.0f, -1.0f};
+    Vector2D endPosition{-1.0f, -1.0f};
+};
+
 struct Transform {
     Vector2D position{};
     float rotation{};
