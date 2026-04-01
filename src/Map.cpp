@@ -131,8 +131,8 @@ void Map::draw() {
             }
             else if (guideData[row][col] == 32) {
                 // south
-                src.x = 112;
-                src.y = 0;
+                src.x = 64;
+                src.y = 48;
             }
             else if (guideData[row][col] == 32) {
                 // west

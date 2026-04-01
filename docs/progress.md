@@ -53,6 +53,7 @@ Player entity and movement
 
 ### TODO for cleaner code
 - *Map iteration is super inefficient*
+- Event response system is getting pretty big
 - Remove as many hardcoded values as possible
   - Window dimensions
   - Map draw tile sources
@@ -114,3 +115,4 @@ April 1
     - Added EnergyDepletionSystem
   - Tracked energy with energy bar component
     - Removed UI tiles based on energy amounts
+  - Added energy tile functionality

@@ -79,6 +79,15 @@ void EventResponseSystem::onCollision(
         sceneState->energy += sceneState->energyBoostAmount;
         // cap it at the limit
         if (sceneState->energy > sceneState->initialEnergy) sceneState->energy = sceneState->initialEnergy;
+
+        // change the energy collider to a wall collider
+        other->getComponent<Collider>().tag = "wall";
+
+        // change the energy sprite to a wall sprite
+        Transform otherTransform = other->getComponent<Transform>();
+        int row = otherTransform.position.y / world.getMap().tileHeight;
+        int col = otherTransform.position.x / world.getMap().tileWidth;
+        world.getMap().energyData[row][col] = 0;
     }
 
     // TREASURE AND EXIT:
