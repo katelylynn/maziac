@@ -61,6 +61,9 @@ Player entity and movement
 - MainMenuSystem a bit misleading in what it does
 - Is UI render system needed, now that I've gotten rid of the camera?
 
+### TODO for UML
+- Add Animation to MovementSystem
+
 ### 📝 Development Log
 
 March 17

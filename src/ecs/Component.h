@@ -1,6 +1,6 @@
 /*
  *  Component.h
- *  Defines all of the structs and their data members.
+ *  Defines all structs and their data members.
  */
 
 #ifndef MAZIAC_COMPONENT_H
@@ -15,41 +15,14 @@
 #include "AnimationClip.h"
 #include "Entity.h"
 
-struct Transform {
-    Vector2D position{};
-    float rotation{};
-    float scale{};
-    Vector2D oldPosition{};
-};
-
-struct Spawnpoint {
-    Vector2D position{};
-};
-
-struct Velocity {
-    Vector2D direction{};
-    float speed{};
-};
+// ENUMS
 
 enum class RenderLayer {
     World,
     UI
 };
 
-struct Sprite {
-    SDL_Texture* texture = nullptr;
-    SDL_FRect src{};
-    SDL_FRect dest{};
-    RenderLayer renderLayer = RenderLayer::World;
-    bool visible = true;
-};
-
-struct Collider {
-    std::string tag;
-    SDL_FRect rect{};
-    Vector2D offset{};
-    bool enabled = true;
-};
+// STRUCTS
 
 struct Animation {
     // key = walk left, walk right, idle right, etc.
@@ -60,13 +33,8 @@ struct Animation {
     float speed = 0.8f; // time per frame
 };
 
-// our game state, might have multiple scenes
-struct SceneState {
-    int coinsCollected = 0;
-};
-
-struct Health {
-    int currentHealth{};
+struct Children {
+    std::vector<Entity*> children{};
 };
 
 struct Clickable {
@@ -76,12 +44,43 @@ struct Clickable {
     bool pressed = false;
 };
 
+struct Collider {
+    std::string tag;
+    SDL_FRect rect{};
+    Vector2D offset{};
+    bool enabled = true;
+};
+
 struct Parent {
     Entity* parent = nullptr;
 };
 
-struct Children {
-    std::vector<Entity*> children{};
+struct SceneState {
+    int energy = 0;
+};
+
+struct Spawnpoint {
+    Vector2D position{};
+};
+
+struct Sprite {
+    SDL_Texture* texture = nullptr;
+    SDL_FRect src{};
+    SDL_FRect dest{};
+    RenderLayer renderLayer = RenderLayer::World;
+    bool visible = true;
+};
+
+struct Transform {
+    Vector2D position{};
+    float rotation{};
+    float scale{};
+    Vector2D oldPosition{};
+};
+
+struct Velocity {
+    Vector2D direction{};
+    float speed{};
 };
 
 // TAGS
