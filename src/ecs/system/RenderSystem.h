@@ -23,7 +23,6 @@ public:
 
                 if (sprite.renderLayer != RenderLayer::World) continue;
 
-                // convert from world space to screen space
                 sprite.dest.x = t.position.x;
                 sprite.dest.y = t.position.y;
 

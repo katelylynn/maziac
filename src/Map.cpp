@@ -32,6 +32,8 @@ void Map::load(const char *path, SDL_Texture *ts) {
             parseLayer(wallData, layer->FirstChildElement("data"));
         else if (std::strcmp(layer->Attribute("name"), "EnergyLayer") == 0)
             parseLayer(energyData, layer->FirstChildElement("data"));
+        else if (std::strcmp(layer->Attribute("name"), "EnergyBarLayer") == 0)
+            parseLayer(energyBarData, layer->FirstChildElement("data"));
         else if (std::strcmp(layer->Attribute("name"), "GuideLayer") == 0)
             parseLayer(guideData, layer->FirstChildElement("data"));
         else if (std::strcmp(layer->Attribute("name"), "WeaponLayer") == 0)
@@ -147,6 +149,13 @@ void Map::draw() {
                 src.y = 16;
             }
 
+            TextureManager::draw(tileset, src, dest);
+        }
+
+        // draw energy bar
+        if (energyBarData[row][mapWidth-1]) {
+            src.x = 0;
+            src.y = 16;
             TextureManager::draw(tileset, src, dest);
         }
     }

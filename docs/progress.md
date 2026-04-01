@@ -96,6 +96,8 @@ March 31
   - Cleaned up files and removed unused functionality from the tutorial
 - 4:30-6:30pm (2 hours)
   - Cleaned up files and removed unused functionality from the tutorial
+
+April 1
 - 12-6am (6 hours)
   - Added a new Vector 2D util function
   - Adjusted movement to be discrete instead of smooth
@@ -105,3 +107,4 @@ March 31
   - Added treasure collection and exit win condition
   - Added player carrying treasure animation
     - Changed the treasure tile to a wall tile on treasure pickup
+- 12-2pm (2 hours)

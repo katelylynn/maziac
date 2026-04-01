@@ -32,6 +32,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ITEM COLLIDERS
     for (int row = 0; row < map.mapHeight; row++) {
         for (int col = 0; col < map.mapWidth; col++) {
+            // world layers
             for (auto layerPair : map.layers) {
                 if ((*layerPair.second)[row][col] != 0) {
                     auto& tile = world.createEntity();

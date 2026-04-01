@@ -43,7 +43,7 @@ void Game::init(const char *title) {
         // set the virtual size
         SDL_SetRenderLogicalPresentation(
             renderer,
-            480, 320, // hardcoded for now
+            496, 320, // hardcoded for now
             SDL_LOGICAL_PRESENTATION_STRETCH
         );
 

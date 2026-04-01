@@ -38,6 +38,7 @@ public:
     // map layer data
     grid wallData;
     grid energyData;
+    grid energyBarData;
     grid guideData;
     grid weaponData;
     grid treasureData;
