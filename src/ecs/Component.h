@@ -17,6 +17,12 @@
 
 // ENUMS
 
+enum class Item {
+    None,
+    Treasure,
+    Weapon
+};
+
 enum class RenderLayer {
     World,
     UI
@@ -54,9 +60,8 @@ struct Collider {
 struct EnergyState {
     float energy = 100.0f;
     float initialEnergy = 100.0f;
-    float energyDepletionRate = 5.0f;
+    float energyDepletionRate = 1.0f;
     float energyBoostAmount = 40.0f;
-    bool treasure = false;
 };
 
 template<typename T>
@@ -68,6 +73,10 @@ struct Observer {
 
 struct Parent {
     Entity* parent = nullptr;
+};
+
+struct Player {
+    Item item;
 };
 
 struct Spawnpoint {
@@ -97,10 +106,5 @@ struct Velocity {
     Vector2D direction{};
     float speed{};
 };
-
-// TAGS
-
-struct PlayerTag{};
-struct ProjectileTag{};
 
 #endif //MAZIAC_COMPONENT_H

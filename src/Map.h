@@ -26,7 +26,7 @@ public:
 
     // layer to name
     // walls intentionally placed last
-    std::map<std::string, grid*> layers = {
+    std::vector<std::pair<std::string, grid*>> layers = {
         {"energy", &energyData},
         {"guide", &guideData},
         {"weapon", &weaponData},

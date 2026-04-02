@@ -18,7 +18,7 @@ public:
         // SDL event tells us if a key is pressed down
 
         for (auto& e : entities) {
-            if (e->hasComponent<PlayerTag>() && e->hasComponent<Velocity>()) {
+            if (e->hasComponent<Player>() && e->hasComponent<Velocity>()) {
                 auto& v = e->getComponent<Velocity>();
 
                 if (event.type == SDL_EVENT_KEY_DOWN) {

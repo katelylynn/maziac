@@ -19,6 +19,7 @@ EventResponseSystem::EventResponseSystem(World &world) {
 
             onCollision(collision, "wall", world);
             onCollision(collision, "energy", world);
+            onCollision(collision, "weapon", world);
             onCollision(collision, "treasure", world);
             onCollision(collision, "exit", world);
         }
@@ -74,6 +75,7 @@ void EventResponseSystem::onCollision(
     }
 
     // ENERGY:
+
     if (std::string(otherTag) == "energy") {
         // add energy boost
         energyState->energy += energyState->energyBoostAmount;
@@ -90,11 +92,30 @@ void EventResponseSystem::onCollision(
         world.getMap().energyData[row][col] = 0;
     }
 
+    // WEAPON:
+
+    if (std::string(otherTag) == "weapon") {
+        // update the player
+        player->getComponent<Player>().item = Item::Weapon;
+
+        // update the player's spritesheet
+        player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_weapon_anim.png");
+
+        // change the weapon collider to a wall collider
+        other->getComponent<Collider>().tag = "wall";
+
+        // change the treasure sprite to a wall sprite
+        Transform otherTransform = other->getComponent<Transform>();
+        int row = otherTransform.position.y / world.getMap().tileHeight;
+        int col = otherTransform.position.x / world.getMap().tileWidth;
+        world.getMap().weaponData[row][col] = 0;
+    }
+
     // TREASURE AND EXIT:
 
     if (std::string(otherTag) == "treasure") {
-        // update the scene state
-        energyState->treasure = true;
+        // update the player
+        player->getComponent<Player>().item = Item::Treasure;
 
         // update the player's spritesheet
         player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_treasure_anim.png");
@@ -109,7 +130,7 @@ void EventResponseSystem::onCollision(
         world.getMap().treasureData[row][col] = 0;
     }
 
-    if (std::string(otherTag) == "exit" && energyState->treasure == true) {
+    if (std::string(otherTag) == "exit" && player->getComponent<Player>().item == Item::Treasure) {
         std::cout << "exit" << std::endl;
         Game::onSceneChangeRequest("win");
     }

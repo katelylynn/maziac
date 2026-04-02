@@ -54,6 +54,7 @@ Player entity and movement
 ### TODO for cleaner code
 - *Map iteration is super inefficient*
 - Event response system is getting pretty big
+  - Utils for player item sprite and wall resetting?
 - Remove as many hardcoded values as possible
   - Window dimensions
   - Map draw tile sources
@@ -69,6 +70,7 @@ Player entity and movement
 - Add Translation and Transform to AnimationSystem
 - Add Translation component
 - Add EnergyDepletionSystem
+- Replaced PlayerTag with Player
 
 ### 📝 Development Log
 
@@ -116,3 +118,5 @@ April 1
   - Tracked energy with energy bar component
     - Removed UI tiles based on energy amounts
   - Added energy tile functionality
+- 4:30-6pm (1.5 hours)
+  - Created player weapon holding animations
