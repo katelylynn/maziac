@@ -14,7 +14,7 @@
 
 class RenderSystem {
 public:
-    void render(const std::vector<std::unique_ptr<Entity>>& entities) {
+    void render(const std::vector<std::unique_ptr<Entity>>& entities, Map& map) {
         for (auto& entity : entities) {
             if (entity->hasComponent<Transform>() && entity->hasComponent<Sprite>()) {
                 // referenced versions to not create copies
@@ -31,6 +31,27 @@ public:
                     auto& animation = entity->getComponent<Animation>();
                     sprite.src = animation.clips[animation.currentClip].frameIndices[animation.currentFrame];
                 }
+
+                // don't draw the entity if they are too far from the player
+                Entity* player = nullptr;
+
+                for (auto& e : entities) {
+                    if (e->hasComponent<Player>()) {
+                        player = e.get();
+                        break;
+                    }
+                }
+
+                if (player == nullptr) return;
+                Transform playerTransform = player->getComponent<Transform>();
+
+                if (
+                    std::abs(playerTransform.position.x - t.position.x) +
+                    std::abs(playerTransform.position.y - t.position.y) >
+                    // position + half a tile slack
+                    player->getComponent<Player>().viewDistance * map.tileWidth + map.tileWidth * 0.5f
+                )
+                    continue;
 
                 TextureManager::draw(sprite.texture, sprite.src, sprite.dest);
 

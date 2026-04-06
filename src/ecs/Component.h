@@ -77,6 +77,7 @@ struct Parent {
 
 struct Player {
     Item item;
+    int viewDistance = 5; // how many blocks away the player can see
 };
 
 struct Spawnpoint {

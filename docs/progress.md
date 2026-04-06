@@ -67,6 +67,7 @@ Player entity and movement
 - Hard coded values in movement system
 - Player spritesheet should update based on the item, not done thru collisions
 - Render map as a system?
+- Move two player view references for Manhattan distance to Render utils?
 
 ### TODO for UML
 - Add Translation and Transform to AnimationSystem
@@ -130,3 +131,4 @@ April 6
   - Added enemy entities
 - 2-
   - Split part of EventResponseSystem into TileInteractionSystem
+  - Added player render distance

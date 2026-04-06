@@ -23,7 +23,7 @@ void Game::init(const char *title) {
     if (SDL_InitSubSystem(SDL_INIT_VIDEO) == 1) {
         std::cout << "Subsystem initialized..." << std::endl;
         window = SDL_CreateWindow(
-            title, 0, 0, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED | SDL_WINDOW_TRANSPARENT
+            title, 0, 0, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED | SDL_WINDOW_TRANSPARENT //| SDL_WINDOW_BORDERLESS
         );
         if (window) {
             std::cout << "Window created..." << std::endl;

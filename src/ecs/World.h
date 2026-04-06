@@ -71,7 +71,7 @@ public:
 
     void render() {
         map.draw(entities);
-        renderSystem.render(entities);
+        renderSystem.render(entities, map);
         uiRenderSystem.render(entities);
     }
 

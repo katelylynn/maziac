@@ -99,7 +99,7 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
             int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
             int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
 
-            if (std::abs(col - playerCol) + std::abs(row - playerRow) > 5)
+            if (std::abs(col - playerCol) + std::abs(row - playerRow) > player->getComponent<Player>().viewDistance)
                 continue;
 
             // get the position in world space to place the tile
