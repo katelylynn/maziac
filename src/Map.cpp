@@ -7,6 +7,7 @@
 #include "Map.h"
 
 #include <cmath>
+#include <memory>
 
 #include "manager/TextureManager.h"
 #include <sstream>
@@ -73,7 +74,19 @@ void Map::load(const char *path, SDL_Texture *ts) {
     }
 }
 
-void Map::draw() {
+void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
+    Entity* player = nullptr;
+
+    for (auto& entity : entities) {
+        if (entity->hasComponent<Player>()) {
+            player = entity.get();
+            break;
+        }
+    }
+
+    if (player == nullptr) return;
+    Transform playerTransform = player->getComponent<Transform>();
+
     SDL_FRect src{}, dest{};
 
     // sets the source and dest sizes based on the tmx
@@ -83,6 +96,12 @@ void Map::draw() {
     // for each tile on the map...
     for (int row = 0; row < mapHeight; row++) {
         for (int col = 0; col < mapWidth; col++) {
+            int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
+            int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
+
+            if (std::abs(col - playerCol) + std::abs(row - playerRow) > 5)
+                continue;
+
             // get the position in world space to place the tile
             dest.x = static_cast<float>(col) * dest.w;
             dest.y = static_cast<float>(row) * dest.h;
@@ -160,6 +179,8 @@ void Map::draw() {
         if (energyBarData[row][mapWidth-1] && energyBar[row-1]) {
             src.x = 0;
             src.y = 16;
+            dest.x = (mapWidth-1)*tileWidth;
+            dest.y = row*tileHeight;
             TextureManager::draw(tileset, src, dest);
         }
     }

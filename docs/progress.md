@@ -66,6 +66,7 @@ Player entity and movement
 - Hard coded animation system
 - Hard coded values in movement system
 - Player spritesheet should update based on the item, not done thru collisions
+- Render map as a system?
 
 ### TODO for UML
 - Add Translation and Transform to AnimationSystem

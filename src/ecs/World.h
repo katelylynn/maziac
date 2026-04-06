@@ -70,7 +70,7 @@ public:
     }
 
     void render() {
-        map.draw();
+        map.draw(entities);
         renderSystem.render(entities);
         uiRenderSystem.render(entities);
     }

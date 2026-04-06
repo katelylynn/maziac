@@ -8,12 +8,12 @@
 
 #include <vector>
 #include <Component.h>
-#include <map>
+#include <memory>
 
 class Map {
 public:
     void load(const char *path, SDL_Texture *ts);
-    void draw();
+    void draw(const std::vector<std::unique_ptr<Entity>>& entities);
 
     // the tileset to paint tiles with
     SDL_Texture *tileset = nullptr;

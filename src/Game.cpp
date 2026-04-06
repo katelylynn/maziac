@@ -22,7 +22,9 @@ void Game::init(const char *title) {
     // initialize library
     if (SDL_InitSubSystem(SDL_INIT_VIDEO) == 1) {
         std::cout << "Subsystem initialized..." << std::endl;
-        window = SDL_CreateWindow(title, 0, 0, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
+        window = SDL_CreateWindow(
+            title, 0, 0, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED | SDL_WINDOW_TRANSPARENT
+        );
         if (window) {
             std::cout << "Window created..." << std::endl;
         }
@@ -100,10 +102,13 @@ void Game::update(float deltaTime) {
 }
 
 void Game::render() {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
 
     // every frame, SDL clears the renderer with the given draw color
-    SDL_RenderClear(renderer);
+    // SDL_RenderClear(renderer);
 
     sceneManager.render();
 
