@@ -120,3 +120,8 @@ April 1
   - Added energy tile functionality
 - 4:30-6pm (1.5 hours)
   - Created player weapon holding animations
+  - Added diver weapon pickup
+
+April 6
+- 11am-XXpm ()
+  - Added temporary hack for weapon/treasure switching
