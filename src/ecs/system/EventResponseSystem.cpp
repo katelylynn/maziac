@@ -58,7 +58,12 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
 
     if (player->getComponent<Player>().item == Item::Weapon) {
         enemy->destroy();
+
+        // update the player
         player->getComponent<Player>().item = Item::None;
+
+        // update the player's spritesheet
+        player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_anim.png");
     } else {
         Game::onSceneChangeRequest("lose");
     }
