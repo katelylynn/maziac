@@ -21,6 +21,7 @@
 #include "MovementSystem.h"
 #include "ObserverSystem.h"
 #include "RenderSystem.h"
+#include "TileInteractionSystem.h"
 #include "UIRenderSystem.h"
 #include "scene/SceneType.h"
 
@@ -29,19 +30,22 @@ class World {
     std::vector<std::unique_ptr<Entity>> entities;
     std::vector<std::unique_ptr<Entity>> deferredEntities;
 
-    // systems
+    // UPDATE systems
     MovementSystem movementSystem;
     RenderSystem renderSystem;
     KeyboardInputSystem keyboardInputSystem;
     CollisionSystem collisionSystem;
     AnimationSystem animationSystem;
     EventManager eventManager;
-    EventResponseSystem eventResponseSystem{*this};
     MainMenuSystem mainMenuSystem;
     UIRenderSystem uiRenderSystem;
     MouseInputSystem mouseInputSystem;
     EnergyDepletionSystem energyDepletionSystem;
     ObserverSystem observerSystem;
+
+    // RESPONSE systems
+    EventResponseSystem eventResponseSystem{*this};
+    TileInteractionSystem tileInteractionSystem{*this};
 public:
     World() = default;
 

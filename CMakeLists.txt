@@ -40,6 +40,7 @@ add_executable(
         src/ecs/system/MouseInputSystem.cpp
         src/ecs/system/MovementSystem.cpp
         src/ecs/system/EnergyDepletionSystem.cpp
+        src/ecs/system/TileInteractionSystem.cpp
 )
 
 target_link_libraries(

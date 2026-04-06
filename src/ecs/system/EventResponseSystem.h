@@ -16,9 +16,8 @@ class EventResponseSystem {
 public:
     EventResponseSystem(World &world);
 private:
-    // collisions
-    void onCollision(const CollisionEvent& e, const char* otherTag, World& world, bool* resolved);
-    bool getCollisionEntities(const CollisionEvent& e, const char* otherTag, Entity*&, Entity*& other);
+    // enemy interactions
+    void onEnemyCollision(const CollisionEvent& e);
 
     // mouse interactions
     void onMouseInteraction(const MouseInteractionEvent& e);
