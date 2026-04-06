@@ -123,5 +123,7 @@ April 1
   - Added diver weapon pickup
 
 April 6
-- 11am-XXpm ()
+- 11am-1:30pm (2.5 hours)
   - Added temporary hack for weapon/treasure switching
+  - Added enemy entities
+- 2-

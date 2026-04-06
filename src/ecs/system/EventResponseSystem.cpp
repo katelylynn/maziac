@@ -19,6 +19,7 @@ EventResponseSystem::EventResponseSystem(World &world) {
 
             bool resolved = false;
 
+            if (!resolved) onCollision(collision, "enemy", world, &resolved);
             if (!resolved) onCollision(collision, "wall", world, &resolved);
             if (!resolved) onCollision(collision, "energy", world, &resolved);
             if (!resolved) onCollision(collision, "weapon", world, &resolved);
@@ -50,8 +51,15 @@ void EventResponseSystem::onCollision(
 
     if (!getCollisionEntities(e, otherTag, player, other)) return;
 
-    // ENEMY (TODO):
-    if (std::string(otherTag) == "enemy") return;
+    // ENEMY:
+    if (std::string(otherTag) == "enemy") {
+        if (player->getComponent<Player>().item == Item::Weapon) {
+            other->destroy();
+            // player->getComponent<Player>().item = Item::None;
+        } else {
+            Game::onSceneChangeRequest("lose");
+        }
+    }
 
     // WALL:
 
