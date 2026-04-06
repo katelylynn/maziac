@@ -64,15 +64,17 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
         }
     );
 
+    // load character anim
+    Animation animation = AssetManager::getAnimation("character");
+
     // PLAYER
     auto& player(world.createEntity());
     player.addComponent<Player>(Item::None);
 
-    auto& playerTransform = player.addComponent<Transform>(world.getMap().playerSpawnpoint.position, 0.0f, 1.0f);
+    auto& playerTransform = player.addComponent<Transform>(map.playerSpawnpoint.position, 0.0f, 1.0f);
     player.addComponent<Velocity>(Vector2D(0, 0), 20.0f);
     player.addComponent<Translation>();
 
-    Animation animation = AssetManager::getAnimation("player");
     player.addComponent<Animation>(animation);
 
     SDL_Texture* playerTexture = TextureManager::load("../asset/animations/diver_anim.png");
@@ -86,4 +88,26 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     playerCollider.rect.x = playerDest.x;
     playerCollider.offset.x = (playerDest.w - playerCollider.rect.w) / 2.0f;
     playerCollider.offset.y = (playerDest.h - playerCollider.rect.h) / 2.0f;
+
+    // ENEMIES
+    for (Spawnpoint sp : map.enemySpawnpoints) {
+        auto& enemy(world.createEntity());
+
+        auto& enemyTransform = enemy.addComponent<Transform>(sp.position, 0.0f, 1.0f);
+        enemy.addComponent<Velocity>(Vector2D(0, 0), 20.0f);
+        enemy.addComponent<Translation>();
+        enemy.addComponent<Animation>(animation);
+
+        SDL_Texture* enemyTexture = TextureManager::load("../asset/animations/enemy_anim.png");
+        SDL_FRect enemySrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
+        SDL_FRect enemyDest { enemyTransform.position.x, enemyTransform.position.y, 16, 16 };
+        enemy.addComponent<Sprite>(enemyTexture, enemySrc, enemyDest);
+
+        auto& enemyCollider = enemy.addComponent<Collider>("enemy");
+        enemyCollider.rect.w = enemyDest.w * 0.99f;
+        enemyCollider.rect.h = enemyDest.h * 0.99f;
+        enemyCollider.rect.x = enemyDest.x;
+        enemyCollider.offset.x = (enemyDest.w - enemyCollider.rect.w) / 2.0f;
+        enemyCollider.offset.y = (enemyDest.h - enemyCollider.rect.h) / 2.0f;
+    }
 }

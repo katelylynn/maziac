@@ -54,7 +54,7 @@ void Game::init(const char *title) {
     }
 
     // load animations
-    AssetManager::loadAnimation("player", "../asset/animations/diver_anim.xml");
+    AssetManager::loadAnimation("character", "../asset/animations/character_anim.xml");
 
     // load scenes
     // sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
