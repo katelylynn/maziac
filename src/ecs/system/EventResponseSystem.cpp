@@ -32,6 +32,8 @@ EventResponseSystem::EventResponseSystem(World &world) {
 }
 
 void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
+    if (e.state != CollisionState::Enter) return;
+
     Entity* player = nullptr;
     Entity* enemy = nullptr;
 
@@ -56,7 +58,7 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
 
     if (player->getComponent<Player>().item == Item::Weapon) {
         enemy->destroy();
-        // player->getComponent<Player>().item = Item::None;
+        player->getComponent<Player>().item = Item::None;
     } else {
         Game::onSceneChangeRequest("lose");
     }

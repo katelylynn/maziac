@@ -13,8 +13,11 @@ class TileInteractionSystem {
 public:
     TileInteractionSystem(World &world);
 private:
-    void onCollision(const CollisionEvent& e, const char *otherTag, World& world);
-    bool getCollisionEntities(const CollisionEvent &e, const char *otherTag, Entity *&player, Entity *&other);
+    bool getCollisionEntities(const CollisionEvent &e, Entity *&player, Entity *&other);
+
+    void onEnergyCollision(Entity* tile, World& world);
+    void onWeaponCollision(Entity* player, Entity* tile, World& world);
+    void onTreasureCollision(Entity* player, Entity* tile, World& world);
 };
 
 #endif //MAZIAC_TILEINTERACTIONSYSTEM_H
