@@ -129,6 +129,6 @@ April 6
 - 11am-1:30pm (2.5 hours)
   - Added temporary hack for weapon/treasure switching
   - Added enemy entities
-- 2-
+- 2-4:30pm (2.5 hours)
   - Split part of EventResponseSystem into TileInteractionSystem
-  - Added player render distance
+  - Changed player view so that window is transparent where player can't see
