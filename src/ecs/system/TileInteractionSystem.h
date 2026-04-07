@@ -12,7 +12,11 @@ class World;
 class TileInteractionSystem {
 public:
     TileInteractionSystem(World &world);
+    void update(float deltaTime);
 private:
+    float currentWait = 0.5f; // limits how often you can interact with a tile
+    float maxWait = 0.5f;
+
     bool getCollisionEntities(const CollisionEvent &e, Entity *&player, Entity *&other);
 
     void onEnergyCollision(Entity* tile, World& world);

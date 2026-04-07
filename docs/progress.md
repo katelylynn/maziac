@@ -132,3 +132,9 @@ April 6
 - 2-4:30pm (2.5 hours)
   - Split part of EventResponseSystem into TileInteractionSystem
   - Changed player view so that window is transparent where player can't see
+- 5-6pm (1 hour)
+  - Added alternative map layout
+
+April 7
+- 1:30-
+  - Fixed treasure/weapon swapping glitch

@@ -61,6 +61,7 @@ public:
             animationSystem.update(entities, deltaTime);
             energyDepletionSystem.update(entities, deltaTime);
             observerSystem.update(entities);
+            tileInteractionSystem.update(deltaTime);
         }
 
         mouseInputSystem.update(*this, event);

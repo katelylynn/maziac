@@ -28,6 +28,10 @@ TileInteractionSystem::TileInteractionSystem(World &world) {
                 player->getComponent<Translation>().endPosition =
                 player->getComponent<Translation>().startPosition;
 
+            // prevents calling the same collision multiple times
+            if (currentWait > 0.0f) return;
+            currentWait = maxWait;
+
             std::string tileTag = tile->getComponent<Collider>().tag;
 
             if (tileTag == "energy") onEnergyCollision(tile, world);
@@ -41,6 +45,10 @@ TileInteractionSystem::TileInteractionSystem(World &world) {
             }
         }
     );
+}
+
+void TileInteractionSystem::update(float deltaTime) {
+    currentWait -= deltaTime;
 }
 
 bool TileInteractionSystem::getCollisionEntities(const CollisionEvent &e, Entity *&player, Entity *&other) {
