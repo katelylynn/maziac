@@ -7,11 +7,14 @@
 #include "Map.h"
 
 #include <cmath>
+#include <iostream>
 #include <memory>
 
 #include "manager/TextureManager.h"
 #include <sstream>
 #include <tinyxml2.h>
+
+#include "MapUtils.h"
 
 void Map::load(const char *path, SDL_Texture *ts) {
     tileset = ts;
@@ -25,6 +28,9 @@ void Map::load(const char *path, SDL_Texture *ts) {
     mapHeight = mapNode->IntAttribute("height");
     tileWidth = mapNode->IntAttribute("tilewidth");
     tileHeight = mapNode->IntAttribute("tileheight");
+
+    // prepare path layer
+    pathData = grid(mapHeight, std::vector(mapWidth, 0));
 
     // parse each layer
     auto* layer = mapNode->FirstChildElement("layer");
@@ -171,6 +177,10 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
                 src.x = 0;
                 src.y = 16;
             }
+            else if (pathData[row][col]) {
+                src.x = 0;
+                src.y = 16;
+            }
 
             TextureManager::draw(tileset, src, dest);
         }
@@ -184,6 +194,41 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
             dest.y = row*tileHeight;
             TextureManager::draw(tileset, src, dest);
         }
+    }
+}
+
+void Map::illuminate(Vector2D startTile) {
+    int row = startTile.y / tileHeight;
+    int col = startTile.x / tileWidth;
+
+    Vector2D goal = Vector2D(-1, -1);
+
+    // find treasure
+    for (int row = 0; row < treasureData.size(); row++) {
+        for (int col = 0; col < treasureData[row].size(); col++) {
+            if (treasureData[row][col] != 0) {
+                goal = Vector2D(col, row);
+                break;
+            }
+        }
+    }
+
+    if (goal == Vector2D(-1, -1)) {
+        // find exit
+        for (int row = 0; row < exitData.size(); row++) {
+            for (int col = 0; col < exitData[row].size(); col++) {
+                if (exitData[row][col] != 0) {
+                    goal = Vector2D(col, row);
+                    break;
+                }
+            }
+        }
+    }
+
+    std::vector<Vector2D> path = MapUtils::shortestPath(wallData, Vector2D(col, row), goal);
+
+    for (Vector2D tile : path) {
+        pathData[tile.y][tile.x] = 1;
     }
 }
 

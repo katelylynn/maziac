@@ -22,6 +22,7 @@ private:
     void onEnergyCollision(Entity* tile, World& world);
     void onWeaponCollision(Entity* player, Entity* tile, World& world);
     void onTreasureCollision(Entity* player, Entity* tile, World& world);
+    void onGuideCollision(World& world);
 };
 
 #endif //MAZIAC_TILEINTERACTIONSYSTEM_H

@@ -38,6 +38,9 @@ TileInteractionSystem::TileInteractionSystem(World &world) {
             if (tileTag == "weapon") onWeaponCollision(player, tile, world);
             if (tileTag == "treasure") onTreasureCollision(player, tile, world);
 
+            // guide
+            if (tileTag == "guide") world.getMap().illuminate(player->getComponent<Transform>().position);
+
             // exit
             if (tileTag == "exit" && player->getComponent<Player>().item == Item::Treasure) {
                 std::cout << "exit" << std::endl;

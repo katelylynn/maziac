@@ -14,6 +14,7 @@ class Map {
 public:
     void load(const char *path, SDL_Texture *ts);
     void draw(const std::vector<std::unique_ptr<Entity>>& entities);
+    void illuminate(Vector2D startTile);
 
     // the tileset to paint tiles with
     SDL_Texture *tileset = nullptr;
@@ -43,6 +44,7 @@ public:
     grid weaponData;
     grid treasureData;
     grid exitData;
+    grid pathData;
 
     // energy bar tiles
     std::vector<bool> energyBar;
