@@ -96,10 +96,13 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ENEMIES
     for (Spawnpoint sp : map.enemySpawnpoints) {
         auto& enemy(world.createEntity());
+        auto& enemyComponent = enemy.addComponent<Enemy>();
+        enemyComponent.startingPosition = sp.position;
 
         auto& enemyTransform = enemy.addComponent<Transform>(sp.position, 0.0f, 1.0f);
         enemy.addComponent<Velocity>(Vector2D(0, 0), 20.0f);
         enemy.addComponent<Translation>();
+
         enemy.addComponent<Animation>(animation);
 
         SDL_Texture* enemyTexture = TextureManager::load("../asset/animations/enemy_anim.png");

@@ -68,6 +68,7 @@ Player entity and movement
 - Player spritesheet should update based on the item, not done thru collisions
 - Render map as a system?
 - Move two player view references for Manhattan distance to Render utils?
+- Change path illumination system to use delta time instead of sdl ticks
 
 ### TODO for UML
 - Add Translation and Transform to AnimationSystem

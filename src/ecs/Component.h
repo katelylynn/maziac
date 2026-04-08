@@ -57,6 +57,13 @@ struct Collider {
     bool enabled = true;
 };
 
+struct Enemy {
+    Vector2D startingPosition{};
+    int wanderRange = 2;
+    Uint64 currentWait = 5000.0f;
+    Uint64 maxWait = 5000.0f; // how long to wait between movements
+};
+
 struct EnergyState {
     float energy = 100.0f;
     float initialEnergy = 100.0f;
@@ -77,11 +84,11 @@ struct Parent {
 
 struct Player {
     Item item;
-    int viewDistance = 5; // how many blocks away the player can see
+    int viewDistance = 3; // how many blocks away the player can see
 };
 
 struct SceneState {
-    Uint64 pathIllumuniationDuration = 8000.0f; // in seconds
+    Uint64 pathIllumuniationDuration = 5000.0f; // in seconds
 };
 
 struct Spawnpoint {

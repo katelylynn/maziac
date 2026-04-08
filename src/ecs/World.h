@@ -10,6 +10,7 @@
 
 #include "AnimationSystem.h"
 #include "CollisionSystem.h"
+#include "EnemyWanderSystem.h"
 #include "EnergyDepletionSystem.h"
 #include "Entity.h"
 #include "EventResponseSystem.h"
@@ -44,6 +45,7 @@ class World {
     EnergyDepletionSystem energyDepletionSystem;
     ObserverSystem observerSystem;
     PathIlluminationSystem pathIlluminationSystem;
+    EnemyWanderSystem enemyWanderSystem;
 
     // RESPONSE systems
     EventResponseSystem eventResponseSystem{*this};
@@ -65,6 +67,7 @@ public:
             observerSystem.update(entities);
             tileInteractionSystem.update(deltaTime);
             pathIlluminationSystem.update(entities, map);
+            enemyWanderSystem.update(entities, deltaTime, map);
         }
 
         mouseInputSystem.update(*this, event);
