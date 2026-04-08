@@ -32,6 +32,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ENERGY STATE
     auto &energyState(world.createEntity());
     energyState.addComponent<EnergyState>();
+    energyState.getComponent<EnergyState>().energyDepletionRate = energyState.getComponent<EnergyState>().initialEnergyDepletionRate;
 
     // ITEM COLLIDERS
     for (int row = 0; row < map.mapHeight; row++) {

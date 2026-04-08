@@ -11,11 +11,11 @@
 EventResponseSystem::EventResponseSystem(World &world) {
     // collision subscription
     world.getEventManager().subscribe(
-        [this](const BaseEvent& e) {
+        [this, &world](const BaseEvent& e) {
             if (e.type != EventType::Collision) return;
 
             // cast base type to collision type
-            onEnemyCollision(static_cast<const CollisionEvent&>(e));
+            onEnemyCollision(static_cast<const CollisionEvent&>(e), world);
         }
     );
 
@@ -31,7 +31,7 @@ EventResponseSystem::EventResponseSystem(World &world) {
     );
 }
 
-void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
+void EventResponseSystem::onEnemyCollision(const CollisionEvent& e, World& world) {
     if (e.state != CollisionState::Enter) return;
 
     Entity* player = nullptr;
@@ -56,19 +56,25 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
     }
     else return;
 
+    EnergyState* energyState = nullptr;
+    for (auto& entity : world.getEntities()) {
+        if (entity->hasComponent<EnergyState>()) energyState = &entity->getComponent<EnergyState>();
+    }
+    if (energyState == nullptr) return;
+
     player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
     player->getComponent<Translation>().startPosition = player->getComponent<Translation>().endPosition;
 
     if (player->getComponent<Player>().item == Item::Weapon) {
-        playFightAnimationSequence(player, true);
+        playFightAnimationSequence(player, true, energyState);
     } else {
-        playFightAnimationSequence(player, false);
+        playFightAnimationSequence(player, false, energyState);
     }
 
     enemy->destroy();
 }
 
-void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWeapon) {
+void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWeapon, EnergyState* energyState) {
         // update the player animation
         player->removeComponent<Animation>();
         Animation animation = AssetManager::getAnimation("fight");
@@ -78,8 +84,10 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
         const char* animPath;
         if (hasWeapon) {
             animPath = "../asset/animations/fight_weapon_anim.png";
+            energyState->energyDepletionRate *= energyState->fightWithWeaponDepletionAmount;
         } else {
             animPath = "../asset/animations/fight_anim.png";
+            energyState->energyDepletionRate *= energyState->fightNoWeaponDepletionAmount;
         }
 
         SDL_Texture* playerTexture = TextureManager::load(animPath);
@@ -87,14 +95,20 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
         SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
         player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
-        animation.onAnimationFinished = [player, hasWeapon, animPath]() {
+        animation.onAnimationFinished = [player, animPath, energyState]() {
             player->removeComponent<Animation>();
             Animation animation = AssetManager::getAnimation("fight");
             animation.repeating = false;
 
-            if (hasWeapon) {
+            // reset the energy loss
+            energyState->energyDepletionRate = energyState->initialEnergyDepletionRate;
+
+            bool won;
+            if (energyState->energy > 0.0f) {
+                won = true;
                 animation.currentClip = "diver_win";
             } else {
+                won = false;
                 animation.currentClip = "enemy_win";
             }
 
@@ -103,8 +117,8 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
             SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
             player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
-            animation.onAnimationFinished = [player, hasWeapon]() {
-                if (!hasWeapon) {
+            animation.onAnimationFinished = [player, won, energyState]() {
+                if (!won) {
                     Game::onSceneChangeRequest("lose");
                     return;
                 }

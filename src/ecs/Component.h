@@ -69,8 +69,13 @@ struct Enemy {
 struct EnergyState {
     float energy = 100.0f;
     float initialEnergy = 100.0f;
-    float energyDepletionRate = 1.0f;
     float energyBoostAmount = 40.0f;
+
+    // RATES
+    float energyDepletionRate;
+    float initialEnergyDepletionRate = 2.0f;
+    float fightNoWeaponDepletionAmount = 15.0f;
+    float fightWithWeaponDepletionAmount = 5.0f;
 };
 
 template<typename T>
