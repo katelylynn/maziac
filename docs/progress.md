@@ -141,3 +141,4 @@ April 7
 - 4-5:30pm (1.5 hours)
   - Added guide path tracking
   - Changed pathing algorithm from DFS to BFS
+  - Added lifetime duration on paths

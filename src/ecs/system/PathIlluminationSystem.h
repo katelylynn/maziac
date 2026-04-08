@@ -11,23 +11,23 @@
 class PathIlluminationSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, Map& map) {
+        // if no illuminated path
+        if (map.illuminatedPath.second.size() == 0) return;
+
         Entity* sceneState;
         for (auto& entity : entities) {
             if (entity->hasComponent<SceneState>()) sceneState = entity.get();
         }
         if (!sceneState) return;
 
-        for (std::pair<Uint64, std::vector<Vector2D>> path : map.paths) {
-            Uint64 test = SDL_GetTicks();
-            if (test - path.first > sceneState->getComponent<SceneState>().pathIllumuniationDuration) {
-                for (Vector2D tile : path.second) {
-                    map.pathData[tile.y][tile.x] = 0;
-                }
-                map.paths.erase(path.first);
-            } else {
-                for (Vector2D tile : path.second) {
-                    map.pathData[tile.y][tile.x] = 1;
-                }
+        if (SDL_GetTicks() - map.illuminatedPath.first > sceneState->getComponent<SceneState>().pathIllumuniationDuration) {
+            for (Vector2D tile : map.illuminatedPath.second) {
+                map.pathData[tile.y][tile.x] = 0;
+            }
+            map.illuminatedPath = {};
+        } else {
+            for (Vector2D tile : map.illuminatedPath.second) {
+                map.pathData[tile.y][tile.x] = 1;
             }
         }
     }

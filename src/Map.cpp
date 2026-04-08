@@ -173,12 +173,12 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
                 src.y = 0;
             }
             else if (exitData[row][col]) {
-                src.x = 0;
-                src.y = 16;
+                src.x = 32;
+                src.y = 32;
             }
             else if (pathData[row][col]) {
-                src.x = 0;
-                src.y = 16;
+                src.x = 16;
+                src.y = 64;
             }
 
             TextureManager::draw(tileset, src, dest);
@@ -225,7 +225,15 @@ void Map::illuminate(Vector2D startTile) {
     }
 
     std::vector<Vector2D> path = MapUtils::shortestPath(wallData, Vector2D(col, row), goal);
-    paths.insert({SDL_GetTicks(), path});
+    path.pop_back(); // removes the goal tile
+
+    // remove old illuminated path
+    for (Vector2D tile : illuminatedPath.second) {
+        pathData[tile.y][tile.x] = 0;
+    }
+
+    // update illuminated path
+    illuminatedPath = {SDL_GetTicks(), path};
 }
 
 void Map::parseLayer(std::vector<std::vector<int>> &layer, auto* data) {

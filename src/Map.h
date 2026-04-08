@@ -48,7 +48,7 @@ public:
 
     // pathing
     grid pathData;
-    std::map<Uint64, std::vector<Vector2D>> paths; // individual paths and their activation times
+    std::pair<Uint64, std::vector<Vector2D>> illuminatedPath{}; // the currently illuminated path and its activation time
 
     // energy bar tiles
     std::vector<bool> energyBar;
