@@ -136,7 +136,7 @@ void TileInteractionSystem::onWeaponCollision(Entity *player, Entity *tile, Worl
     player->getComponent<Player>().item = Item::Weapon;
 
     // update the player's spritesheet
-    player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_weapon_anim.png");
+    player->getComponent<Sprite>().texture = TextureManager::load("asset/animations/diver_weapon_anim.png");
 }
 
 void TileInteractionSystem::onTreasureCollision(Entity *player, Entity *tile, World &world) {
@@ -164,5 +164,5 @@ void TileInteractionSystem::onTreasureCollision(Entity *player, Entity *tile, Wo
     player->getComponent<Player>().item = Item::Treasure;
 
     // update the player's spritesheet
-    player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_treasure_anim.png");
+    player->getComponent<Sprite>().texture = TextureManager::load("asset/animations/diver_treasure_anim.png");
 }

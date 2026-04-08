@@ -26,6 +26,15 @@ public:
     // type alias
     using grid = std::vector<std::vector<int>>;
 
+    // map layer data
+    grid wallData;
+    grid energyData;
+    grid energyBarData;
+    grid guideData;
+    grid weaponData;
+    grid treasureData;
+    grid exitData;
+
     // layer to name
     // walls intentionally placed last
     std::vector<std::pair<std::string, grid*>> layers = {
@@ -36,15 +45,6 @@ public:
         {"exit", &exitData},
         {"wall", &wallData}
     };
-
-    // map layer data
-    grid wallData;
-    grid energyData;
-    grid energyBarData;
-    grid guideData;
-    grid weaponData;
-    grid treasureData;
-    grid exitData;
 
     // pathing
     grid pathData;

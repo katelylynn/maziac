@@ -3,10 +3,10 @@ project(maziac)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Set SDL3 include and lib paths
 if (WIN32)
     set(SDL3_PATH "C:/App/SDL3")
     set(SDL3_IMAGE_PATH "C:/App/SDL3_image")
+
     include_directories(
             ${SDL3_PATH}/include
             ${SDL3_IMAGE_PATH}/include
@@ -16,14 +16,10 @@ if (WIN32)
             ${PROJECT_SOURCE_DIR}/src/utils
             ${PROJECT_SOURCE_DIR}/src/vendor
     )
-    link_directories(
-            ${SDL3_PATH}/lib
-            ${SDL3_IMAGE_PATH}/lib
-    )
-endif ()
+endif()
 
-add_executable(
-        maziac
+add_executable(maziac WIN32
+        asset/app.rc
         src/main.cpp
         src/Game.cpp
         src/manager/TextureManager.cpp
@@ -43,8 +39,15 @@ add_executable(
         src/ecs/system/TileInteractionSystem.cpp
 )
 
-target_link_libraries(
-        maziac
-        SDL3
-        SDL3_image
+target_link_libraries(maziac
+        "C:/App/SDL3/lib/libSDL3.dll.a"
+        "C:/App/SDL3_image/lib/libSDL3_image.dll.a"
 )
+
+if (MINGW)
+    target_link_options(maziac PRIVATE
+            -static
+            -static-libgcc
+            -static-libstdc++
+    )
+endif()

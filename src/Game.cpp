@@ -29,7 +29,7 @@ void Game::init(const char *title) {
             std::cout << "Window created..." << std::endl;
         }
 
-        SDL_Surface* icon = IMG_Load("../asset/diver_icon.png");
+        SDL_Surface* icon = IMG_Load("asset/diver_icon.png");
         if (!icon) {
             SDL_Log("IMG_Load failed: %s", SDL_GetError());
         } else {
@@ -68,12 +68,12 @@ void Game::init(const char *title) {
     }
 
     // load animations
-    AssetManager::loadAnimation("character", "../asset/animations/character_anim.xml");
-    AssetManager::loadAnimation("fight", "../asset/animations/fight_anim.xml");
+    AssetManager::loadAnimation("character", "asset/animations/character_anim.xml");
+    AssetManager::loadAnimation("fight", "asset/animations/fight_anim.xml");
 
     // load scenes
     // sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
-    sceneManager.loadScene(SceneType::Gameplay, "maze", "../asset/map/handmade_map.tmx", width, height);
+    sceneManager.loadScene(SceneType::Gameplay, "maze", "asset/map/handmade_map.tmx", width, height);
 
     // load the starting level
     sceneManager.changeSceneDeferred("maze");

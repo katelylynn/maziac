@@ -150,3 +150,5 @@ April 8
   - Added missing sprites
   - Added enemy wandering
   - Drew and added enemy and player fighting
+  - Added window icon
+  - Built an executable

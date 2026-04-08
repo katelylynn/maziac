@@ -23,7 +23,7 @@ void Scene::initMainMenu(int windowWidth, int windowHeight) {
 void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight) {
     // MAP
     Map& map = world.getMap();
-    map.load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
+    map.load(mapPath, TextureManager::load("asset/map/map_tileset.png"));
 
     // SCENE STATE
     auto &sceneState(world.createEntity());
@@ -83,7 +83,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
 
     player.addComponent<Animation>(animation);
 
-    SDL_Texture* playerTexture = TextureManager::load("../asset/animations/diver_anim.png");
+    SDL_Texture* playerTexture = TextureManager::load("asset/animations/diver_anim.png");
     SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
     SDL_FRect playerDest { playerTransform.position.x, playerTransform.position.y, 16, 16 };
     player.addComponent<Sprite>(playerTexture, playerSrc, playerDest);
@@ -107,7 +107,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
 
         enemy.addComponent<Animation>(animation);
 
-        SDL_Texture* enemyTexture = TextureManager::load("../asset/animations/enemy_anim.png");
+        SDL_Texture* enemyTexture = TextureManager::load("asset/animations/enemy_anim.png");
         SDL_FRect enemySrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
         SDL_FRect enemyDest { enemyTransform.position.x, enemyTransform.position.y, 16, 16 };
         enemy.addComponent<Sprite>(enemyTexture, enemySrc, enemyDest);

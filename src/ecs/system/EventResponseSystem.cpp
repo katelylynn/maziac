@@ -84,10 +84,11 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
 
         const char* animPath;
         if (hasWeapon) {
-            animPath = "../asset/animations/fight_weapon_anim.png";
+            animPath = "asset/animations/fight_weapon_anim.png";
             energyState->energyDepletionRate *= energyState->fightWithWeaponDepletionAmount;
+            player->getComponent<Player>().item = Item::None;
         } else {
-            animPath = "../asset/animations/fight_anim.png";
+            animPath = "asset/animations/fight_anim.png";
             energyState->energyDepletionRate *= energyState->fightNoWeaponDepletionAmount;
         }
 
@@ -128,14 +129,17 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
                 Animation animation = AssetManager::getAnimation("character");
                 animation.repeating = true;
 
-                SDL_Texture* playerTexture = TextureManager::load("../asset/animations/diver_anim.png");
+                const char* path;
+                if (player->getComponent<Player>().item == Item::Treasure)
+                    path = "asset/animations/diver_treasure_anim.png";
+                else
+                    path = "asset/animations/diver_anim.png";
+
+                SDL_Texture* playerTexture = TextureManager::load(path);
                 SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
                 SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
                 player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
                 player->addComponent<Animation>(animation);
-
-                // update the player item
-                player->getComponent<Player>().item = Item::None;
 
                 // add back the velocity
                 player->addComponent<Velocity>(Vector2D{0.0f, 0.0f}, 20.0f);
