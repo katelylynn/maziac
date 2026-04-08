@@ -19,13 +19,13 @@ class AnimationSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, float deltaTime) {
         for (auto& entity : entities) {
-            if (entity->hasComponent<Animation>() && entity->hasComponent<Transform>() && entity->hasComponent<Translation>() && entity->hasComponent<Velocity>()) {
+            if (entity->hasComponent<Animation>() && entity->hasComponent<Transform>() && entity->hasComponent<Translation>()) {
                 auto& animation = entity->getComponent<Animation>();
                 auto& transform = entity->getComponent<Transform>();
                 auto& translation = entity->getComponent<Translation>();
                 auto& velocity = entity->getComponent<Velocity>();
 
-                if (animation.repeating) {
+                if (animation.repeating && entity->hasComponent<Velocity>()) {
                     // state system
                     std::string newClip;
 

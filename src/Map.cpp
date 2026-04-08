@@ -102,11 +102,11 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
     for (int row = 0; row < mapHeight; row++) {
         for (int col = 0; col < mapWidth; col++) {
             // transparent background
-            // int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
-            // int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
-            //
-            // if (std::abs(col - playerCol) + std::abs(row - playerRow) > player->getComponent<Player>().viewDistance)
-            //     continue;
+            int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
+            int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
+
+            if (std::abs(col - playerCol) + std::abs(row - playerRow) > player->getComponent<Player>().viewDistance)
+                continue;
 
             // get the position in world space to place the tile
             dest.x = static_cast<float>(col) * dest.w;

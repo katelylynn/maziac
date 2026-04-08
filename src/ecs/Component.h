@@ -92,6 +92,7 @@ struct Parent {
 struct Player {
     Item item;
     int viewDistance = 3; // how many blocks away the player can see
+    bool fighting = false;
 };
 
 struct SceneState {

@@ -13,10 +13,9 @@
 #include "Entity.h"
 #include "Game.h"
 
-void EnergyDepletionSystem::update(const std::vector<std::unique_ptr<Entity> > &entities, float deltaTime) {
+void EnergyDepletionSystem::update(const std::vector<std::unique_ptr<Entity>> &entities, float deltaTime) {
     {
         EnergyState* energyState = nullptr;
-
         // find scene state entity
         for (auto& e : entities) {
             if (e->hasComponent<EnergyState>()) {
@@ -24,10 +23,23 @@ void EnergyDepletionSystem::update(const std::vector<std::unique_ptr<Entity> > &
                 break;
             }
         }
-
         if (!energyState) return;
 
+        Player* player = nullptr;
+        // find player entity
+        for (auto& e : entities) {
+            if (e->hasComponent<Player>()) {
+                player = &e.get()->getComponent<Player>();
+                break;
+            }
+        }
+        if (!player) return;
+
         energyState->energy -= deltaTime * energyState->energyDepletionRate;
+
+        // energy already being handled
+        // TEMP, MOVE ENERGY DEPLETION FROM EVENT RESPONSE TO HERE
+        if (player->fighting) return;
 
         if (energyState->energy < 0.0f) {
             Game::onSceneChangeRequest("lose");

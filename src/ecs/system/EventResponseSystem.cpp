@@ -62,8 +62,9 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e, World& world
     }
     if (energyState == nullptr) return;
 
-    player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
+    player->removeComponent<Velocity>();
     player->getComponent<Translation>().startPosition = player->getComponent<Translation>().endPosition;
+    player->getComponent<Player>().fighting = true;
 
     if (player->getComponent<Player>().item == Item::Weapon) {
         playFightAnimationSequence(player, true, energyState);
@@ -135,6 +136,12 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
 
                 // update the player item
                 player->getComponent<Player>().item = Item::None;
+
+                // add back the velocity
+                player->addComponent<Velocity>(Vector2D{0.0f, 0.0f}, 20.0f);
+
+                // set status to not fighting
+                player->getComponent<Player>().fighting = false;
             };
             player->addComponent<Animation>(animation);
         };
