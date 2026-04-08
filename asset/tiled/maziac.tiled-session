@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Projects/CLion Projects/maziac/asset/map/handmade_map_v2.tmx",
+    "activeFile": "C:/Projects/CLion Projects/maziac/asset/map/handmade_map.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
@@ -16,11 +16,14 @@
             }
         },
         "C:/Projects/CLion Projects/maziac/asset/map/handmade_map_v2.tmx": {
+            "expandedObjectLayers": [
+                9
+            ],
             "scale": 2.3334374999999996,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 226.7041649926343,
-                "y": 161.77849203160577
+                "x": 261.6311771795902,
+                "y": 159.63573054774344
             }
         },
         "map_tileset.tsx": {
@@ -31,7 +34,8 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "C:/Projects/CLion Projects/maziac/asset/map/handmade_map_v2.tmx"
+        "C:/Projects/CLion Projects/maziac/asset/map/handmade_map_v2.tmx",
+        "C:/Projects/CLion Projects/maziac/asset/map/handmade_map.tmx"
     ],
     "project": "maziac.tiled-project",
     "recentFiles": [

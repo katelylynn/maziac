@@ -142,3 +142,8 @@ April 7
   - Added guide path tracking
   - Changed pathing algorithm from DFS to BFS
   - Added lifetime duration on paths
+
+April 8
+- 12:30-
+  - Fixed pathing selection
+  - Added missing sprites

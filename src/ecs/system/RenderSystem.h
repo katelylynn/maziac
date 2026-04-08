@@ -45,14 +45,14 @@ public:
                 if (player == nullptr) return;
                 Transform playerTransform = player->getComponent<Transform>();
 
-                // temporary background
-                // if (
-                //     std::abs(playerTransform.position.x - t.position.x) +
-                //     std::abs(playerTransform.position.y - t.position.y) >
-                //     // position + half a tile slack
-                //     player->getComponent<Player>().viewDistance * map.tileWidth + map.tileWidth * 0.5f
-                // )
-                //     continue;
+                // transparent background
+                if (
+                    std::abs(playerTransform.position.x - t.position.x) +
+                    std::abs(playerTransform.position.y - t.position.y) >
+                    // position + half a tile slack
+                    player->getComponent<Player>().viewDistance * map.tileWidth + map.tileWidth * 0.5f
+                )
+                    continue;
 
                 TextureManager::draw(sprite.texture, sprite.src, sprite.dest);
 

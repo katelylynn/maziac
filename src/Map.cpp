@@ -102,11 +102,11 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
     for (int row = 0; row < mapHeight; row++) {
         for (int col = 0; col < mapWidth; col++) {
             // transparent background
-            // int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
-            // int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
-            //
-            // if (std::abs(col - playerCol) + std::abs(row - playerRow) > player->getComponent<Player>().viewDistance)
-            //     continue;
+            int playerCol = static_cast<int>((playerTransform.position.x + tileWidth * 0.5f) / tileWidth);
+            int playerRow = static_cast<int>((playerTransform.position.y + tileHeight * 0.5f) / tileHeight);
+
+            if (std::abs(col - playerCol) + std::abs(row - playerRow) > player->getComponent<Player>().viewDistance)
+                continue;
 
             // get the position in world space to place the tile
             dest.x = static_cast<float>(col) * dest.w;
@@ -177,7 +177,7 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
                 src.y = 32;
             }
             else if (pathData[row][col]) {
-                src.x = 16;
+                src.x = 32;
                 src.y = 64;
             }
 
@@ -187,12 +187,39 @@ void Map::draw(const std::vector<std::unique_ptr<Entity>>& entities) {
         // draw energy bar
         // checks if a tile exists there and it's active
         if (energyBarData[row][mapWidth-1] && energyBar[row-1]) {
-            src.x = 0;
-            src.y = 16;
-            dest.x = (mapWidth-1)*tileWidth;
-            dest.y = row*tileHeight;
-            TextureManager::draw(tileset, src, dest);
+            // top of the bar
+            if (row == 1) {
+                src.x = 0;
+                src.y = 32;
+            // bottom of the bar
+            } else if (row == mapHeight - 2) {
+                src.x = 0;
+                src.y = 64;
+            // middle pieces
+            } else {
+                src.x = 0;
+                src.y = 48;
+            }
+        } else {
+            // top of the bar
+            if (row == 1) {
+                src.x = 16;
+                src.y = 32;
+            // bottom of the bar
+            } else if (row == mapHeight - 2) {
+                src.x = 16;
+                src.y = 64;
+            // middle pieces
+            } else if (row > 1 && row < mapHeight - 2) {
+                src.x = 16;
+                src.y = 48;
+            } else {
+                continue;
+            }
         }
+        dest.x = (mapWidth-1)*tileWidth;
+        dest.y = row*tileHeight;
+        TextureManager::draw(tileset, src, dest);
     }
 }
 
