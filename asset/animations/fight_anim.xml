@@ -1,0 +1,20 @@
+<animations>
+    <fight>
+        <frame x="0" y="0" w="16" h="16" />
+        <frame x="16" y="0" w="16" h="16" />
+        <frame x="32" y="0" w="16" h="16" />
+        <frame x="48" y="0" w="16" h="16" />
+    </fight>
+    <enemy_win>
+        <frame x="0" y="16" w="16" h="16" />
+        <frame x="16" y="16" w="16" h="16" />
+        <frame x="32" y="16" w="16" h="16" />
+        <frame x="48" y="16" w="16" h="16" />
+    </enemy_win>
+    <diver_win>
+        <frame x="0" y="32" w="16" h="16" />
+        <frame x="16" y="32" w="16" h="16" />
+        <frame x="32" y="32" w="16" h="16" />
+        <frame x="48" y="32" w="16" h="16" />
+    </diver_win>
+</animations>

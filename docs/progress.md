@@ -148,3 +148,5 @@ April 8
 - 12:30-
   - Fixed pathing selection
   - Added missing sprites
+  - Added enemy wandering
+  - Drew and added enemy and player fighting

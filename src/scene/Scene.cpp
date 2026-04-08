@@ -70,6 +70,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
 
     // load character anim
     Animation animation = AssetManager::getAnimation("character");
+    animation.repeating = true;
 
     // PLAYER
     auto& player(world.createEntity());

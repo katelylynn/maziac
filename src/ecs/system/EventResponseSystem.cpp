@@ -59,11 +59,50 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
     if (player->getComponent<Player>().item == Item::Weapon) {
         enemy->destroy();
 
-        // update the player
+        // update the player animation
+        player->removeComponent<Animation>();
+        Animation animation = AssetManager::getAnimation("fight");
+        animation.repeating = false;
+        animation.currentClip = "fight";
+
+        SDL_Texture* playerTexture = TextureManager::load("../asset/animations/fight_weapon_anim.png");
+        SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
+        SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
+        player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
+
+        animation.onAnimationFinished = [player]() {
+            player->removeComponent<Animation>();
+            Animation animation = AssetManager::getAnimation("fight");
+            animation.repeating = false;
+            animation.currentClip = "diver_win";
+
+            SDL_Texture* playerTexture = TextureManager::load("../asset/animations/fight_weapon_anim.png");
+            SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
+            SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
+            player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
+
+            animation.onAnimationFinished = [player]() {
+                player->removeComponent<Animation>();
+                Animation animation = AssetManager::getAnimation("character");
+                animation.repeating = true;
+
+                SDL_Texture* playerTexture = TextureManager::load("../asset/animations/diver_anim.png");
+                SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
+                SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
+                player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
+                player->addComponent<Animation>(animation);
+            };
+            player->addComponent<Animation>(animation);
+        };
+        player->addComponent<Animation>(animation);
+
+        /*
+        // update the player item
         player->getComponent<Player>().item = Item::None;
 
         // update the player's spritesheet
         player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_anim.png");
+        */
     } else {
         Game::onSceneChangeRequest("lose");
     }

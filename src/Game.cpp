@@ -57,6 +57,7 @@ void Game::init(const char *title) {
 
     // load animations
     AssetManager::loadAnimation("character", "../asset/animations/character_anim.xml");
+    AssetManager::loadAnimation("fight", "../asset/animations/fight_anim.xml");
 
     // load scenes
     // sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);

@@ -37,6 +37,8 @@ struct Animation {
     float time{}; // time is accumulated for the current frame
     int currentFrame{}; // index of the current frame in the clip
     float speed = 0.4f; // time per frame
+    bool repeating = false;
+    std::function<void()> onAnimationFinished{}; // if not repeating
 };
 
 struct Children {
