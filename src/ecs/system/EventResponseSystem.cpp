@@ -57,6 +57,7 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
     else return;
 
     if (player->getComponent<Player>().item == Item::Weapon) {
+        player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
         enemy->destroy();
 
         // update the player animation
@@ -91,18 +92,13 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
                 SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
                 player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
                 player->addComponent<Animation>(animation);
+
+                // update the player item
+                player->getComponent<Player>().item = Item::None;
             };
             player->addComponent<Animation>(animation);
         };
         player->addComponent<Animation>(animation);
-
-        /*
-        // update the player item
-        player->getComponent<Player>().item = Item::None;
-
-        // update the player's spritesheet
-        player->getComponent<Sprite>().texture = TextureManager::load("../asset/animations/diver_anim.png");
-        */
     } else {
         Game::onSceneChangeRequest("lose");
     }
