@@ -20,6 +20,11 @@ public:
 
     bool operator==(const Vector2D& vector) const;
 
+    bool operator<(const Vector2D& other) const {
+        if (y != other.y) return y < other.y;
+        return x < other.x;
+    }
+
     bool approxEquals(const Vector2D& vector, float tolerance) const;
 
     bool operator!=(const Vector2D& vector) const;

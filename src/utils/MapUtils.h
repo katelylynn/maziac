@@ -4,6 +4,9 @@
 
 #ifndef MAZIAC_MAPUTILS_H
 #define MAZIAC_MAPUTILS_H
+#include <map>
+#include <queue>
+#include <set>
 #include <vector>
 
 #include "Vector2D.h"
@@ -15,74 +18,57 @@ public:
         const Vector2D& startTile,
         const Vector2D& goalTile
     ) {
-        return shortestPathRecursive(map, std::vector<Vector2D>{}, startTile, goalTile);
-    }
-private:
-    static std::vector<Vector2D> shortestPathRecursive(
-        const std::vector<std::vector<int>>& map,
-        std::vector<Vector2D> visited,
-        const Vector2D& currentTile,
-        const Vector2D& goalTile
-    ) {
-        visited.push_back(currentTile);
+        std::queue<Vector2D> queue;
+        queue.push(startTile);
 
-        std::vector<Vector2D> min;
-        std::vector<Vector2D> curr;
+        std::set<Vector2D> visited;
+        visited.insert(startTile);
 
-        // north
-        Vector2D north = Vector2D(currentTile.x, currentTile.y - 1);
-        if (north == goalTile) return {currentTile};
-        if (
-            !contains(visited, north) &&
-            north.y >= 0 &&
-            map[north.y][north.x] == 0
-        )
-            min = shortestPathRecursive(map, visited, north, goalTile);
+        std::map<Vector2D, Vector2D> parent;
 
-        // east
-        Vector2D east = Vector2D(currentTile.x + 1, currentTile.y);
-        if (east == goalTile) return {currentTile};
-        if (
-            !contains(visited, east) &&
-            east.x < map[0].size() &&
-            map[east.y][east.x] == 0
-        ) {
-            curr = shortestPathRecursive(map, visited, east, goalTile);
-            if (min.empty() || curr.size() < min.size()) min = curr;
+        while (!queue.empty()) {
+            Vector2D currTile = queue.front();
+            queue.pop();
+
+            std::vector neighbors = {
+                Vector2D(currTile.x, currTile.y - 1), // north
+                Vector2D(currTile.x + 1, currTile.y), // east
+                Vector2D(currTile.x, currTile.y + 1), // south
+                Vector2D(currTile.x - 1, currTile.y)  // west
+            };
+
+            for (const Vector2D& next : neighbors) {
+                if (next == goalTile) {
+                    std::vector<Vector2D> path;
+                    Vector2D curr = goalTile;
+                    parent[next] = currTile;
+
+                    while (curr != startTile) {
+                        path.push_back(curr);
+                        curr = parent[curr];
+                    }
+                    path.push_back(startTile);
+
+                    std::reverse(path.begin(), path.end());
+                    return path;
+                }
+
+                if (
+                    next.y >= 0 &&
+                    next.y < map.size() &&
+                    next.x >= 0 &&
+                    next.x < map[0].size() &&
+                    map[next.y][next.x] == 0 &&
+                    visited.find(next) == visited.end()
+                ) {
+                    queue.push(next);
+                    visited.insert(next);
+                    parent[next] = currTile;
+                }
+            }
         }
 
-        // south
-        Vector2D south = Vector2D(currentTile.x, currentTile.y + 1);
-        if (south == goalTile) return {currentTile};
-        if (
-            !contains(visited, south) &&
-            south.y < map.size() &&
-            map[south.y][south.x] == 0
-        ) {
-            curr = shortestPathRecursive(map, visited, south, goalTile);
-            if (min.empty() || curr.size() < min.size()) min = curr;
-        }
-
-        // west
-        Vector2D west = Vector2D(currentTile.x - 1, currentTile.y);
-        if (west == goalTile) return {currentTile};
-        if (
-            !contains(visited, west) &&
-            west.x >= 0 &&
-            map[west.y][west.x] == 0
-        ) {
-            curr = shortestPathRecursive(map, visited, west, goalTile);
-            if (min.empty() || curr.size() < min.size()) min = curr;
-        }
-
-        min.insert(min.begin(), currentTile);
-        return min;
-    }
-    static bool contains(std::vector<Vector2D>& vector, Vector2D item) {
-        for (Vector2D curr : vector) {
-            if (item == curr) return true;
-        }
-        return false;
+        return {};
     }
 };
 
