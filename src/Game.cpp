@@ -29,6 +29,18 @@ void Game::init(const char *title) {
             std::cout << "Window created..." << std::endl;
         }
 
+        SDL_Surface* icon = IMG_Load("../asset/diver_icon.png");
+        if (!icon) {
+            SDL_Log("IMG_Load failed: %s", SDL_GetError());
+        } else {
+            if (!SDL_SetWindowIcon(window, icon)) {
+                SDL_Log("SDL_SetWindowIcon failed: %s", SDL_GetError());
+            }
+            SDL_DestroySurface(icon);
+        }
+
+        SDL_DestroySurface(icon);
+
         // set the screen width and height
         SDL_GetWindowSize(window, &width, &height);
 
