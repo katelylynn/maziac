@@ -6,6 +6,7 @@
 #ifndef MAZIAC_EVENTRESPONSESYSTEM_H
 #define MAZIAC_EVENTRESPONSESYSTEM_H
 
+#include "Component.h"
 #include "event/BaseEvent.h"
 
 // forward declare
@@ -18,6 +19,7 @@ public:
 private:
     // enemy interactions
     void onEnemyCollision(const CollisionEvent& e);
+    void playFightAnimationSequence(Entity* player, bool hasWeapon);
 
     // mouse interactions
     void onMouseInteraction(const MouseInteractionEvent& e);

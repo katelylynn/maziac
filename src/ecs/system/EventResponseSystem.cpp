@@ -56,33 +56,55 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
     }
     else return;
 
-    if (player->getComponent<Player>().item == Item::Weapon) {
-        player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
-        enemy->destroy();
+    player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
 
+    if (player->getComponent<Player>().item == Item::Weapon) {
+        playFightAnimationSequence(player, true);
+    } else {
+        playFightAnimationSequence(player, false);
+    }
+
+    enemy->destroy();
+}
+
+void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWeapon) {
         // update the player animation
         player->removeComponent<Animation>();
         Animation animation = AssetManager::getAnimation("fight");
         animation.repeating = false;
         animation.currentClip = "fight";
 
-        SDL_Texture* playerTexture = TextureManager::load("../asset/animations/fight_weapon_anim.png");
+        const char* animPath;
+        if (hasWeapon) {
+            animPath = "../asset/animations/fight_weapon_anim.png";
+        } else {
+            animPath = "../asset/animations/fight_anim.png";
+        }
+
+        SDL_Texture* playerTexture = TextureManager::load(animPath);
         SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
         SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
         player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
-        animation.onAnimationFinished = [player]() {
+        animation.onAnimationFinished = [player, hasWeapon, animPath]() {
             player->removeComponent<Animation>();
             Animation animation = AssetManager::getAnimation("fight");
             animation.repeating = false;
-            animation.currentClip = "diver_win";
 
-            SDL_Texture* playerTexture = TextureManager::load("../asset/animations/fight_weapon_anim.png");
+            if (hasWeapon) {
+                animation.currentClip = "diver_win";
+            } else {
+                animation.currentClip = "enemy_win";
+            }
+
+            SDL_Texture* playerTexture = TextureManager::load(animPath);
             SDL_FRect playerSrc = animation.clips[animation.currentClip].frameIndices[0]; // just use first frame
             SDL_FRect playerDest { player->getComponent<Transform>().position.x, player->getComponent<Transform>().position.y, 16, 16 };
             player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
-            animation.onAnimationFinished = [player]() {
+            animation.onAnimationFinished = [player, hasWeapon]() {
+                if (!hasWeapon) Game::onSceneChangeRequest("lose");
+
                 player->removeComponent<Animation>();
                 Animation animation = AssetManager::getAnimation("character");
                 animation.repeating = true;
@@ -99,9 +121,6 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
             player->addComponent<Animation>(animation);
         };
         player->addComponent<Animation>(animation);
-    } else {
-        Game::onSceneChangeRequest("lose");
-    }
 }
 
 void EventResponseSystem::onMouseInteraction(const MouseInteractionEvent &e) {
