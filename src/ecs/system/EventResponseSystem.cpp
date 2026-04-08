@@ -57,6 +57,7 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e) {
     else return;
 
     player->getComponent<Velocity>().direction = Vector2D(0.0f, 0.0f);
+    player->getComponent<Translation>().startPosition = player->getComponent<Translation>().endPosition;
 
     if (player->getComponent<Player>().item == Item::Weapon) {
         playFightAnimationSequence(player, true);
@@ -103,7 +104,10 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
             player->addComponent<Sprite>(playerTexture, playerSrc, playerDest);
 
             animation.onAnimationFinished = [player, hasWeapon]() {
-                if (!hasWeapon) Game::onSceneChangeRequest("lose");
+                if (!hasWeapon) {
+                    Game::onSceneChangeRequest("lose");
+                    return;
+                }
 
                 player->removeComponent<Animation>();
                 Animation animation = AssetManager::getAnimation("character");
