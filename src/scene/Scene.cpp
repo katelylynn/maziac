@@ -26,8 +26,12 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     map.load(mapPath, TextureManager::load("../asset/map/map_tileset.png"));
 
     // SCENE STATE
-    auto &state(world.createEntity());
-    state.addComponent<EnergyState>();
+    auto &sceneState(world.createEntity());
+    sceneState.addComponent<SceneState>();
+
+    // ENERGY STATE
+    auto &energyState(world.createEntity());
+    energyState.addComponent<EnergyState>();
 
     // ITEM COLLIDERS
     for (int row = 0; row < map.mapHeight; row++) {
@@ -53,9 +57,9 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     // ENERGY BAR
     auto& energyBar(world.createEntity());
     energyBar.addComponent<Observer<float>>(
-        &state.getComponent<EnergyState>().energy, 0.0f, [&state, &map]() {
-            float increments = state.getComponent<EnergyState>().initialEnergy / map.energyBar.size();
-            int energyLevel = static_cast<int>(state.getComponent<EnergyState>().energy / increments);
+        &energyState.getComponent<EnergyState>().energy, 0.0f, [&energyState, &map]() {
+            float increments = energyState.getComponent<EnergyState>().initialEnergy / map.energyBar.size();
+            int energyLevel = static_cast<int>(energyState.getComponent<EnergyState>().energy / increments);
 
             for (int tile = 0; tile < map.energyBar.size(); tile++) {
                 if (tile + 1 >= map.energyBar.size() - energyLevel) map.energyBar[tile] = true;

@@ -20,6 +20,7 @@
 #include "MouseInputSystem.h"
 #include "MovementSystem.h"
 #include "ObserverSystem.h"
+#include "PathIlluminationSystem.h"
 #include "RenderSystem.h"
 #include "TileInteractionSystem.h"
 #include "UIRenderSystem.h"
@@ -42,6 +43,7 @@ class World {
     MouseInputSystem mouseInputSystem;
     EnergyDepletionSystem energyDepletionSystem;
     ObserverSystem observerSystem;
+    PathIlluminationSystem pathIlluminationSystem;
 
     // RESPONSE systems
     EventResponseSystem eventResponseSystem{*this};
@@ -62,6 +64,7 @@ public:
             energyDepletionSystem.update(entities, deltaTime);
             observerSystem.update(entities);
             tileInteractionSystem.update(deltaTime);
+            pathIlluminationSystem.update(entities, map);
         }
 
         mouseInputSystem.update(*this, event);

@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <Component.h>
+#include <map>
 #include <memory>
 
 class Map {
@@ -44,7 +45,10 @@ public:
     grid weaponData;
     grid treasureData;
     grid exitData;
+
+    // pathing
     grid pathData;
+    std::map<Uint64, std::vector<Vector2D>> paths; // individual paths and their activation times
 
     // energy bar tiles
     std::vector<bool> energyBar;

@@ -136,7 +136,8 @@ April 6
   - Added alternative map layout
 
 April 7
-- 1:30-3:30 (2 hours)
+- 1:30-3:30pm (2 hours)
   - Fixed treasure/weapon swapping glitch
-- 4-
+- 4-5:30pm (1.5 hours)
   - Added guide path tracking
+  - Changed pathing algorithm from DFS to BFS

@@ -80,6 +80,10 @@ struct Player {
     int viewDistance = 5; // how many blocks away the player can see
 };
 
+struct SceneState {
+    Uint64 pathIllumuniationDuration = 8000.0f; // in seconds
+};
+
 struct Spawnpoint {
     Vector2D position{};
 };

@@ -7,7 +7,6 @@
 #include "Map.h"
 
 #include <cmath>
-#include <iostream>
 #include <memory>
 
 #include "manager/TextureManager.h"
@@ -226,10 +225,7 @@ void Map::illuminate(Vector2D startTile) {
     }
 
     std::vector<Vector2D> path = MapUtils::shortestPath(wallData, Vector2D(col, row), goal);
-
-    for (Vector2D tile : path) {
-        pathData[tile.y][tile.x] = 1;
-    }
+    paths.insert({SDL_GetTicks(), path});
 }
 
 void Map::parseLayer(std::vector<std::vector<int>> &layer, auto* data) {
