@@ -21,7 +21,6 @@ public:
             if (
                 entity->hasComponent<Enemy>() &&
                 entity->hasComponent<Transform>() &&
-                entity->hasComponent<Translation>() &&
                 entity->hasComponent<Velocity>()
             ) {
                 auto& enemy = entity->getComponent<Enemy>();

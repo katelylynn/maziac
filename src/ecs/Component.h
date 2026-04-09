@@ -31,12 +31,12 @@ enum class RenderLayer {
 // STRUCTS
 
 struct Animation {
-    // key = walk left, walk right, idle right, etc.
-    std::unordered_map<std::string, AnimationClip> clips{};
+    std::unordered_map<std::string, AnimationClip> clips{}; // key = walk left, idle right, etc.
     std::string currentClip{};
     float time{}; // time is accumulated for the current frame
     int currentFrame{}; // index of the current frame in the clip
     float speed = 0.4f; // time per frame
+    
     bool repeating = false;
     std::function<void()> onAnimationFinished{}; // if not repeating
 };
@@ -71,7 +71,7 @@ struct EnergyState {
     float initialEnergy = 100.0f;
     float energyBoostAmount = 40.0f;
 
-    // RATES
+    // DEPLETION
     float energyDepletionRate;
     float initialEnergyDepletionRate = 2.0f;
     float fightNoWeaponDepletionAmount = 15.0f;

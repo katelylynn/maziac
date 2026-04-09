@@ -69,6 +69,8 @@ Player entity and movement
 - Render map as a system?
 - Move two player view references for Manhattan distance to Render utils?
 - Change path illumination system to use delta time instead of sdl ticks
+- Combine Velocity and Translation
+- Should enemy wander system use collider instead of velocity and translation?
 
 ### TODO for UML
 - Add Translation and Transform to AnimationSystem
