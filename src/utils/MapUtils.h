@@ -1,5 +1,6 @@
 /*
  *  MapUtils.h
+ *  Provides an algorithm for determining the shortest path between two tiles.
  */
 
 #ifndef MAZIAC_MAPUTILS_H

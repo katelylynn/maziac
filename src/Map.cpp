@@ -7,7 +7,6 @@
 #include "Map.h"
 
 #include <cmath>
-#include <iostream>
 #include <memory>
 
 #include "manager/TextureManager.h"

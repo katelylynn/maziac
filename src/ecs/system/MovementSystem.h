@@ -1,6 +1,6 @@
 /*
  *  MovementSystem.h
- *  Updates an entity's position if it has a transform and a velocity.
+ *  Updates an entity's position if it has a transform, translation and velocity component.
  */
 
 #ifndef MAZIAC_MOVEMENTSYSTEM_H

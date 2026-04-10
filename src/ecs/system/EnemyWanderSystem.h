@@ -1,6 +1,6 @@
 /*
  *  EnemyWanderSystem.h
- *  Handles enemy random movement behavior.
+ *  Handles enemy random movement behavior. Prevents the enemy from wandering too far from their initial start point.
  */
 
 #ifndef MAZIAC_ENEMYWANDERSYSTEM_H
