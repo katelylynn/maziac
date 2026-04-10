@@ -1,6 +1,6 @@
 # MAZIAC by katelylynn
 
-For updates on my development of this game, see `docs/progress.md`.
+For updates on my development of this game, see `docs/Progress.md`.
 
 ## How to Play
 
