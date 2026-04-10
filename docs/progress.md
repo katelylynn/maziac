@@ -1,6 +1,6 @@
 # Project Progress
 
-This markdown will track the development log, checkpoints and tasks for this project.
+This Markdown will track the development log, checkpoints and tasks for this project.
 
 ---
 ## Checkpoints
@@ -9,71 +9,33 @@ This markdown will track the development log, checkpoints and tasks for this pro
 - [X] Game design document
 
 🚩 **Checkpoint Two (March 18)**
-- [ ] Placeholder 2D art
-- [ ] Handmade map
-- [ ] Wall colliders
-- [ ] Player entity and movement
+- [X] Map 2D art
+- [X] Handmade map
+- [X] Wall colliders
+- [X] Player entity and movement
 
 🚩 **Checkpoint Three (March 25)**
-- [ ] Game loop
-- [ ] Energy bar
-- [ ] Item tiles
-- [ ] Enemies
-- [ ] Pathing
+- [X] Game loop
+- [X] Energy bar
+- [X] Item tiles
+- [X] Enemies
+- [X] Pathing
 
 🚩 **Checkpoint Four (April 1)**
-- [ ] Finalized 2D art
-- [ ] Bordered tiles
+- [X] Enemy 2D art
 - [ ] Procedural map generation
 
 🏁 **Checkpoint Five (April 8)**
 - [ ] Sound and music
 - [ ] UI menus
 - [ ] Beginning cut scene
-- [ ] Presentation
+- [X] Presentation
 
 Checkpoints four and five have features that have a high chance of being out of scope and can be removed if I need more time for the MVP features.
 
----
-### 🚩 Checkpoint One (DONE)
-
-Game design document
-- [x] Document
-- [x] Engine design PDF
-
-### 🚩 Checkpoint Two (IN PROGRESS)
-
-Placeholder 2D art
-
-Handmade map
-
-Wall colliders
-
-Player entity and movement
-
-### TODO for cleaner code
-- *Map iteration is super inefficient*
-- Event response system is getting pretty big
-  - Utils for player item sprite and wall resetting?
-- Remove as many hardcoded values as possible
-  - Window dimensions
-  - Map draw tile sources
-- Remove if check for every map tile for treasure chest
-- Rewrite animation system (maybe break it up into separate systems)
-- Split up the collision system into collider system (updates collider positions) and collision checker system?
-- MainMenuSystem a bit misleading in what it does
-- Is UI render system needed, now that I've gotten rid of the camera?
-- Hard coded animation system
-- Hard coded values in movement system
-- Player spritesheet should update based on the item, not done thru collisions
-- Render map as a system?
-- Move two player view references for Manhattan distance to Render utils?
-- Change path illumination system to use delta time instead of sdl ticks
-- Combine Velocity and Translation
-- Should enemy wander system use collider instead of velocity and translation?
-- XML files to avoid hard coded values (e.g. for textures, for spritesheet reference positions) 
-
 ### 📝 Development Log
+
+Total time: 40 hours
 
 March 17
 - 4-5pm (1 hour)
@@ -142,10 +104,31 @@ April 7
   - Added lifetime duration on paths
 
 April 8
-- 12:30-
+- 12:30-9:30am (9 hours)
   - Fixed pathing selection
   - Added missing sprites
   - Added enemy wandering
   - Drew and added enemy and player fighting
   - Added window icon
   - Built an executable
+
+### TODO for cleaner code
+
+If/when I continue this project, here are some notes for my future self on how to improve the code:
+
+- Map iteration is inefficient
+- Utils for player item sprite and wall resetting
+- Remove as many hardcoded values as possible
+  - Window dimensions
+  - Map draw tile sources
+- Remove if check for every map tile for treasure chest
+- Rewrite animation system (maybe break it up into separate systems)
+- Split up the collision system into collider system (updates collider positions) and collision checker system?
+- Hard coded values in animation system
+- Hard coded values in movement system
+- Render map as a system?
+- Move the two player view references for Manhattan distance to Render utils?
+- Change path illumination system to use delta time instead of SDL ticks
+- Combine Velocity and Translation?
+- Should enemy wander system use collider instead of velocity and translation checking?
+- XML files to avoid hard coded values (e.g. for textures, for spritesheet reference positions) 
