@@ -32,13 +32,13 @@ void MovementSystem::update(
             }
 
             if (
-                // if current pos is at the goal pos
+                // if the entitiy's current position is at the end position...
                 transform.position.approxEquals(translation.endPosition, 1.0f)
             ) {
-                // snap to perfect pos
+                // snap perfectly to that position
                 transform.position = translation.endPosition;
 
-                // start a new move if a key is being pressed and not colliding
+                // start a new move if a key is being pressed and entity isn't currently colliding with anything
                 if (velocity.direction.x != 0 || velocity.direction.y != 0) {
                     // set the new start position of the translation
                     translation.startPosition = translation.endPosition;

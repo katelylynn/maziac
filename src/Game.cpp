@@ -67,13 +67,12 @@ void Game::init(const char *title) {
         return;
     }
 
+    // load scene
+    sceneManager.loadScene("maze", "asset/map/handmade_map.tmx", width, height);
+
     // load animations
     AssetManager::loadAnimation("character", "asset/animations/character_anim.xml");
     AssetManager::loadAnimation("fight", "asset/animations/fight_anim.xml");
-
-    // load scenes
-    // sceneManager.loadScene(SceneType::MainMenu, "mainmenu", nullptr, width, height);
-    sceneManager.loadScene(SceneType::Gameplay, "maze", "asset/map/handmade_map.tmx", width, height);
 
     // load the starting level
     sceneManager.changeSceneDeferred("maze");
@@ -115,13 +114,10 @@ void Game::update(float deltaTime) {
 }
 
 void Game::render() {
-    // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    // makes the background transparent
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
-
-    // every frame, SDL clears the renderer with the given draw color
-    // SDL_RenderClear(renderer);
 
     sceneManager.render();
 

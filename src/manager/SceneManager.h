@@ -13,7 +13,6 @@
 #include "../scene/Scene.h"
 
 struct SceneParameters {
-    SceneType sceneType;
     const char *name;
     const char *mapPath;
     int windowWidth;
@@ -31,11 +30,8 @@ class SceneManager {
             const auto& params = it->second;
             // create Scene object
             currentScene = std::make_unique<Scene>(
-                params.sceneType,
                 params.name,
-                params.mapPath,
-                params.windowWidth,
-                params.windowHeight
+                params.mapPath
             );
         } else {
             std::cerr << "Scene" << name << " does not exist" << std::endl;
@@ -45,8 +41,8 @@ class SceneManager {
 public:
     std::unique_ptr<Scene> currentScene;
 
-    void loadScene(SceneType sceneType, const char* sceneName, const char* mapPath, int windowWidth, int windowHeight) {
-         sceneParameters[sceneName] = { sceneType, sceneName, mapPath, windowWidth, windowHeight };
+    void loadScene(const char* sceneName, const char* mapPath, int windowWidth, int windowHeight) {
+         sceneParameters[sceneName] = { sceneName, mapPath, windowWidth, windowHeight };
     }
 
     // defer scene until end of game loop so that Game can finish its functionality

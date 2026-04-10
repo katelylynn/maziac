@@ -8,19 +8,12 @@
 #include "Game.h"
 #include "manager/AssetManager.h"
 
-Scene::Scene(SceneType sceneType, const char *sceneName, const char *mapPath, int windowWidth, int windowHeight)
-: name(sceneName), type(sceneType) {
-    if (sceneType == SceneType::MainMenu)
-        initMainMenu(windowWidth, windowHeight);
-    else
-        initGameplay(mapPath, windowWidth, windowHeight);
+Scene::Scene(const char *sceneName, const char *mapPath)
+: name(sceneName) {
+    initGameplay(mapPath);
 }
 
-void Scene::initMainMenu(int windowWidth, int windowHeight) {
-    //
-}
-
-void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight) {
+void Scene::initGameplay(const char* mapPath) {
     // MAP
     Map& map = world.getMap();
     map.load(mapPath, TextureManager::load("asset/map/map_tileset.png"));
@@ -34,7 +27,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
     energyState.addComponent<EnergyState>();
     energyState.getComponent<EnergyState>().energyDepletionRate = energyState.getComponent<EnergyState>().initialEnergyDepletionRate;
 
-    // ITEM COLLIDERS
+    // TILES
     for (int row = 0; row < map.mapHeight; row++) {
         for (int col = 0; col < map.mapWidth; col++) {
             // world layers
@@ -69,7 +62,7 @@ void Scene::initGameplay(const char* mapPath, int windowWidth, int windowHeight)
         }
     );
 
-    // load character anim
+    // load character anim (used for both the player and enemies)
     Animation animation = AssetManager::getAnimation("character");
     animation.repeating = true;
 

@@ -1,5 +1,6 @@
 /*
  *  TileInteractionSystem.cpp
+ *  Handles the interactions (collisions) between the player and the tiles.
  */
 
 #include "TileInteractionSystem.h"

@@ -5,7 +5,6 @@
 
 #include "EnergyDepletionSystem.h"
 
-#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -38,7 +37,6 @@ void EnergyDepletionSystem::update(const std::vector<std::unique_ptr<Entity>> &e
         energyState->energy -= deltaTime * energyState->energyDepletionRate;
 
         // energy already being handled
-        // TEMP, MOVE ENERGY DEPLETION FROM EVENT RESPONSE TO HERE
         if (player->fighting) return;
 
         if (energyState->energy < 0.0f) {

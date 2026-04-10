@@ -1,6 +1,6 @@
 /*
- *  EventResponseSystem.h
- *  Declares the methods for collision and mouse interaction events.
+ *  EnemyInteractionSystem.h
+ *  Declares the methods for player/enemy interactions.
  */
 
 #ifndef MAZIAC_EVENTRESPONSESYSTEM_H
@@ -13,16 +13,12 @@
 class Entity;
 class World;
 
-class EventResponseSystem {
+class EnemyInteractionSystem {
 public:
-    EventResponseSystem(World &world);
+    EnemyInteractionSystem(World &world);
 private:
-    // enemy interactions
     void onEnemyCollision(const CollisionEvent& e, World& world);
     void playFightAnimationSequence(Entity* player, bool hasWeapon, EnergyState* energyState);
-
-    // mouse interactions
-    void onMouseInteraction(const MouseInteractionEvent& e);
 };
 
 #endif //MAZIAC_EVENTRESPONSESYSTEM_H

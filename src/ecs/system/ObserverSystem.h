@@ -18,7 +18,7 @@ public:
             if (e->hasComponent<Observer<float>>()) {
                 Observer<float>& observer = e->getComponent<Observer<float>>();
 
-                // check if value has changed
+                // check if watched value has changed
                 if (*observer.currValue != observer.oldValue) {
                     // execute callback
                     observer.onValueChange();

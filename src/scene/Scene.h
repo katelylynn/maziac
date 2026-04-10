@@ -7,14 +7,13 @@
 #define MAZIAC_SCENE_H
 
 #include "World.h"
-#include "SceneType.h"
 
 class Scene {
 public:
-    Scene(SceneType sceneType, const char* sceneName, const char* mapPath, int windowWidth, int windowHeight);
+    Scene(const char* sceneName, const char* mapPath);
 
     void update(const float deltaTime, const SDL_Event &e) {
-        world.update(deltaTime, e, type);
+        world.update(deltaTime, e);
     }
 
     void render() {
@@ -26,10 +25,8 @@ public:
     const std::string& getName() const { return name; }
 private:
     std::string name;
-    SceneType type;
 
-    void initMainMenu(int windowWidth, int windowHeight);
-    void initGameplay(const char* mapPath, int windowWidth, int windowHeight);
+    void initGameplay(const char* mapPath);
 };
 
 #endif //MAZIAC_SCENE_H

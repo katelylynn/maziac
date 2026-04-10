@@ -1,5 +1,6 @@
 /*
  *  PathIlluminationSystem.h
+ *  Changes the tiles in the specified path to be "highlighted" until the path's life runs out.
  */
 
 #ifndef MAZIAC_PATHILLUMINATIONSYSTEM_H
@@ -12,13 +13,13 @@ class PathIlluminationSystem {
 public:
     void update(const std::vector<std::unique_ptr<Entity>>& entities, Map& map) {
         // if no illuminated path
-        if (map.illuminatedPath.second.size() == 0) return;
+        if (map.illuminatedPath.second.empty()) return;
 
-        Entity* sceneState;
+        Entity* sceneState = nullptr;
         for (auto& entity : entities) {
             if (entity->hasComponent<SceneState>()) sceneState = entity.get();
         }
-        if (!sceneState) return;
+        if (sceneState == nullptr) return;
 
         if (SDL_GetTicks() - map.illuminatedPath.first > sceneState->getComponent<SceneState>().pathIllumuniationDuration) {
             for (Vector2D tile : map.illuminatedPath.second) {

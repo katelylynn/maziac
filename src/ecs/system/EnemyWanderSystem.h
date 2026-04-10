@@ -1,5 +1,6 @@
 /*
  *  EnemyWanderSystem.h
+ *  Handles enemy random movement behavior.
  */
 
 #ifndef MAZIAC_ENEMYWANDERSYSTEM_H
@@ -12,11 +13,11 @@
 #include "Map.h"
 
 class EnemyWanderSystem {
-private:
+    // for randomly choosing a direction to move in
     std::mt19937 gen{std::random_device{}()};
     std::uniform_int_distribution<> dist{0, 3};
 public:
-    void update(std::vector<std::unique_ptr<Entity>>& entities, float deltaTime, Map& map) {
+    void update(const std::vector<std::unique_ptr<Entity>>& entities, const float deltaTime, const Map& map) {
         for (auto& entity : entities) {
             if (
                 entity->hasComponent<Enemy>() &&

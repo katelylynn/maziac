@@ -71,12 +71,7 @@ Player entity and movement
 - Change path illumination system to use delta time instead of sdl ticks
 - Combine Velocity and Translation
 - Should enemy wander system use collider instead of velocity and translation?
-
-### TODO for UML
-- Add Translation and Transform to AnimationSystem
-- Add Translation component
-- Add EnergyDepletionSystem
-- Replaced PlayerTag with Player
+- XML files to avoid hard coded values (e.g. for textures, for spritesheet reference positions) 
 
 ### 📝 Development Log
 

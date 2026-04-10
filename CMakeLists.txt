@@ -31,9 +31,7 @@ add_executable(maziac WIN32
         src/vendor/tinyxml2.cpp
         src/manager/AssetManager.cpp
         src/scene/Scene.cpp
-        src/ecs/system/EventResponseSystem.cpp
-        src/ecs/system/MainMenuSystem.cpp
-        src/ecs/system/MouseInputSystem.cpp
+        src/ecs/system/EnemyInteractionSystem.cpp
         src/ecs/system/MovementSystem.cpp
         src/ecs/system/EnergyDepletionSystem.cpp
         src/ecs/system/TileInteractionSystem.cpp

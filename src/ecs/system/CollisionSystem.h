@@ -15,11 +15,9 @@
 // type alias
 using CollisionKey = std::pair<Entity*, Entity*>;
 
-// forward declaration
-// to remove circular dependencies
+// forward declaration to remove circular dependencies
 class World;
 
-// other systems have everything in the headers bc its simple, but this one has more functionality
 class CollisionSystem {
 public:
     void update(World& world);

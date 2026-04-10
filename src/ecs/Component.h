@@ -23,11 +23,6 @@ enum class Item {
     Weapon
 };
 
-enum class RenderLayer {
-    World,
-    UI
-};
-
 // STRUCTS
 
 struct Animation {
@@ -36,20 +31,9 @@ struct Animation {
     float time{}; // time is accumulated for the current frame
     int currentFrame{}; // index of the current frame in the clip
     float speed = 0.4f; // time per frame
-    
+
     bool repeating = false;
     std::function<void()> onAnimationFinished{}; // if not repeating
-};
-
-struct Children {
-    std::vector<Entity*> children{};
-};
-
-struct Clickable {
-    std::function<void()> onPressed{};
-    std::function<void()> onReleased{};
-    std::function<void()> onCancel{};
-    bool pressed = false;
 };
 
 struct Collider {
@@ -71,8 +55,8 @@ struct EnergyState {
     float initialEnergy = 100.0f;
     float energyBoostAmount = 40.0f;
 
-    // DEPLETION
-    float energyDepletionRate;
+    // ENERGY DEPLETION
+    float energyDepletionRate = 1.0f;
     float initialEnergyDepletionRate = 2.0f;
     float fightNoWeaponDepletionAmount = 15.0f;
     float fightWithWeaponDepletionAmount = 5.0f;
@@ -85,13 +69,9 @@ struct Observer {
     std::function<void()> onValueChange{};
 };
 
-struct Parent {
-    Entity* parent = nullptr;
-};
-
 struct Player {
-    Item item;
-    int viewDistance = 3; // how many blocks away the player can see
+    Item item = Item::None;
+    int viewDistance = 3; // how many squares away the player can see
     bool fighting = false;
 };
 
@@ -107,7 +87,6 @@ struct Sprite {
     SDL_Texture* texture = nullptr;
     SDL_FRect src{};
     SDL_FRect dest{};
-    RenderLayer renderLayer = RenderLayer::World;
     bool visible = true;
 };
 

@@ -13,19 +13,15 @@
 #include "EnemyWanderSystem.h"
 #include "EnergyDepletionSystem.h"
 #include "Entity.h"
-#include "EventResponseSystem.h"
+#include "EnemyInteractionSystem.h"
 #include "event/EventManager.h"
 #include "KeyboardInputSystem.h"
-#include "MainMenuSystem.h"
 #include "Map.h"
-#include "MouseInputSystem.h"
 #include "MovementSystem.h"
 #include "ObserverSystem.h"
 #include "PathIlluminationSystem.h"
 #include "RenderSystem.h"
 #include "TileInteractionSystem.h"
-#include "UIRenderSystem.h"
-#include "scene/SceneType.h"
 
 class World {
     Map map;
@@ -39,38 +35,29 @@ class World {
     CollisionSystem collisionSystem;
     AnimationSystem animationSystem;
     EventManager eventManager;
-    MainMenuSystem mainMenuSystem;
-    UIRenderSystem uiRenderSystem;
-    MouseInputSystem mouseInputSystem;
     EnergyDepletionSystem energyDepletionSystem;
     ObserverSystem observerSystem;
     PathIlluminationSystem pathIlluminationSystem;
     EnemyWanderSystem enemyWanderSystem;
 
     // RESPONSE systems
-    EventResponseSystem eventResponseSystem{*this};
+    EnemyInteractionSystem enemyInteractionSystem{*this};
     TileInteractionSystem tileInteractionSystem{*this};
 public:
     World() = default;
 
     void update(
-        float deltaTime, const SDL_Event& event, SceneType sceneType
+        float deltaTime, const SDL_Event& event
     ) {
-        if (sceneType == SceneType::MainMenu) {
-            mainMenuSystem.update(event);
-        } else {
-            keyboardInputSystem.update(entities, event);
-            movementSystem.update(entities, deltaTime, this);
-            collisionSystem.update(*this);
-            animationSystem.update(entities, deltaTime);
-            energyDepletionSystem.update(entities, deltaTime);
-            observerSystem.update(entities);
-            tileInteractionSystem.update(deltaTime);
-            pathIlluminationSystem.update(entities, map);
-            enemyWanderSystem.update(entities, deltaTime, map);
-        }
-
-        mouseInputSystem.update(*this, event);
+        keyboardInputSystem.update(entities, event);
+        movementSystem.update(entities, deltaTime, this);
+        collisionSystem.update(*this);
+        animationSystem.update(entities, deltaTime);
+        energyDepletionSystem.update(entities, deltaTime);
+        observerSystem.update(entities);
+        tileInteractionSystem.update(deltaTime);
+        pathIlluminationSystem.update(entities, map);
+        enemyWanderSystem.update(entities, deltaTime, map);
 
         synchronizeEntities();
         cleanup();
@@ -79,7 +66,6 @@ public:
     void render() {
         map.draw(entities);
         renderSystem.render(entities, map);
-        uiRenderSystem.render(entities);
     }
 
     Entity& createEntity() {

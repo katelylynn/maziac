@@ -1,9 +1,6 @@
 /*
  *  AnimationSystem.h
- *  Defines the state, checker and playback systems.
- *  State system: decides which clip to use.
- *  Checker system: checks if the animation has been switched.
- *  Playback system: advances the animation.
+ *  Decides which clip to use, checks if the animation has been switched, and advances the animation.
  */
 
 #ifndef MAZIAC_ANIMATIONSYSTEM_H
@@ -25,6 +22,7 @@ public:
                 auto& translation = entity->getComponent<Translation>();
                 auto& velocity = entity->getComponent<Velocity>();
 
+                // handles character movement
                 if (animation.repeating && entity->hasComponent<Velocity>()) {
                     // state system
                     std::string newClip;
@@ -56,7 +54,7 @@ public:
                 auto clip = animation.clips[animation.currentClip]; // retrieve the frame data from the current clip
                 // advance time
                 animation.time += deltaTime; // every 'game loop frame', we add to the accumulated anim time
-                // once enough time has passed
+                // once enough time has passed...
                 if (animation.time >= animationFrameSpeed) {
                     animation.time -= animationFrameSpeed; // subtract animationFrameSpeed so extra time isn't lost
                     std::size_t totalAnimationFrames = clip.frameIndices.size();

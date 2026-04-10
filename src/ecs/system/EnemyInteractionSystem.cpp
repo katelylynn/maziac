@@ -1,14 +1,14 @@
 /*
- *  EventResponseSystem.cpp
- *  Handles the response for different types of events.
+ *  EnemyInteractionSystem.cpp
+ *  Handles the interactions between enemies and player depending on player energy and item.
  */
 
-#include "EventResponseSystem.h"
+#include "EnemyInteractionSystem.h"
 
 #include "Game.h"
 #include "manager/AssetManager.h"
 
-EventResponseSystem::EventResponseSystem(World &world) {
+EnemyInteractionSystem::EnemyInteractionSystem(World &world) {
     // collision subscription
     world.getEventManager().subscribe(
         [this, &world](const BaseEvent& e) {
@@ -18,20 +18,9 @@ EventResponseSystem::EventResponseSystem(World &world) {
             onEnemyCollision(static_cast<const CollisionEvent&>(e), world);
         }
     );
-
-    // mouse interaction subscription
-    world.getEventManager().subscribe(
-        [this](const BaseEvent& e) {
-            if (e.type != EventType::MouseInteraction) return;
-
-            const auto& mouseInteractionEvent = static_cast<const MouseInteractionEvent&>(e);
-
-            onMouseInteraction(mouseInteractionEvent);
-        }
-    );
 }
 
-void EventResponseSystem::onEnemyCollision(const CollisionEvent& e, World& world) {
+void EnemyInteractionSystem::onEnemyCollision(const CollisionEvent& e, World& world) {
     if (e.state != CollisionState::Enter) return;
 
     Entity* player = nullptr;
@@ -75,7 +64,7 @@ void EventResponseSystem::onEnemyCollision(const CollisionEvent& e, World& world
     enemy->destroy();
 }
 
-void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWeapon, EnergyState* energyState) {
+void EnemyInteractionSystem::playFightAnimationSequence(Entity* player, bool hasWeapon, EnergyState* energyState) {
         // update the player animation
         player->removeComponent<Animation>();
         Animation animation = AssetManager::getAnimation("fight");
@@ -150,24 +139,4 @@ void EventResponseSystem::playFightAnimationSequence(Entity* player, bool hasWea
             player->addComponent<Animation>(animation);
         };
         player->addComponent<Animation>(animation);
-}
-
-void EventResponseSystem::onMouseInteraction(const MouseInteractionEvent &e) {
-    if (!e.entity->hasComponent<Clickable>()) return;
-
-    auto& clickable = e.entity->getComponent<Clickable>();
-
-    switch (e.state) {
-        case MouseInteractionState::Pressed:
-            clickable.onPressed();
-            break;
-        case MouseInteractionState::Released:
-            clickable.onReleased();
-            break;
-        case MouseInteractionState::Cancel:
-            clickable.onCancel();
-            break;
-        default:
-            break;
-    }
 }

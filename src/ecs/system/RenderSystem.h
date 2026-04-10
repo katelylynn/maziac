@@ -21,8 +21,6 @@ public:
                 auto& t = entity->getComponent<Transform>();
                 auto& sprite = entity->getComponent<Sprite>();
 
-                if (sprite.renderLayer != RenderLayer::World) continue;
-
                 sprite.dest.x = t.position.x;
                 sprite.dest.y = t.position.y;
 

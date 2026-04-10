@@ -58,7 +58,7 @@ void CollisionSystem::update(World &world) {
     activeCollisions = std::move(currentCollisions);
 }
 
-// grabs all the collidables
+// helper function for grabbing all the collidables
 std::vector<Entity*> CollisionSystem::queryCollidables(const std::vector<std::unique_ptr<Entity>>& entities) {
     std::vector<Entity*> collidables;
 
