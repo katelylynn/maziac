@@ -2,6 +2,12 @@
 
 For updates on my development of this game, see `docs/progress.md`.
 
+## How to Play
+
+The root folder of this project has an executable version of the game that you can download and play! Alternatively, download it using this link:
+
+[MAZIAC.exe](MAZIAC.exe)
+
 ## ECS Design
 
 ![ECSDesign.png](docs/ECSDesign.jpg)
